@@ -1,0 +1,13 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"nav_home": "Inicio",
+	"nav_about": "Sobre Mí",
+	"nav_skills": "Habilidades",
+	"nav_projects": "Proyectos",
+	"nav_contact": "Contacto",
+	"hero_greeting": "Hola, soy",
+	"hero_role": "Desarrollador Web",
+	"hero_description": "Construyo aplicaciones web modernas y eficientes con diseños premium.",
+	"hero_cta_projects": "Ver Proyectos",
+	"hero_cta_contact": "Contáctame"
+}
