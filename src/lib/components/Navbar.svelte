@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import { resolve } from '$app/paths';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 </script>
@@ -7,7 +8,7 @@
 <nav class="navbar glass-panel">
 	<div class="navbar-content">
 		<div class="logo">
-			<a href="/">Port<span>folio</span></a>
+			<a href={resolve('/')}>Port<span>folio</span></a>
 		</div>
 		<ul class="nav-links">
 			<li><a href="#home">{m.nav_home()}</a></li>

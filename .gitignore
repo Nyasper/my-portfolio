@@ -26,5 +26,6 @@ vite.config.ts.timestamp-*
 src/lib/paraglide
 project.inlang/cache/
 
-# Plan
+# Robots
 portfolio_plan.md
+.agents
