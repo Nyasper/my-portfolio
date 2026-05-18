@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
-	import Navbar from '$lib/components/Navbar.svelte';
+
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 	<meta name="description" content={m.hero_description()} />
 </svelte:head>
 
-<Navbar />
+
 
 <main class="container">
 	<section id="home" class="hero">
