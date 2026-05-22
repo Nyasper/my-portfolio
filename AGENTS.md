@@ -61,3 +61,37 @@ export let name;          // deprecated
 - **Skills → Projects filtering:** Clicking a technology pill in the Skills section filters the Projects grid to show only matching projects
 - **Project status:** Each project has `active` | `inactive` state. Active projects display their deployment URL
 - **Scroll animations:** Fade-in-up on scroll entry, with a cap on simultaneous visible animations
+
+## Data Structure
+
+### `src/lib/data/projects.json`
+| Property | Type | Description |
+|---|---|---|
+| `id` | `number` | Unique identifier |
+| `name` | `string` | Display name |
+| `slug` | `string` | URL-friendly identifier for routing |
+| `shortDescription` | `string` | ~80 char summary for cards |
+| `longDescription` | `string` | Full description for detail view |
+| `image` | `string` | Main preview image URL |
+| `images` | `string[]` | Gallery screenshot URLs |
+| `techstack` | `number[]` | References to `techstacks.json` `id`s |
+| `language` | `"typescript" \| "csharp"` | Primary language |
+| `category` | `"web" \| "backend" \| "tool"` | Project domain |
+| `difficulty` | `"easy" \| "normal" \| "complex"` | Complexity level |
+| `difficultyReason` | `string` | Explanation of why it ranks at that level |
+| `github` | `string` | Repository URL |
+| `deploy` | `string` | Live deployment URL |
+| `status` | `"active" \| "inactive" \| "archived"` | Deployment status |
+| `featured` | `boolean` | Whether to spotlight in hero section |
+| `date` | `string` | `"YYYY-MM"` format for chronological sorting |
+| `highlights` | `string[]` | Key feature bullet points |
+
+### `src/lib/data/techstacks.json`
+| Property | Type | Description |
+|---|---|---|
+| `id` | `number` | Unique identifier |
+| `name` | `string` | Display name |
+| `category` | `"language" \| "framework" \| "library" \| "database" \| "tool" \| "platform"` | Technology type |
+| `color` | `string` | Brand hex color for badge/pill styling |
+| `icon` | `string` | SVG path or icon identifier |
+| `url` | `string` | Official website URL |

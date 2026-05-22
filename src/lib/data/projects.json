@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Proyecto 1",
+        "slug": "proyecto-1",
+        "shortDescription": "",
+        "longDescription": "",
+        "image": "",
+        "images": [],
+        "techstack": [],
+        "language": "typescript",
+        "category": "web",
+        "difficulty": "normal",
+        "difficultyReason": "",
+        "github": "",
+        "deploy": "",
+        "status": "active",
+        "featured": false,
+        "date": "",
+        "highlights": []
+    }
+]
