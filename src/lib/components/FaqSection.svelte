@@ -5,34 +5,40 @@
 
 	const faqs = [
 		{ question: m.faq_q1_question(), answer: m.faq_q1_answer() },
-		{ question: m.faq_q2_question(), answer: m.faq_q2_answer() }
+		{ question: m.faq_q2_question(), answer: m.faq_q2_answer() },
+		{ question: m.faq_q3_question(), answer: m.faq_q3_answer() },
+		{ question: m.faq_q4_question(), answer: m.faq_q4_answer() },
+		{ question: m.faq_q5_question(), answer: m.faq_q5_answer() },
+		{ question: m.faq_q6_question(), answer: m.faq_q6_answer() },
+		{ question: m.faq_q7_question(), answer: m.faq_q7_answer() },
+		{ question: m.faq_q8_question(), answer: m.faq_q8_answer() }
 	];
 
 	function toggleQuestion(index: number) {
 		openIndex = openIndex === index ? null : index;
 	}
 </script>
-<!-- TODO: add FAQ Why do I code? -->
-<!-- <p>Building something feels like a game I don't want to pause, time flies. I code because I love solving problems, but mostly because I genuinely enjoy the process itself.</p> -->
-
 
 <section id="faq" class="faq">
 	<div class="faq-container glass-panel">
-			<h2>{m.faq_title()}</h2>
-			<p class="faq-subtitle">{m.faq_subtitle()}</p>
-
+		<h2>{m.faq_title()}</h2>
+		<p class="faq-subtitle">{m.faq_subtitle()}</p>
 
 		<div class="faq-list">
-			{#each faqs as faq, i (faq.question)}
+			{#each faqs as { question, answer }, i (question)}
 				{@const isOpen = openIndex === i}
 				<div class={['faq-item', { open: isOpen }]}>
-					<button class="faq-question" onclick={() => toggleQuestion(i)} aria-expanded={openIndex === i}>
-						<span>{faq.question}</span>
+					<button
+						class="faq-question"
+						onclick={() => toggleQuestion(i)}
+						aria-expanded={openIndex === i}
+					>
+						<span>{question}</span>
 						<span class="faq-icon">{isOpen ? '−' : '+'}</span>
 					</button>
 					{#if isOpen}
 						<div class="faq-answer">
-							<p>{faq.answer}</p>
+							<p>{answer}</p>
 						</div>
 					{/if}
 				</div>

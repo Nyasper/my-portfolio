@@ -2,6 +2,7 @@
 	import * as m from '$lib/paraglide/messages';
 
 	type Social = { name: string; url: string; icon: string };
+
 	const socials: Social[] = [
 		{
 			name: 'GitHub',
