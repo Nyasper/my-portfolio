@@ -1,10 +1,170 @@
 [
     {
         "id": 1,
+        "name": "JavaScript",
+        "category": "language",
+        "color": "#F7DF1E",
+        "icon": "",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+    },
+    {
+        "id": 2,
+        "name": "TypeScript",
+        "category": "language",
+        "color": "#3178C6",
+        "icon": "",
+        "url": "https://www.typescriptlang.org"
+    },
+    {
+        "id": 3,
+        "name": "Node.js",
+        "category": "platform",
+        "color": "#339933",
+        "icon": "",
+        "url": "https://nodejs.org"
+    },
+    {
+        "id": 4,
+        "name": "Bun",
+        "category": "platform",
+        "color": "#FBF0DF",
+        "icon": "",
+        "url": "https://bun.sh"
+    },
+    {
+        "id": 5,
         "name": "Svelte",
         "category": "framework",
-        "color": "",
+        "color": "#FF3E00",
         "icon": "",
-        "url": ""
+        "url": "https://svelte.dev"
+    },
+    {
+        "id": 6,
+        "name": "SvelteKit",
+        "category": "framework",
+        "color": "#FF3E00",
+        "icon": "",
+        "url": "https://kit.svelte.dev"
+    },
+    {
+        "id": 7,
+        "name": "React",
+        "category": "framework",
+        "color": "#61DAFB",
+        "icon": "",
+        "url": "https://react.dev"
+    },
+    {
+        "id": 8,
+        "name": "Next.js",
+        "category": "framework",
+        "color": "#000000",
+        "icon": "",
+        "url": "https://nextjs.org"
+    },
+    {
+        "id": 9,
+        "name": "Vue.js",
+        "category": "framework",
+        "color": "#4FC08D",
+        "icon": "",
+        "url": "https://vuejs.org"
+    },
+    {
+        "id": 10,
+        "name": "Angular",
+        "category": "framework",
+        "color": "#DD0031",
+        "icon": "",
+        "url": "https://angular.dev"
+    },
+    {
+        "id": 11,
+        "name": "Tailwind CSS",
+        "category": "library",
+        "color": "#06B6D4",
+        "icon": "",
+        "url": "https://tailwindcss.com"
+    },
+    {
+        "id": 12,
+        "name": "Express",
+        "category": "framework",
+        "color": "#000000",
+        "icon": "",
+        "url": "https://expressjs.com"
+    },
+    {
+        "id": 13,
+        "name": "Hono",
+        "category": "framework",
+        "color": "#E36002",
+        "icon": "",
+        "url": "https://hono.dev"
+    },
+    {
+        "id": 14,
+        "name": "Better Auth",
+        "category": "library",
+        "color": "#6C63FF",
+        "icon": "",
+        "url": "https://better-auth.com"
+    },
+    {
+        "id": 15,
+        "name": "Drizzle ORM",
+        "category": "library",
+        "color": "#C5F74C",
+        "icon": "",
+        "url": "https://orm.drizzle.team"
+    },
+    {
+        "id": 16,
+        "name": "C#",
+        "category": "language",
+        "color": "#68217A",
+        "icon": "",
+        "url": "https://learn.microsoft.com/en-us/dotnet/csharp"
+    },
+    {
+        "id": 17,
+        "name": ".NET",
+        "category": "platform",
+        "color": "#512BD4",
+        "icon": "",
+        "url": "https://dotnet.microsoft.com"
+    },
+    {
+        "id": 18,
+        "name": "ASP.NET",
+        "category": "framework",
+        "color": "#512BD4",
+        "icon": "",
+        "url": "https://dotnet.microsoft.com/apps/aspnet"
+    },
+    {
+        "id": 19,
+        "name": "Entity Framework",
+        "category": "library",
+        "color": "#512BD4",
+        "icon": "",
+        "url": "https://learn.microsoft.com/en-us/ef/"
+    },
+    {
+        "id": 20,
+        "name": "PostgreSQL",
+        "category": "database",
+        "color": "#336791",
+        "icon": "",
+        "url": "https://www.postgresql.org"
+    },
+    {
+        "id": 21,
+        "name": "Docker",
+        "category": "tool",
+        "color": "#2496ED",
+        "icon": "",
+        "url": "https://www.docker.com"
     }
 ]

@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "difficulty": "complex",
+        "difficultyReason": "Embedding a React component (Excalidraw) inside Svelte 5 required building a custom cross-framework bridge using $effect() and createRoot(). Also involved full auth flows (email verification, password reset, OAuth), Drizzle ORM with PostgreSQL via Docker, and real-time auto-save on the canvas."
+    },
+    {
+        "id": 2,
+        "difficulty": "normal",
+        "difficultyReason": "Integrating GraphQL queries with the AniList API, implementing Tailwind CSS for styling, client-side favorites persistence, and building a full i18n system across all pages. Routing and data fetching patterns differ from traditional SPAs."
+    },
+    {
+        "id": 3,
+        "difficulty": "easy",
+        "difficultyReason": "Primarily a frontend-focused project with component composition and routing. No backend, auth, or database complexity — mainly UI replication and layout work."
+    },
+    {
+        "id": 4,
+        "difficulty": "easy",
+        "difficultyReason": "Each animation is a standalone demo — no complex state management, auth, or data flow. The challenge lies in the variety of animation techniques rather than architectural complexity."
+    },
+    {
+        "id": 5,
+        "difficulty": "normal",
+        "difficultyReason": "My first React project. Focused on learning component architecture, state management, and Vite-based workflows."
+    },
+    {
+        "id": 6,
+        "difficulty": "normal",
+        "difficultyReason": "First full-stack project with authentication flows, role-based access (admin mode), and frontend-backend separation across two repos."
+    },
+    {
+        "id": 7,
+        "difficulty": "normal",
+        "difficultyReason": "Straightforward REST API with CRUD endpoints. The main learning was deploying to Cloudflare Workers with Hono and using Drizzle ORM for database access."
+    },
+    {
+        "id": 8,
+        "difficulty": "easy",
+        "difficultyReason": "Learning .NET patterns like dependency injection, Entity Framework with SQLite, and structured data extraction from unstructured wiki markup."
+    },
+    {
+        "id": 9,
+        "difficulty": "easy",
+        "difficultyReason": "Vanilla JS with direct API calls. No build tools, no framework, no backend — just HTML/CSS/JS with fetch requests."
+    },
+    {
+        "id": 10,
+        "difficulty": "normal",
+        "difficultyReason": "Angular's opinionated architecture with components, services, dependency injection, and RxJS observables for API data flow."
+    },
+    {
+        "id": 11,
+        "difficulty": "complex",
+        "difficultyReason": "Multi-entity data model (users, workspaces, pages, notes) with proper relational schema design. Authentication flows with Better Auth and database migrations with Drizzle require understanding server-side patterns in SvelteKit."
+    }
+]
