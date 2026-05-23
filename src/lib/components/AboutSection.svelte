@@ -8,7 +8,6 @@
 		<p class="about-subtitle">{m.about_subtitle()}</p>
 
 		<div class="about-content">
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			<p>{@html m.about_p1()}</p>
 			<p>{m.about_p2()}</p>
 			<p>{m.about_p3_before()} <strong>{m.about_p3_highlight()}</strong></p>
