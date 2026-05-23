@@ -16,6 +16,7 @@
 			<li><a href="#skills">{m.nav_skills()}</a></li>
 			<li><a href="#projects">{m.nav_projects()}</a></li>
 			<li><a href="#contact">{m.nav_contact()}</a></li>
+			<li><a href="#faq">{m.nav_faq()}</a></li>
 		</ul>
 		<div class="actions">
 			<ThemeToggle />

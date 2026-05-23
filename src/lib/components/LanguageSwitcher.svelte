@@ -2,7 +2,7 @@
 	import { getLocale, setLocale } from '$lib/paraglide/runtime';
 
 	const currentLang = $derived(getLocale());
-	const nextLang = $derived((currentLang === 'es' ? 'en' : 'es') as 'en' | 'es');
+	const nextLang = $derived(currentLang === 'es' ? 'en' : 'es');
 
 	function toggleLanguage() {
 		setLocale(nextLang);
@@ -10,7 +10,7 @@
 </script>
 
 <button class="lang-toggle glass-panel" onclick={toggleLanguage} aria-label="Toggle Language">
-	<span class="lang-text">{nextLang.toUpperCase()}</span>
+	<span class="lang-text">{currentLang.toUpperCase()}</span>
 </button>
 
 <style>

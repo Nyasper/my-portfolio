@@ -57,10 +57,17 @@ export let name;          // deprecated
 - Server hooks: `src/hooks.server.ts` (Paraglide middleware)
 - Client hooks: `src/hooks.ts` (Paraglide reroute)
 
+### Component Architecture
+- **Each portfolio section must be an independent component** in `src/lib/components/`
+- `+page.svelte` is only responsible for composing sections — no inline section markup
+- Naming convention: `{SectionName}Section.svelte` (e.g. `HeroSection.svelte`, `FaqSection.svelte`, `SkillsSection.svelte`)
+- Section-specific styles live inside the component. Only global layout rules (e.g. `main { padding-top }`) stay in `+page.svelte`
+
 ## Key Features to Implement
 - **Skills → Projects filtering:** Clicking a technology pill in the Skills section filters the Projects grid to show only matching projects
 - **Project status:** Each project has `active` | `inactive` state. Active projects display their deployment URL
 - **Scroll animations:** Fade-in-up on scroll entry, with a cap on simultaneous visible animations
+- **FAQ section:** General questions about tech preferences, username origin, dev setup, etc.
 
 ## Data Structure
 
