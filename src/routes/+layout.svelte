@@ -6,8 +6,10 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import { setGlobalState, PortfiolioGlobalState } from '$lib/stores/globalState.svelte';
 
 	let { children } = $props();
+	setGlobalState(new PortfiolioGlobalState());
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import techstacks from '$lib/data/techstacks.json';
+	import { getGlobalState, getTechColor } from '$lib/stores/globalState.svelte';
 
 	type Tech = (typeof techstacks)[number];
+	const globalState = getGlobalState();
 
 	const categories = [
 		{ key: 'language', label: 'Languages' },
@@ -16,6 +18,15 @@
 
 	function getTechsByCategory(category: string): Tech[] {
 		return techstacks.filter((t) => t.category === category);
+	}
+
+	function handleTechClick(event: MouseEvent, techId: number) {
+		event.preventDefault();
+		globalState.selectTech(techId);
+		const target = document.getElementById('projects');
+		if (target) {
+			target.scrollIntoView({ behavior: 'smooth' });
+		}
 	}
 </script>
 
@@ -46,10 +57,13 @@
 {#snippet skillItem(tech: Tech)}
 	<a
 		href={tech.url}
-		target="_blank"
-		rel="noopener noreferrer"
+		onclick={(e) => handleTechClick(e, tech.id)}
 		aria-label={tech.name}
 		class="tech-pill"
+		class:active={globalState.selectedTechId === tech.id}
+		style={globalState.selectedTechId === tech.id
+			? `border-color: ${getTechColor(tech.id)}; box-shadow: 0 4px 12px ${getTechColor(tech.id)}2d;`
+			: ''}
 	>
 		<span class="tech-icon">
 			{@html tech.icon}
