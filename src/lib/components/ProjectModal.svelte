@@ -119,69 +119,7 @@
 
 		<div class="modal-body">
 			<div class="modal-grid">
-				<!-- Gallery Column -->
-				<div class="modal-gallery">
-					<!-- Live region for gallery navigation announcements -->
-					<div aria-live="polite" class="visually-hidden">
-						{#if project.images && project.images.length > 1}
-							{m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}
-						{/if}
-					</div>
-					<div class="gallery-main-wrapper">
-						{#if project.images && project.images.length > 0}
-						<img
-							src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
-							alt="{project.name} {m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}"
-							class="gallery-main-img"
-						/>
-
-							{#if project.images.length > 1}
-								<button class="gallery-arrow prev" onclick={prevImage} aria-label="Previous image">
-									&#8249;
-								</button>
-								<button class="gallery-arrow next" onclick={nextImage} aria-label="Next image">
-									&#8250;
-								</button>
-
-								<div class="gallery-dots" role="group" aria-label={m.projects_gallery_images()}>
-									{#each project.images as _, index (index)}
-										<button
-											class="dot"
-											class:active={activeImageIndex === index}
-											onclick={() => (activeImageIndex = index)}
-											aria-label="{m.projects_gallery_image()} {index + 1}"
-											aria-current={activeImageIndex === index ? 'true' : undefined}
-										></button>
-									{/each}
-								</div>
-							{/if}
-						{:else}
-							{@render projectInitials(project.name, true)}
-						{/if}
-					</div>
-
-					{#if project.images && project.images.length > 1}
-					<div class="gallery-thumbnails" role="group" aria-label={m.projects_gallery_images()}>
-						{#each project.images as img, index (index)}
-							<button
-								class="thumbnail-btn"
-								class:active={activeImageIndex === index}
-								onclick={() => (activeImageIndex = index)}
-								aria-label="{m.projects_gallery_image()} {index + 1}"
-								aria-current={activeImageIndex === index ? 'true' : undefined}
-							>
-									<img
-										src="/images/projects/{project.id}/{img}"
-										alt="Thumbnail {index + 1}"
-										class="thumbnail-img"
-									/>
-								</button>
-							{/each}
-						</div>
-					{/if}
-				</div>
-
-				<!-- Details Info Column -->
+				<!-- Details Info Section -->
 				<div class="modal-info">
 					<div class="modal-header-section">
 						<span class="modal-date-badge">
@@ -252,6 +190,68 @@
 							</a>
 						{/if}
 					</div>
+				</div>
+
+				<!-- Gallery Section -->
+				<div class="modal-gallery">
+					<!-- Live region for gallery navigation announcements -->
+					<div aria-live="polite" class="visually-hidden">
+						{#if project.images && project.images.length > 1}
+							{m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}
+						{/if}
+					</div>
+					<div class="gallery-main-wrapper">
+						{#if project.images && project.images.length > 0}
+						<img
+							src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
+							alt="{project.name} {m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}"
+							class="gallery-main-img"
+						/>
+
+							{#if project.images.length > 1}
+								<button class="gallery-arrow prev" onclick={prevImage} aria-label="Previous image">
+									&#8249;
+								</button>
+								<button class="gallery-arrow next" onclick={nextImage} aria-label="Next image">
+									&#8250;
+								</button>
+
+								<div class="gallery-dots" role="group" aria-label={m.projects_gallery_images()}>
+									{#each project.images as _, index (index)}
+										<button
+											class="dot"
+											class:active={activeImageIndex === index}
+											onclick={() => (activeImageIndex = index)}
+											aria-label="{m.projects_gallery_image()} {index + 1}"
+											aria-current={activeImageIndex === index ? 'true' : undefined}
+										></button>
+									{/each}
+								</div>
+							{/if}
+						{:else}
+							{@render projectInitials(project.name, true)}
+						{/if}
+					</div>
+
+					{#if project.images && project.images.length > 1}
+					<div class="gallery-thumbnails" role="group" aria-label={m.projects_gallery_images()}>
+						{#each project.images as img, index (index)}
+							<button
+								class="thumbnail-btn"
+								class:active={activeImageIndex === index}
+								onclick={() => (activeImageIndex = index)}
+								aria-label="{m.projects_gallery_image()} {index + 1}"
+								aria-current={activeImageIndex === index ? 'true' : undefined}
+							>
+									<img
+										src="/images/projects/{project.id}/{img}"
+										alt="Thumbnail {index + 1}"
+										class="thumbnail-img"
+									/>
+								</button>
+							{/each}
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -397,9 +397,9 @@
 	}
 
 	.modal-grid {
-		display: grid;
-		grid-template-columns: 1.2fr 1fr;
-		gap: 3rem;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 	}
 
 	/* Gallery */
@@ -412,7 +412,7 @@
 	.gallery-main-wrapper {
 		position: relative;
 		width: 100%;
-		aspect-ratio: 16 / 10;
+		aspect-ratio: 16 / 9;
 		border-radius: 12px;
 		overflow: hidden;
 		background: rgba(0, 0, 0, 0.4);
@@ -487,15 +487,15 @@
 
 	.gallery-thumbnails {
 		display: flex;
-		gap: 0.5rem;
+		gap: 0.75rem;
 		overflow-x: auto;
 		padding-bottom: 0.5rem;
 	}
 
 	.thumbnail-btn {
-		width: 80px;
-		aspect-ratio: 16 / 10;
-		border-radius: 6px;
+		width: 140px;
+		aspect-ratio: 16 / 9;
+		border-radius: 8px;
 		overflow: hidden;
 		background: none;
 		border: 2px solid transparent;
@@ -800,17 +800,16 @@
 	}
 
 	@media (max-width: 900px) {
-		.modal-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-
 		.modal-body {
 			padding: 2rem;
 		}
 
 		.gallery-main-wrapper {
 			aspect-ratio: 16 / 9;
+		}
+
+		.thumbnail-btn {
+			width: 100px;
 		}
 	}
 </style>

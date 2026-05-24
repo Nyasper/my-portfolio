@@ -80,6 +80,7 @@
 <style>
 	main {
 		padding-top: 100px; /* offset for navbar */
+		scroll-snap-type: y proximity;
 	}
 
 	.skip-link {

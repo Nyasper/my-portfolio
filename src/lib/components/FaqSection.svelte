@@ -55,11 +55,15 @@
 						<span>{question}</span>
 						<span class="faq-icon" aria-hidden="true">{isOpen ? '−' : '+'}</span>
 					</button>
-					{#if isOpen}
-						<div class="faq-answer" id="faq-answer-{i}" role="region" aria-labelledby="faq-question-{i}">
-							<p>{answer}</p>
-						</div>
-					{/if}
+					<div
+						class="faq-answer"
+						id="faq-answer-{i}"
+						role="region"
+						aria-labelledby="faq-question-{i}"
+						aria-hidden={!isOpen}
+					>
+						<p>{answer}</p>
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -68,7 +72,13 @@
 
 <style>
 	.faq {
-		padding: 6rem 0;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 0;
 	}
 
 	.faq-container {
@@ -144,7 +154,19 @@
 	}
 
 	.faq-answer {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
 		padding: 0 1.5rem 1.25rem;
+		transition:
+			opacity 0.3s ease,
+			visibility 0.3s ease;
+	}
+
+	.faq-item.open .faq-answer {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
 	}
 
 	.faq-answer p {
@@ -154,6 +176,11 @@
 	}
 
 	@media (max-width: 768px) {
+		.faq {
+			min-height: auto;
+			padding: 2rem 0;
+		}
+
 		.faq-container {
 			padding: 2rem;
 		}
@@ -167,7 +194,7 @@
 			font-size: 1rem;
 		}
 
-		.faq-answer {
+		.faq-item.open .faq-answer {
 			padding: 0 1.25rem 1rem;
 		}
 	}

@@ -75,13 +75,19 @@
 
 <style>
 	.skills {
-		padding: 6rem 0;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 0;
 	}
 
 	.skills-container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 4rem;
+		padding: 2rem;
 		text-align: center;
 	}
 
@@ -94,11 +100,11 @@
 	.skills-subtitle {
 		font-size: 1.25rem;
 		color: var(--text-muted);
-		margin-bottom: 2.5rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.category-group {
-		margin-bottom: 2rem;
+		margin-bottom: 1.25rem;
 	}
 
 	.category-group:last-child {
@@ -111,21 +117,21 @@
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: var(--text-muted);
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.tech-grid {
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		gap: 0.5rem;
 	}
 
 	.tech-pill {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.5rem 1rem;
+		padding: 0.4rem 0.8rem;
 		border-radius: 50px;
 		background: var(--glass-bg);
 		border: 1px solid var(--glass-border);
@@ -169,8 +175,9 @@
 	}
 
 	@media (max-width: 768px) {
-		.skills-container {
-			padding: 2rem;
+		.skills {
+			min-height: auto;
+			padding: 2rem 0;
 		}
 
 		h2 {

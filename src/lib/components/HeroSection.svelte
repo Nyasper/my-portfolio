@@ -19,10 +19,12 @@
 
 <style>
 	.hero {
-		min-height: calc(100vh - 100px);
+		min-height: 100vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
 	}
 
 	.hero-content {
@@ -94,6 +96,11 @@
 	}
 
 	@media (max-width: 768px) {
+		.hero {
+			min-height: auto;
+			padding: 4rem 0;
+		}
+
 		h1 {
 			font-size: 2.5rem;
 		}

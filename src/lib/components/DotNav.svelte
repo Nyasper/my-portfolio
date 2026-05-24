@@ -91,10 +91,13 @@
 		font-weight: 400;
 		color: var(--text-muted);
 		white-space: nowrap;
-		opacity: 0.6;
+		opacity: 0;
+		width: 0;
+		overflow: hidden;
 		transition:
-			color 0.3s ease,
-			opacity 0.3s ease;
+			opacity 0.3s ease,
+			width 0.3s ease,
+			color 0.3s ease;
 	}
 
 	.dot {
@@ -114,6 +117,16 @@
 		transform: scale(1.3);
 	}
 
+	.dot-link.active .label {
+		opacity: 1;
+		width: auto;
+	}
+
+	.dot-nav:hover .label {
+		opacity: 0.6;
+		width: auto;
+	}
+
 	.dot-link:hover .label {
 		opacity: 1;
 		color: var(--text-main);
@@ -127,6 +140,7 @@
 
 	.dot-link.active .label {
 		opacity: 1;
+		width: auto;
 		color: var(--accent-color);
 		font-weight: 600;
 	}

@@ -17,7 +17,13 @@
 
 <style>
 	.about {
-		padding: 6rem 0;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 0;
 	}
 
 	.about-container {
@@ -64,6 +70,11 @@
 	}
 
 	@media (max-width: 768px) {
+		.about {
+			min-height: auto;
+			padding: 2rem 0;
+		}
+
 		.about-container {
 			padding: 2rem;
 		}

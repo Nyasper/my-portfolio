@@ -21,7 +21,6 @@
 		globalState.selectedTechId ? (techMap.get(globalState.selectedTechId)?.name ?? '') : ''
 	);
 
-	let visibleIds = $state<Record<number, boolean>>({});
 	let selectedProject = $state<(typeof projectsData)[number] | null>(null);
 	let sectionEl = $state<HTMLElement | null>(null);
 
@@ -42,36 +41,7 @@
 		}
 	}
 
-	function scrollAnimate(id: number) {
-		return (node: HTMLElement) => {
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting && !visibleIds[id]) {
-							const currentlyAnimating =
-								document.querySelectorAll('.project-card.animating').length;
-							if (currentlyAnimating < 4) {
-								node.classList.add('animating');
-								visibleIds[id] = true;
-								setTimeout(() => {
-									node.classList.remove('animating');
-								}, 600);
-							} else {
-								setTimeout(() => {
-									visibleIds[id] = true;
-								}, 250);
-							}
-						}
-					});
-				},
-				{ threshold: 0.05 }
-			);
 
-			observer.observe(node);
-
-			return () => observer.disconnect();
-		};
-	}
 </script>
 
 <section id="projects" class="projects" bind:this={sectionEl} aria-labelledby="projects-heading">
@@ -141,7 +111,7 @@
 				{m.projects_filter_active()}
 				{activeTechName}.
 				{filteredProjects.length}
-				{filteredProjects.length === 1 ? m.projects_count_one() : m.projects_count_other()} {m.projects_found()}.
+				{filteredProjects.length === 1 ? m.projects_count_one() : m.projects_count_other()} {filteredProjects.length === 1 ? m.projects_found_one() : m.projects_found_other()}.
 			{:else}
 				{m.projects_showing_all()}
 			{/if}
@@ -150,15 +120,12 @@
 		<!-- Projects Grid -->
 		{#if filteredProjects.length > 0}
 			<ul class="projects-grid">
-				{#each filteredProjects as project (project.id)}
-					{@const isVisible = !!visibleIds[project.id]}
-					<li>
-						<article
-							class="project-card glass-panel"
-							class:fade-in-up={isVisible}
-							aria-labelledby="project-title-{project.id}"
-							{@attach scrollAnimate(project.id)}
-						>
+			{#each filteredProjects as project (project.id)}
+				<li>
+					<article
+						class="project-card glass-panel"
+						aria-labelledby="project-title-{project.id}"
+					>
 							<div class="card-image-wrapper">
 								{#if project.images && project.images.length > 0}
 									<img
@@ -363,7 +330,10 @@
 
 <style>
 	.projects {
-		padding: 6rem 0;
+		min-height: 100vh;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 0;
 	}
 
 	.projects-container {
@@ -442,15 +412,13 @@
 		margin: 0;
 	}
 
-	/* Card layout & entrance animation */
+	/* Card layout */
 	.project-card {
 		display: flex;
 		flex-direction: column;
 		border-radius: 16px;
 		overflow: hidden;
 		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-		opacity: 0;
-		transform: translateY(30px);
 		height: 100%;
 	}
 
@@ -458,14 +426,6 @@
 		transform: translateY(-8px);
 		border-color: var(--accent-color);
 		box-shadow: 0 12px 30px rgba(88, 166, 255, 0.12);
-	}
-
-	.project-card.fade-in-up {
-		opacity: 1;
-		transform: translateY(0);
-		transition:
-			opacity 0.5s ease,
-			transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 	}
 
 	/* Card image wrapper */
@@ -760,7 +720,8 @@
 
 	@media (max-width: 768px) {
 		.projects {
-			padding: 4rem 0;
+			min-height: auto;
+			padding: 2rem 0;
 		}
 
 		h2 {
