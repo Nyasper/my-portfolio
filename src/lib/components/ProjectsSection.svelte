@@ -159,6 +159,31 @@
 			<p class="projects-subtitle">{m.projects_subtitle()}</p>
 		</div>
 
+		<!-- Projects Map Legend -->
+		<div class="projects-legend glass-panel">
+			<div class="legend-tip">
+				<span class="tip-icon">💡</span>
+				<span class="tip-text">{m.projects_legend_tip()}</span>
+			</div>
+			<div class="legend-statuses">
+				<div class="legend-status">
+					<span class="status-dot active"></span>
+					<span class="status-name">{m.projects_status_active()}:</span>
+					<span class="status-desc">{m.projects_legend_active_desc()}</span>
+				</div>
+				<div class="legend-status">
+					<span class="status-dot inactive"></span>
+					<span class="status-name">{m.projects_status_inactive()}:</span>
+					<span class="status-desc">{m.projects_legend_inactive_desc()}</span>
+				</div>
+				<div class="legend-status">
+					<span class="status-dot archived"></span>
+					<span class="status-name">{m.projects_status_archived()}:</span>
+					<span class="status-desc">{m.projects_legend_archived_desc()}</span>
+				</div>
+			</div>
+		</div>
+
 		<!-- Filter Active Banner -->
 		{#if globalState.selectedTechId !== null}
 			<div class="filter-banner glass-panel">
@@ -837,14 +862,11 @@
 	}
 
 	.tag-badge.selected {
-		background: var(--tag-color, var(--accent-color));
+		background: rgba(255, 255, 255, 0.05);
 		border-color: var(--tag-color, var(--accent-color));
-		color: #0d1117;
+		color: var(--text-main);
 		font-weight: 600;
-	}
-
-	.tag-badge.selected :global(svg) {
-		filter: brightness(0.1);
+		box-shadow: 0 0 8px rgba(88, 166, 255, 0.15);
 	}
 
 	.tag-icon {
@@ -1373,6 +1395,90 @@
 
 		.projects-grid {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Projects Legend Styles */
+	.projects-legend {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		margin-bottom: 2rem;
+		border-radius: 12px;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.legend-tip {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		font-weight: 500;
+	}
+
+	.tip-icon {
+		font-size: 1.1rem;
+	}
+
+	.legend-statuses {
+		display: flex;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.legend-status {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+	}
+
+	.status-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		display: inline-block;
+	}
+
+	.status-dot.active {
+		background-color: #56d364;
+		box-shadow: 0 0 8px rgba(86, 211, 100, 0.6);
+	}
+
+	.status-dot.inactive {
+		background-color: #e3b341;
+		box-shadow: 0 0 8px rgba(227, 179, 65, 0.6);
+	}
+
+	.status-dot.archived {
+		background-color: #ff7b72;
+		box-shadow: 0 0 8px rgba(255, 123, 114, 0.6);
+	}
+
+	.status-name {
+		font-weight: 600;
+		color: var(--text-main);
+	}
+
+	.status-desc {
+		color: var(--text-muted);
+	}
+
+	@media (max-width: 768px) {
+		.projects-legend {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 1.25rem 1.5rem;
+			gap: 1rem;
+		}
+
+		.legend-statuses {
+			width: 100%;
+			flex-direction: column;
+			gap: 0.75rem;
 		}
 	}
 </style>
