@@ -43,7 +43,7 @@
 
 {#snippet category({ key, label }: (typeof categories)[number])}
 	{#if getTechsByCategory(key).length > 0}
-		<div class="category-group">
+		<div class="category-group" role="group" aria-label={label}>
 			<h3 class="category-label">{label}</h3>
 			<div class="tech-grid">
 				{#each getTechsByCategory(key) as tech (tech.id)}
@@ -55,17 +55,18 @@
 {/snippet}
 
 {#snippet skillItem(tech: Tech)}
+	{@const isSelected = globalState.selectedTechId === tech.id}
 	<a
 		href={tech.url}
 		onclick={(e) => handleTechClick(e, tech.id)}
-		aria-label={tech.name}
+		aria-label={`${tech.name}${isSelected ? ' (selected)' : ''} — click to filter projects`}
 		class="tech-pill"
-		class:active={globalState.selectedTechId === tech.id}
-		style={globalState.selectedTechId === tech.id
+		class:active={isSelected}
+		style={isSelected
 			? `border-color: ${getTechColor(tech.id)}; box-shadow: 0 4px 12px ${getTechColor(tech.id)}2d;`
 			: ''}
 	>
-		<span class="tech-icon">
+		<span class="tech-icon" aria-hidden="true">
 			{@html tech.icon}
 		</span>
 		<span class="tech-name">{tech.name}</span>
@@ -78,6 +79,8 @@
 	}
 
 	.skills-container {
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 4rem;
 		text-align: center;
 	}
@@ -140,6 +143,11 @@
 		transform: translateY(-2px);
 		border-color: var(--accent-color);
 		box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
+	}
+
+	.tech-pill:focus-visible {
+		outline: 2px solid var(--accent-color);
+		outline-offset: 2px;
 	}
 
 	.tech-icon {

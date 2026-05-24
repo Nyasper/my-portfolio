@@ -2,9 +2,9 @@
 	import * as m from '$lib/paraglide/messages';
 </script>
 
-<section id="about" class="about">
+<section id="about" class="about" aria-labelledby="about-heading">
 	<div class="about-container glass-panel">
-		<h2>{m.about_title()}</h2>
+		<h2 id="about-heading">{m.about_title()}</h2>
 		<p class="about-subtitle">{m.about_subtitle()}</p>
 
 		<div class="about-content">
@@ -21,6 +21,8 @@
 	}
 
 	.about-container {
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 4rem;
 		text-align: center;
 	}

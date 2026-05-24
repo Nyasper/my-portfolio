@@ -79,7 +79,7 @@ export let name;          // deprecated
 | `slug` | `string` | URL-friendly identifier for routing |
 | `shortDescription` | `string` | ~80 char summary for cards |
 | `longDescription` | `string` | Full description for detail view |
-| `images` | `string[]` | Gallery screenshot URLs (local paths in `static/`) |
+| `images` | `string[]` | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/` |
 | `techstack` | `number[]` | References to `techstacks.json` `id`s |
 | `github` | `string` | Repository URL |
 | `deploy` | `string` | Live deployment URL |

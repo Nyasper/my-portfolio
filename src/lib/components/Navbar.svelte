@@ -5,10 +5,10 @@
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 </script>
 
-<nav class="navbar glass-panel">
+<nav class="navbar glass-panel" aria-label="Main navigation">
 	<div class="navbar-content">
 		<div class="logo">
-			<a href={resolve('/')}>Port<span>folio</span></a>
+			<a href={resolve('/')} rel="home" aria-label="Portfolio - Home">Port<span>folio</span></a>
 		</div>
 		<ul class="nav-links">
 			<li><a href="#home">{m.nav_home()}</a></li>
@@ -18,7 +18,7 @@
 			<li><a href="#contact">{m.nav_contact()}</a></li>
 			<li><a href="#faq">{m.nav_faq()}</a></li>
 		</ul>
-		<div class="actions">
+		<div class="actions" role="group" aria-label="Theme and language settings">
 			<ThemeToggle />
 			<LanguageSwitcher />
 		</div>
@@ -83,6 +83,12 @@
 
 	.nav-links a:hover::after {
 		width: 100%;
+	}
+
+	.nav-links a:focus-visible {
+		outline: 2px solid var(--accent-color);
+		outline-offset: 4px;
+		border-radius: 2px;
 	}
 
 	.actions {

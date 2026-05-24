@@ -2,18 +2,18 @@
 	import * as m from '$lib/paraglide/messages';
 </script>
 
-<section id="home" class="hero">
+<section id="home" class="hero" aria-labelledby="hero-heading">
 	<div class="hero-content glass-panel">
 		<header>
-			<h1>{m.hero_greeting()} <span class="highlight">Gonzalo</span></h1>
-			<h2>{m.hero_role()}</h2>
-			<p>{m.hero_description()}</p>
+			<h1 id="hero-heading">{m.hero_greeting()} <span class="highlight">Gonzalo</span></h1>
+			<p class="hero-role">{m.hero_role()}</p>
+			<p class="hero-description">{m.hero_description()}</p>
 		</header>
 
-		<div class="cta-buttons">
+		<nav class="cta-buttons" aria-label="Quick navigation">
 			<a href="#projects" class="btn primary">{m.hero_cta_projects()}</a>
 			<a href="#contact" class="btn secondary">{m.hero_cta_contact()}</a>
-		</div>
+		</nav>
 	</div>
 </section>
 
@@ -42,14 +42,14 @@
 		color: var(--accent-color);
 	}
 
-	h2 {
+	.hero-role {
 		font-size: 2rem;
 		color: var(--text-muted);
 		margin-bottom: 1.5rem;
 		font-weight: 400;
 	}
 
-	p {
+	.hero-description {
 		font-size: 1.25rem;
 		line-height: 1.6;
 		margin-bottom: 2.5rem;
@@ -97,7 +97,7 @@
 		h1 {
 			font-size: 2.5rem;
 		}
-		h2 {
+		.hero-role {
 			font-size: 1.5rem;
 		}
 		.hero-content {

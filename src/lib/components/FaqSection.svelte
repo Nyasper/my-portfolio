@@ -14,30 +14,49 @@
 		{ question: m.faq_q8_question(), answer: m.faq_q8_answer() }
 	];
 
+	const faqStructuredData = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faqs.map((faq) => ({
+			'@type': 'Question',
+			name: faq.question,
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: faq.answer
+			}
+		}))
+	});
+
 	function toggleQuestion(index: number) {
 		openIndex = openIndex === index ? null : index;
 	}
 </script>
 
-<section id="faq" class="faq">
+<svelte:head>
+	{@html `<script type="application/ld+json">${JSON.stringify(faqStructuredData)}</script>`}
+</svelte:head>
+
+<section id="faq" class="faq" aria-labelledby="faq-heading">
 	<div class="faq-container glass-panel">
-		<h2>{m.faq_title()}</h2>
+		<h2 id="faq-heading">{m.faq_title()}</h2>
 		<p class="faq-subtitle">{m.faq_subtitle()}</p>
 
-		<div class="faq-list">
+		<div class="faq-list" role="list">
 			{#each faqs as { question, answer }, i (question)}
 				{@const isOpen = openIndex === i}
-				<div class={['faq-item', { open: isOpen }]}>
+				<div class={['faq-item', { open: isOpen }]} role="listitem">
 					<button
+						id="faq-question-{i}"
 						class="faq-question"
 						onclick={() => toggleQuestion(i)}
 						aria-expanded={openIndex === i}
+						aria-controls="faq-answer-{i}"
 					>
 						<span>{question}</span>
-						<span class="faq-icon">{isOpen ? '−' : '+'}</span>
+						<span class="faq-icon" aria-hidden="true">{isOpen ? '−' : '+'}</span>
 					</button>
 					{#if isOpen}
-						<div class="faq-answer">
+						<div class="faq-answer" id="faq-answer-{i}" role="region" aria-labelledby="faq-question-{i}">
 							<p>{answer}</p>
 						</div>
 					{/if}
@@ -53,6 +72,8 @@
 	}
 
 	.faq-container {
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 4rem;
 		text-align: center;
 	}
@@ -106,6 +127,12 @@
 
 	.faq-question:hover {
 		color: var(--accent-color);
+	}
+
+	.faq-question:focus-visible {
+		outline: 2px solid var(--accent-color);
+		outline-offset: -2px;
+		border-radius: 12px;
 	}
 
 	.faq-icon {
