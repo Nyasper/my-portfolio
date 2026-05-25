@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
+	import { page } from '$app/state';
 	import HeroSection from '$lib/components/HeroSection.svelte';
 	import AboutSection from '$lib/components/AboutSection.svelte';
 	import SkillsSection from '$lib/components/SkillsSection.svelte';
@@ -9,7 +10,7 @@
 	import ContactSection from '$lib/components/ContactSection.svelte';
 	import DotNav from '$lib/components/DotNav.svelte';
 
-	const siteUrl = 'https://nyasper.dev'; // Replace with actual domain
+	const siteUrl = $derived(page.url.href);
 
 	const structuredData = $derived({
 		'@context': 'https://schema.org',
@@ -37,6 +38,9 @@
 			'Node.js'
 		]
 	});
+
+	// Mark as read for TypeScript since it is used inside the HTML JSON-LD script tag
+	void (() => structuredData);
 </script>
 
 <svelte:head>
@@ -61,7 +65,9 @@
 	<link rel="canonical" href={siteUrl} />
 
 	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
+	<script type="application/ld+json">
+		{@html JSON.stringify(structuredData)}
+	</script>
 </svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
