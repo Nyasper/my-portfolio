@@ -1,12 +1,45 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
-	import { PUBLIC_NAME } from '$env/static/public';
+	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
+
+	const names = [PUBLIC_NAME, PUBLIC_DISPLAY_NAME];
+	let nameIndex = $state(0);
+	let phase: 'idle' | 'leaving' | 'positioning' | 'entering' = $state('idle');
+
+	$effect(() => {
+		const interval = setInterval(() => {
+			phase = 'leaving';
+			setTimeout(() => {
+				nameIndex = (nameIndex + 1) % names.length;
+				phase = 'positioning';
+				requestAnimationFrame(() => {
+					phase = 'entering';
+					requestAnimationFrame(() => {
+						phase = 'idle';
+					});
+				});
+			}, 300);
+		}, 3000);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
 <section id="home" class="hero" aria-labelledby="hero-heading">
 	<div class="hero-content glass-panel">
 		<header>
-			<h1 id="hero-heading">{m.hero_greeting()} <span class="highlight">{PUBLIC_NAME}</span></h1>
+			<h1 id="hero-heading">
+				{m.hero_greeting()}
+				<span class="name-wrapper">
+					<span
+						class="highlight name"
+						class:leaving={phase === 'leaving'}
+						class:positioning={phase === 'positioning'}
+						class:entering={phase === 'entering'}
+					>{names[nameIndex]}</span>
+					<span class="highlight name name-ghost" aria-hidden="true">{names[(nameIndex + 1) % names.length]}</span>
+				</span>
+			</h1>
 			<p class="hero-role">{m.hero_role()}</p>
 			<p class="hero-description">{m.hero_description()}</p>
 		</header>
@@ -43,6 +76,35 @@
 
 	.highlight {
 		color: var(--accent-color);
+	}
+
+	.name-wrapper {
+		display: inline-grid;
+		vertical-align: bottom;
+	}
+
+	.name {
+		grid-row: 1;
+		grid-column: 1;
+		will-change: transform, opacity;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+	}
+
+	.name-ghost {
+		visibility: hidden;
+	}
+
+	.name.leaving {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+
+	.name.positioning {
+		transition: none;
+		opacity: 0;
+		transform: translateY(-100%);
 	}
 
 	.hero-role {

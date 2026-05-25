@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import { resolve } from '$app/paths';
+	import { PUBLIC_NAME } from '$env/static/public';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 </script>
@@ -8,7 +9,9 @@
 <nav class="navbar glass-panel" aria-label="Main navigation">
 	<div class="navbar-content">
 		<div class="logo">
-			<a href={resolve('/')} rel="home" aria-label="Portfolio - Home">Port<span>folio</span></a>
+			<a href={resolve('/')} rel="home" aria-label="{PUBLIC_NAME} - Home"
+				>{PUBLIC_NAME.slice(0, -3)}<span>{PUBLIC_NAME.slice(-3)}</span> | Web dev</a
+			>
 		</div>
 		<ul class="nav-links">
 			<li><a href="#home">{m.nav_home()}</a></li>
