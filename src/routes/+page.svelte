@@ -17,7 +17,7 @@
 	import ContactSection from '$lib/components/ContactSection.svelte';
 	import DotNav from '$lib/components/DotNav.svelte';
 
-	const siteUrl = $derived(page.url.href);
+	const siteUrl = $derived(page.url.origin + page.url.pathname);
 
 	const structuredData = $derived({
 		'@context': 'https://schema.org',

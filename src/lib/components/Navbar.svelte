@@ -4,6 +4,16 @@
 	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
+
+	let menuOpen = $state(false);
+
+	function toggleMenu() {
+		menuOpen = !menuOpen;
+	}
+
+	function closeMenu() {
+		menuOpen = false;
+	}
 </script>
 
 <nav class="navbar glass-panel" aria-label="Main navigation">
@@ -24,17 +34,28 @@
 				Web dev
 			</a>
 		</div>
-		<ul class="nav-links">
-			<li><a href="#home">{m.nav_home()}</a></li>
-			<li><a href="#about">{m.nav_about()}</a></li>
-			<li><a href="#skills">{m.nav_skills()}</a></li>
-			<li><a href="#projects">{m.nav_projects()}</a></li>
-			<li><a href="#contact">{m.nav_contact()}</a></li>
-			<li><a href="#faq">{m.nav_faq()}</a></li>
+		<ul class={['nav-links', { open: menuOpen }]}>
+			<li><a href="#home" onclick={closeMenu}>{m.nav_home()}</a></li>
+			<li><a href="#about" onclick={closeMenu}>{m.nav_about()}</a></li>
+			<li><a href="#skills" onclick={closeMenu}>{m.nav_skills()}</a></li>
+			<li><a href="#projects" onclick={closeMenu}>{m.nav_projects()}</a></li>
+			<li><a href="#contact" onclick={closeMenu}>{m.nav_contact()}</a></li>
+			<li><a href="#faq" onclick={closeMenu}>{m.nav_faq()}</a></li>
 		</ul>
 		<div class="actions" role="group" aria-label="Theme and language settings">
 			<ThemeToggle />
 			<LanguageSwitcher />
+			<button
+				class={['hamburger', { open: menuOpen }]}
+				onclick={toggleMenu}
+				aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+				aria-expanded={menuOpen}
+				aria-controls="mobile-menu"
+			>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+			</button>
 		</div>
 	</div>
 </nav>
@@ -134,8 +155,93 @@
 		align-items: center;
 	}
 
+	.hamburger {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		background: none;
+		border: none;
+		cursor: pointer;
+		z-index: 1001;
+	}
+
+	.hamburger-line {
+		display: block;
+		width: 22px;
+		height: 2px;
+		background: var(--text-main);
+		border-radius: 2px;
+		transition:
+			transform 0.3s ease,
+			opacity 0.3s ease;
+	}
+
+	.hamburger.open .hamburger-line:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+
+	.hamburger.open .hamburger-line:nth-child(2) {
+		opacity: 0;
+	}
+
+	.hamburger.open .hamburger-line:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
 	@media (max-width: 768px) {
+		.hamburger {
+			display: flex;
+		}
+
 		.nav-links {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			margin-top: 0.5rem;
+			padding: 1rem 2rem;
+			flex-direction: column;
+			gap: 0;
+			background: var(--glass-bg);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border: 1px solid var(--glass-border);
+			border-radius: 16px;
+			opacity: 0;
+			transform: translateY(-10px);
+			pointer-events: none;
+			transition:
+				opacity 0.25s ease,
+				transform 0.25s ease;
+		}
+
+		.nav-links.open {
+			display: flex;
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+
+		.nav-links li {
+			border-bottom: 1px solid var(--glass-border);
+		}
+
+		.nav-links li:last-child {
+			border-bottom: none;
+		}
+
+		.nav-links a {
+			display: block;
+			padding: 0.75rem 0;
+			font-size: 1rem;
+		}
+
+		.nav-links a::after {
 			display: none;
 		}
 

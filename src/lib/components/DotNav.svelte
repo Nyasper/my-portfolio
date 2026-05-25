@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import { replaceState, afterNavigate } from '$app/navigation';
 
 	const sections = [
 		{ id: 'home', label: () => m.nav_home() },
@@ -11,12 +12,18 @@
 	];
 
 	let activeSection = $state('home');
+	let routerReady = $state(false);
+
+	afterNavigate(() => {
+		routerReady = true;
+	});
 
 	// Sync active section to URL hash without polluting browser history
 	$effect(() => {
+		if (!routerReady) return;
 		const hash = window.location.hash.slice(1);
 		if (activeSection && activeSection !== hash) {
-			history.replaceState(null, '', `#${activeSection}`);
+			replaceState(`#${activeSection}`, {});
 		}
 	});
 
