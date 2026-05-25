@@ -3,25 +3,54 @@
 	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
 
 	const names = [PUBLIC_NAME, PUBLIC_DISPLAY_NAME];
-	let nameIndex = $state(0);
-	let phase: 'idle' | 'leaving' | 'positioning' | 'entering' = $state('idle');
+	let displayedText = $state('');
+	let showCursor = $state(true);
 
 	$effect(() => {
-		const interval = setInterval(() => {
-			phase = 'leaving';
-			setTimeout(() => {
-				nameIndex = (nameIndex + 1) % names.length;
-				phase = 'positioning';
-				requestAnimationFrame(() => {
-					phase = 'entering';
-					requestAnimationFrame(() => {
-						phase = 'idle';
-					});
-				});
-			}, 300);
-		}, 3000);
+		let currentIdx = 0;
+		let charIdx = 0;
+		let isDeleting = false;
+		let timeoutId: ReturnType<typeof setTimeout>;
 
-		return () => clearInterval(interval);
+		function tick() {
+			const currentName = names[currentIdx];
+
+			if (!isDeleting) {
+				charIdx++;
+				displayedText = currentName.slice(0, charIdx);
+
+				if (charIdx === currentName.length) {
+					timeoutId = setTimeout(() => {
+						isDeleting = true;
+						tick();
+					}, 2000);
+					return;
+				}
+				timeoutId = setTimeout(tick, 80);
+			} else {
+				charIdx--;
+				displayedText = currentName.slice(0, charIdx);
+
+				if (charIdx === 0) {
+					currentIdx = (currentIdx + 1) % names.length;
+					isDeleting = false;
+					timeoutId = setTimeout(tick, 300);
+					return;
+				}
+				timeoutId = setTimeout(tick, 50);
+			}
+		}
+
+		tick();
+
+		const cursorInterval = setInterval(() => {
+			showCursor = !showCursor;
+		}, 530);
+
+		return () => {
+			clearTimeout(timeoutId);
+			clearInterval(cursorInterval);
+		};
 	});
 </script>
 
@@ -30,14 +59,9 @@
 		<header>
 			<h1 id="hero-heading">
 				{m.hero_greeting()}
-				<span class="name-wrapper">
-					<span
-						class="highlight name"
-						class:leaving={phase === 'leaving'}
-						class:positioning={phase === 'positioning'}
-						class:entering={phase === 'entering'}
-					>{names[nameIndex]}</span>
-					<span class="highlight name name-ghost" aria-hidden="true">{names[(nameIndex + 1) % names.length]}</span>
+				<span class="typewriter">
+					<span class="highlight">{displayedText}</span>
+					<span class="cursor" class:visible={showCursor}>|</span>
 				</span>
 			</h1>
 			<p class="hero-role">{m.hero_role()}</p>
@@ -78,33 +102,21 @@
 		color: var(--accent-color);
 	}
 
-	.name-wrapper {
-		display: inline-grid;
-		vertical-align: bottom;
+	.typewriter {
+		display: inline-flex;
+		align-items: baseline;
 	}
 
-	.name {
-		grid-row: 1;
-		grid-column: 1;
-		will-change: transform, opacity;
-		transition:
-			opacity 0.3s ease,
-			transform 0.3s ease;
-	}
-
-	.name-ghost {
-		visibility: hidden;
-	}
-
-	.name.leaving {
+	.cursor {
+		color: var(--accent-color);
+		font-weight: 300;
+		margin-left: 2px;
 		opacity: 0;
-		transform: translateY(100%);
+		transition: opacity 0.1s ease;
 	}
 
-	.name.positioning {
-		transition: none;
-		opacity: 0;
-		transform: translateY(-100%);
+	.cursor.visible {
+		opacity: 1;
 	}
 
 	.hero-role {
