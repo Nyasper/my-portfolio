@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import { resolve } from '$app/paths';
-	import { PUBLIC_NAME } from '$env/static/public';
+	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
 </script>
@@ -9,9 +9,20 @@
 <nav class="navbar glass-panel" aria-label="Main navigation">
 	<div class="navbar-content">
 		<div class="logo">
-			<a href={resolve('/')} rel="home" aria-label="{PUBLIC_NAME} - Home"
-				>{PUBLIC_NAME.slice(0, -3)}<span>{PUBLIC_NAME.slice(-3)}</span> | Web dev</a
-			>
+			<a href={resolve('/')} rel="home" aria-label="{PUBLIC_NAME} - Home">
+				<span class="name-slider">
+					<span class="name-slide"
+						>{PUBLIC_NAME.slice(0, -3)}<span class="accent">{PUBLIC_NAME.slice(-3)}</span></span
+					>
+					<span class="name-slide" aria-hidden="true"
+						>{PUBLIC_DISPLAY_NAME.slice(0, -3)}<span class="accent"
+							>{PUBLIC_DISPLAY_NAME.slice(-3)}</span
+						></span
+					>
+				</span>
+				<span class="logo-divider"> | </span>
+				Web dev
+			</a>
 		</div>
 		<ul class="nav-links">
 			<li><a href="#home">{m.nav_home()}</a></li>
@@ -54,10 +65,33 @@
 		font-size: 1.5rem;
 		font-weight: 700;
 		color: var(--text-main);
+		display: flex;
+		align-items: center;
 	}
 
-	.logo span {
+	.logo .accent {
 		color: var(--accent-color);
+	}
+
+	.name-slider {
+		display: inline-flex;
+		flex-direction: column;
+		overflow: hidden;
+		vertical-align: bottom;
+		height: 1.5em;
+		line-height: 1.5em;
+	}
+
+	.name-slide {
+		transition: transform 0.4s ease;
+	}
+
+	.logo a:hover .name-slide {
+		transform: translateY(-100%);
+	}
+
+	.logo-divider {
+		color: var(--text-muted);
 	}
 
 	.nav-links {
