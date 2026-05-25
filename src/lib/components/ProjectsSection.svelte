@@ -11,6 +11,8 @@
 
 	const techMap = new Map<number, Tech>(techstacksData.map((t) => [t.id, t as Tech]));
 
+	const msg = m as unknown as Record<string, () => string>;
+
 	const filteredProjects = $derived.by(() => {
 		const selectedId = globalState.selectedTechId;
 		if (selectedId === null) return projectsData;
@@ -146,7 +148,7 @@
 									<time class="card-date" datetime={project.date}>{project.date}</time>
 								</div>
 								<h3 class="card-title" id="project-title-{project.id}">{project.name}</h3>
-								<p class="card-description">{project.shortDescription}</p>
+								<p class="card-description">{msg[project.shortDescription]()}</p>
 
 								<div class="card-tags">
 									{#each project.techstack as techId (techId)}

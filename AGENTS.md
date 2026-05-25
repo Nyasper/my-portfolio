@@ -65,7 +65,7 @@ export let name;          // deprecated
 
 ## Key Features to Implement
 - **Skills → Projects filtering:** Clicking a technology pill in the Skills section filters the Projects grid to show only matching projects
-- **Project status:** Each project has `active` | `inactive` state. Active projects display their deployment URL
+- **Project status:** Each project has `active` | `inactive` | `archived` state. Active projects display their deployment URL
 - **Scroll animations:** Fade-in-up on scroll entry, with a cap on simultaneous visible animations
 - **FAQ section:** General questions about tech preferences, username origin, dev setup, etc.
 
@@ -77,15 +77,31 @@ export let name;          // deprecated
 | `id` | `number` | Unique identifier |
 | `name` | `string` | Display name |
 | `slug` | `string` | URL-friendly identifier for routing |
-| `shortDescription` | `string` | ~80 char summary for cards |
-| `longDescription` | `string` | Full description for detail view |
+| `shortDescription` | `string` | Paraglide message key for ~80 char summary (e.g. `"project_1_short_description"`) |
+| `longDescription` | `string` | Paraglide message key for full description (e.g. `"project_1_long_description"`) |
 | `images` | `string[]` | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/` |
 | `techstack` | `number[]` | References to `techstacks.json` `id`s |
 | `github` | `string` | Repository URL |
 | `deploy` | `string` | Live deployment URL |
 | `status` | `"active" \| "inactive" \| "archived"` | Deployment status |
 | `date` | `string` | `"YYYY-MM"` format for chronological sorting |
-| `highlights` | `string[]` | Key feature bullet points |
+| `highlights` | `string[]` | Paraglide message keys for feature bullet points (e.g. `["project_1_highlight_1", ...]`) |
+
+#### i18n Message Keys
+
+Text fields (`shortDescription`, `longDescription`, `highlights`) store Paraglide message keys, not raw text. In components, use dynamic lookup:
+
+```svelte
+<script>
+  const msg = m as unknown as Record<string, () => string>;
+</script>
+
+{msg[project.shortDescription]()}
+{msg[project.longDescription]()}
+{msg[highlight]()}
+```
+
+Key naming convention: `project_{id}_short_description`, `project_{id}_long_description`, `project_{id}_highlight_{n}`
 
 ### `src/lib/data/projects-internal.json`
 Internal reference file for personal notes. **Not used in the UI.**

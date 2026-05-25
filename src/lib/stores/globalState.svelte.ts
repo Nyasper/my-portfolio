@@ -44,4 +44,3 @@ export class PortfiolioGlobalState {
 	}
 }
 export const [getGlobalState, setGlobalState] = createContext<PortfiolioGlobalState>();
-export const globalState = new PortfiolioGlobalState();

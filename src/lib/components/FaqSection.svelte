@@ -3,6 +3,8 @@
 
 	let openIndex: number | null = $state(null);
 
+	let isExpanded = $derived(openIndex !== null);
+
 	const faqs = [
 		{ question: m.faq_q1_question(), answer: m.faq_q1_answer() },
 		{ question: m.faq_q2_question(), answer: m.faq_q2_answer() },
@@ -14,29 +16,12 @@
 		{ question: m.faq_q8_question(), answer: m.faq_q8_answer() }
 	];
 
-	const faqStructuredData = $derived({
-		'@context': 'https://schema.org',
-		'@type': 'FAQPage',
-		mainEntity: faqs.map((faq) => ({
-			'@type': 'Question',
-			name: faq.question,
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: faq.answer
-			}
-		}))
-	});
-
 	function toggleQuestion(index: number) {
 		openIndex = openIndex === index ? null : index;
 	}
 </script>
 
-<svelte:head>
-	{@html `<script type="application/ld+json">${JSON.stringify(faqStructuredData)}</script>`}
-</svelte:head>
-
-<section id="faq" class="faq" aria-labelledby="faq-heading">
+<section id="faq" class="faq" class:expanded={isExpanded} aria-labelledby="faq-heading">
 	<div class="faq-container glass-panel">
 		<h2 id="faq-heading">{m.faq_title()}</h2>
 		<p class="faq-subtitle">{m.faq_subtitle()}</p>
@@ -72,16 +57,22 @@
 
 <style>
 	.faq {
-		min-height: 100vh;
+		min-height: auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		scroll-snap-align: start;
 		scroll-margin-top: 70px;
+		padding: 2rem 0;
+	}
+
+	.faq.expanded {
+		min-height: 100vh;
 		padding: 0;
 	}
 
 	.faq-container {
+		width: 100%;
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 4rem;
@@ -154,19 +145,12 @@
 	}
 
 	.faq-answer {
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
+		display: none;
 		padding: 0 1.5rem 1.25rem;
-		transition:
-			opacity 0.3s ease,
-			visibility 0.3s ease;
 	}
 
 	.faq-item.open .faq-answer {
-		opacity: 1;
-		visibility: visible;
-		pointer-events: auto;
+		display: block;
 	}
 
 	.faq-answer p {

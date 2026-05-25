@@ -8,6 +8,8 @@
 	type Project = (typeof projectsData)[number];
 	type Tech = (typeof techstacksData)[number];
 
+	const msg = m as unknown as Record<string, () => string>;
+
 	let {
 		project,
 		techMap,
@@ -100,6 +102,7 @@
 
 <svelte:window onkeydown={handleKeyDown} />
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div
 	bind:this={modalElement}
 	class="modal-overlay"
@@ -110,12 +113,10 @@
 	aria-describedby="modal-description"
 	tabindex="-1"
 >
-	<div
-		class="modal-content glass-panel"
-		onclick={(e) => e.stopPropagation()}
-		onkeydown={(e) => e.key === 'Escape' && onClose()}
-	>
-		<button class="modal-close" onclick={onClose} aria-label={m.projects_close()}> <span aria-hidden="true">&times;</span> </button>
+	<div class="modal-content glass-panel">
+		<button class="modal-close" onclick={onClose} aria-label={m.projects_close()}>
+			<span aria-hidden="true">&times;</span>
+		</button>
 
 		<div class="modal-body">
 			<div class="modal-grid">
@@ -130,7 +131,7 @@
 					</div>
 
 					<div class="modal-description" id="modal-description">
-						<p>{project.longDescription}</p>
+						<p>{msg[project.longDescription]()}</p>
 					</div>
 
 					{#if project.highlights && project.highlights.length > 0}
@@ -138,22 +139,22 @@
 							<h4>{m.projects_highlights()}</h4>
 							<ul class="highlights-list">
 								{#each project.highlights as highlight (highlight)}
-								<li>
-									<svg
-										aria-hidden="true"
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="var(--accent-color)"
-										stroke-width="3"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
+									<li>
+										<svg
+											aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="var(--accent-color)"
+											stroke-width="3"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
 											<polyline points="20 6 9 17 4 12" />
 										</svg>
-										<span>{highlight}</span>
+										<span>{msg[highlight]()}</span>
 									</li>
 								{/each}
 							</ul>
@@ -197,16 +198,20 @@
 					<!-- Live region for gallery navigation announcements -->
 					<div aria-live="polite" class="visually-hidden">
 						{#if project.images && project.images.length > 1}
-							{m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}
+							{m.projects_gallery_image()}
+							{activeImageIndex + 1}
+							{m.projects_gallery_of()}
+							{project.images.length}
 						{/if}
 					</div>
 					<div class="gallery-main-wrapper">
 						{#if project.images && project.images.length > 0}
-						<img
-							src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
-							alt="{project.name} {m.projects_gallery_image()} {activeImageIndex + 1} {m.projects_gallery_of()} {project.images.length}"
-							class="gallery-main-img"
-						/>
+							<img
+								src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
+								alt="{project.name} {m.projects_gallery_image()} {activeImageIndex +
+									1} {m.projects_gallery_of()} {project.images.length}"
+								class="gallery-main-img"
+							/>
 
 							{#if project.images.length > 1}
 								<button class="gallery-arrow prev" onclick={prevImage} aria-label="Previous image">
@@ -217,7 +222,7 @@
 								</button>
 
 								<div class="gallery-dots" role="group" aria-label={m.projects_gallery_images()}>
-									{#each project.images as _, index (index)}
+									{#each project.images as imagePath, index (imagePath)}
 										<button
 											class="dot"
 											class:active={activeImageIndex === index}
@@ -234,15 +239,15 @@
 					</div>
 
 					{#if project.images && project.images.length > 1}
-					<div class="gallery-thumbnails" role="group" aria-label={m.projects_gallery_images()}>
-						{#each project.images as img, index (index)}
-							<button
-								class="thumbnail-btn"
-								class:active={activeImageIndex === index}
-								onclick={() => (activeImageIndex = index)}
-								aria-label="{m.projects_gallery_image()} {index + 1}"
-								aria-current={activeImageIndex === index ? 'true' : undefined}
-							>
+						<div class="gallery-thumbnails" role="group" aria-label={m.projects_gallery_images()}>
+							{#each project.images as img, index (index)}
+								<button
+									class="thumbnail-btn"
+									class:active={activeImageIndex === index}
+									onclick={() => (activeImageIndex = index)}
+									aria-label="{m.projects_gallery_image()} {index + 1}"
+									aria-current={activeImageIndex === index ? 'true' : undefined}
+								>
 									<img
 										src="/images/projects/{project.id}/{img}"
 										alt="Thumbnail {index + 1}"
@@ -695,6 +700,7 @@
 		font-weight: 800;
 		background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-color) 100%);
 		-webkit-background-clip: text;
+		background-clip: text;
 		-webkit-text-fill-color: transparent;
 		letter-spacing: 0.05em;
 	}
