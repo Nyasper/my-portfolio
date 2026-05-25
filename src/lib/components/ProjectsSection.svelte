@@ -3,6 +3,7 @@
 	import projectsData from '$lib/data/projects.json';
 	import techstacksData from '$lib/data/techstacks.json';
 	import { getGlobalState, getTechColor } from '$lib/stores/globalState.svelte';
+	import { PUBLIC_GITHUB_URL } from '$env/static/public';
 	import ProjectModal from './ProjectModal.svelte';
 
 	type Tech = (typeof techstacksData)[number];
@@ -191,6 +192,28 @@
 						</article>
 					</li>
 				{/each}
+
+				<!-- CTA card to GitHub -->
+				<li>
+					<article class="project-card glass-panel more-projects-card" aria-label={m.projects_more_cta()}>
+						<div class="more-projects-content">
+							<div class="more-projects-icon">
+								{@render githubIcon(48)}
+							</div>
+							<h3 class="more-projects-title">{m.projects_more_title()}</h3>
+							<p class="more-projects-description">{m.projects_more_description()}</p>
+							<a
+								href={PUBLIC_GITHUB_URL}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="more-projects-btn glass-panel"
+							>
+								{@render externalLinkIcon(18)}
+								{m.projects_more_cta()}
+							</a>
+						</div>
+					</article>
+				</li>
 			</ul>
 		{:else}
 			<div class="no-projects-view glass-panel" role="status" aria-live="polite">
@@ -691,12 +714,88 @@
 		transform: translateY(-2px);
 	}
 
+	/* More Projects CTA Card */
+	.more-projects-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		min-height: 400px;
+		border: 2px dashed var(--glass-border);
+		background: transparent;
+		cursor: default;
+	}
+
+	.more-projects-card:hover {
+		border-color: var(--accent-color);
+		transform: translateY(-4px);
+		box-shadow: 0 12px 30px rgba(88, 166, 255, 0.08);
+	}
+
+	.more-projects-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
+		padding: 2rem;
+	}
+
+	.more-projects-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		background: rgba(88, 166, 255, 0.08);
+		border: 1px solid var(--glass-border);
+		color: var(--accent-color);
+	}
+
+	.more-projects-title {
+		font-size: 1.35rem;
+		font-weight: 600;
+		color: var(--text-main);
+	}
+
+	.more-projects-description {
+		font-size: 0.95rem;
+		color: var(--text-muted);
+		line-height: 1.5;
+		max-width: 420px;
+	}
+
+	.more-projects-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.65rem 1.5rem;
+		border-radius: 50px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-main);
+		border: 1px solid var(--glass-border);
+		text-decoration: none;
+		transition: all 0.25s ease;
+		margin-top: 0.5rem;
+	}
+
+	.more-projects-btn:hover {
+		background: var(--accent-color);
+		border-color: var(--accent-color);
+		color: #0d1117;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(88, 166, 255, 0.25);
+	}
+
 	/* Focus-visible styles for accessibility */
 	.project-card :is(button, a):focus-visible,
 	.details-btn:focus-visible,
 	.clear-filter-btn:focus-visible,
 	.clear-btn-full:focus-visible,
-	.tag-badge:focus-visible {
+	.tag-badge:focus-visible,
+	.more-projects-btn:focus-visible {
 		outline: 2px solid var(--accent-color);
 		outline-offset: 2px;
 	}

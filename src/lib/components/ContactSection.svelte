@@ -7,7 +7,9 @@
 		PUBLIC_TWITTER_URL,
 		PUBLIC_TWITTER_USERNAME,
 		PUBLIC_DISCORD_URL,
-		PUBLIC_DISCORD_USERNAME
+		PUBLIC_DISCORD_USERNAME,
+		PUBLIC_LINKEDIN_URL,
+		PUBLIC_LINKEDIN_USERNAME
 	} from '$env/static/public';
 
 	type Social = { name: string; url: string; icon: string; username: string };
@@ -24,6 +26,12 @@
 			url: `mailto:${PUBLIC_EMAIL}`,
 			username: PUBLIC_EMAIL,
 			icon: '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>'
+		},
+		{
+			name: 'LinkedIn',
+			url: PUBLIC_LINKEDIN_URL,
+			username: PUBLIC_LINKEDIN_USERNAME,
+			icon: '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>'
 		},
 		{
 			name: 'X / Twitter',
@@ -177,6 +185,7 @@
 		align-items: center;
 		gap: 0.75rem;
 		padding: 1.5rem 2rem;
+		padding-bottom: 2rem;
 		border-radius: 16px;
 		color: var(--text-main);
 		text-decoration: none;
@@ -207,9 +216,22 @@
 	}
 
 	.username {
+		position: absolute;
+		bottom: 0.4rem;
+		left: 50%;
+		transform: translateX(-50%) translateY(4px);
 		font-size: 0.75rem;
 		color: var(--text-muted);
+		white-space: nowrap;
+		opacity: 0;
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	.social-link:hover .username {
 		opacity: 0.7;
+		transform: translateX(-50%) translateY(0);
 	}
 
 	.copy-btn {
@@ -227,14 +249,17 @@
 		color: var(--text-muted);
 		cursor: pointer;
 		opacity: 0;
+		transform: scale(0.8);
 		transition:
 			opacity 0.2s ease,
+			transform 0.2s ease,
 			background 0.2s ease,
 			color 0.2s ease;
 	}
 
 	.social-link:hover .copy-btn {
 		opacity: 1;
+		transform: scale(1);
 	}
 
 	.copy-btn:hover {
@@ -273,11 +298,18 @@
 
 		.social-link {
 			padding: 1.25rem 1.5rem;
+			padding-bottom: 2rem;
 			min-width: 100px;
+		}
+
+		.username {
+			opacity: 0.7;
+			transform: none;
 		}
 
 		.copy-btn {
 			opacity: 1;
+			transform: scale(1);
 		}
 	}
 </style>

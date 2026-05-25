@@ -1,11 +1,12 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import { PUBLIC_NAME } from '$env/static/public';
 </script>
 
 <section id="home" class="hero" aria-labelledby="hero-heading">
 	<div class="hero-content glass-panel">
 		<header>
-			<h1 id="hero-heading">{m.hero_greeting()} <span class="highlight">Gonzalo</span></h1>
+			<h1 id="hero-heading">{m.hero_greeting()} <span class="highlight">{PUBLIC_NAME}</span></h1>
 			<p class="hero-role">{m.hero_role()}</p>
 			<p class="hero-description">{m.hero_description()}</p>
 		</header>

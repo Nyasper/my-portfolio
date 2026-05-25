@@ -12,6 +12,14 @@
 
 	let activeSection = $state('home');
 
+	// Sync active section to URL hash without polluting browser history
+	$effect(() => {
+		const hash = window.location.hash.slice(1);
+		if (activeSection && activeSection !== hash) {
+			history.replaceState(null, '', `#${activeSection}`);
+		}
+	});
+
 	$effect(() => {
 		const observers: IntersectionObserver[] = [];
 
