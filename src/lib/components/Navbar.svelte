@@ -138,5 +138,14 @@
 		.nav-links {
 			display: none;
 		}
+
+		.name-slide {
+			transition: none;
+			transform: none;
+		}
+
+		.logo a:hover .name-slide {
+			transform: none;
+		}
 	}
 </style>

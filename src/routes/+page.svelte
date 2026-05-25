@@ -2,7 +2,13 @@
 	import * as m from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { page } from '$app/state';
-	import { PUBLIC_GITHUB_URL, PUBLIC_TWITTER_URL, PUBLIC_LINKEDIN_URL, PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
+	import {
+		PUBLIC_GITHUB_URL,
+		PUBLIC_TWITTER_URL,
+		PUBLIC_LINKEDIN_URL,
+		PUBLIC_NAME,
+		PUBLIC_DISPLAY_NAME
+	} from '$env/static/public';
 	import HeroSection from '$lib/components/HeroSection.svelte';
 	import AboutSection from '$lib/components/AboutSection.svelte';
 	import SkillsSection from '$lib/components/SkillsSection.svelte';
@@ -21,11 +27,7 @@
 		url: siteUrl,
 		jobTitle: 'Web Developer',
 		description: m.hero_description(),
-		sameAs: [
-			PUBLIC_GITHUB_URL,
-			PUBLIC_TWITTER_URL,
-			PUBLIC_LINKEDIN_URL
-		],
+		sameAs: [PUBLIC_GITHUB_URL, PUBLIC_TWITTER_URL, PUBLIC_LINKEDIN_URL],
 		knowsAbout: [
 			'JavaScript',
 			'TypeScript',
@@ -45,7 +47,7 @@
 </script>
 
 <svelte:head>
-	<title>{m.hero_role()} | {PUBLIC_NAME} — {PUBLIC_DISPLAY_NAME}</title>
+	<title>{PUBLIC_NAME} | {m.hero_role()}</title>
 	<meta name="description" content={m.hero_description()} />
 	<meta name="robots" content="index, follow" />
 
