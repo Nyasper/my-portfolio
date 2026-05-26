@@ -26,6 +26,10 @@
 
 	let activeImageIndex = $state(0);
 	let modalElement = $state<HTMLElement | null>(null);
+	let isLightboxOpen = $state(false);
+	let lightboxCloseBtn = $state<HTMLButtonElement | null>(null);
+	let galleryMainBtn = $state<HTMLButtonElement | null>(null);
+	let prevActiveElementBeforeLightbox = $state<HTMLElement | null>(null);
 
 	$effect(() => {
 		const prev = document.activeElement as HTMLElement;
@@ -50,14 +54,55 @@
 		};
 	});
 
+	$effect(() => {
+		if (isLightboxOpen) {
+			prevActiveElementBeforeLightbox = document.activeElement as HTMLElement;
+			const timeout = setTimeout(() => {
+				lightboxCloseBtn?.focus();
+			}, 30);
+			return () => clearTimeout(timeout);
+		} else {
+			if (prevActiveElementBeforeLightbox) {
+				prevActiveElementBeforeLightbox.focus();
+				prevActiveElementBeforeLightbox = null;
+			}
+		}
+	});
+
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
-			onClose();
+			if (isLightboxOpen) {
+				isLightboxOpen = false;
+			} else {
+				onClose();
+			}
 		} else if (event.key === 'ArrowRight' && project.images && project.images.length > 1) {
 			nextImage();
 		} else if (event.key === 'ArrowLeft' && project.images && project.images.length > 1) {
 			prevImage();
 		} else if (event.key === 'Tab') {
+			if (isLightboxOpen) {
+				const lightboxOverlay = document.querySelector('.lightbox-overlay');
+				if (!lightboxOverlay) return;
+				const focusableElements = lightboxOverlay.querySelectorAll('button');
+				if (focusableElements.length === 0) return;
+				const firstElement = focusableElements[0] as HTMLElement;
+				const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+				if (event.shiftKey) {
+					if (document.activeElement === firstElement) {
+						lastElement.focus();
+						event.preventDefault();
+					}
+				} else {
+					if (document.activeElement === lastElement) {
+						firstElement.focus();
+						event.preventDefault();
+					}
+				}
+				return;
+			}
+
 			if (!modalElement) return;
 			const focusableElements = modalElement.querySelectorAll(
 				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -212,12 +257,37 @@
 					</div>
 					<div class="gallery-main-wrapper">
 						{#if project.images && project.images.length > 0}
-							<img
-								src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
-								alt="{project.name} {m.projects_gallery_image()} {activeImageIndex +
-									1} {m.projects_gallery_of()} {project.images.length}"
-								class="gallery-main-img"
-							/>
+							<button
+								bind:this={galleryMainBtn}
+								class="gallery-main-btn"
+								onclick={() => (isLightboxOpen = true)}
+								aria-label="Enlarge image preview"
+							>
+								<img
+									src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
+									alt="{project.name} {m.projects_gallery_image()} {activeImageIndex +
+										1} {m.projects_gallery_of()} {project.images.length}"
+									class="gallery-main-img"
+								/>
+								<div class="enlarge-overlay" aria-hidden="true">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="28"
+										height="28"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.5"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="15 3 21 3 21 9" />
+										<polyline points="9 21 3 21 3 15" />
+										<line x1="21" y1="3" x2="14" y2="10" />
+										<line x1="3" y1="21" x2="10" y2="14" />
+									</svg>
+								</div>
+							</button>
 
 							{#if project.images.length > 1}
 								<button class="gallery-arrow prev" onclick={prevImage} aria-label="Previous image">
@@ -268,6 +338,46 @@
 		</div>
 	</div>
 </div>
+
+{#if isLightboxOpen && project.images && project.images.length > 0}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div
+		class="lightbox-overlay"
+		onclick={(e) => {
+			if (e.target === e.currentTarget) isLightboxOpen = false;
+		}}
+		role="dialog"
+		aria-modal="true"
+		aria-label="Image preview lightbox"
+		tabindex="-1"
+	>
+		<button
+			bind:this={lightboxCloseBtn}
+			class="lightbox-close"
+			onclick={() => (isLightboxOpen = false)}
+			aria-label="Close image preview"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+
+		<div class="lightbox-content">
+			<img
+				src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
+				alt="Enlarged screenshot of {project.name}"
+				class="lightbox-img"
+			/>
+
+			{#if project.images.length > 1}
+				<button class="lightbox-arrow prev" onclick={prevImage} aria-label="Previous image">
+					&#8249;
+				</button>
+				<button class="lightbox-arrow next" onclick={nextImage} aria-label="Next image">
+					&#8250;
+				</button>
+			{/if}
+		</div>
+	</div>
+{/if}
 
 {#snippet projectInitials(name: string, large = false)}
 	<div class="gradient-placeholder" class:large aria-hidden="true">
@@ -891,5 +1001,179 @@
 
 	:global([data-theme='light']) .tag-badge.selected {
 		background: rgba(9, 105, 218, 0.1);
+	}
+
+	/* Clickable Gallery Image Button */
+	.gallery-main-btn {
+		width: 100%;
+		height: 100%;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		position: relative;
+		display: block;
+		overflow: hidden;
+		border-radius: 12px;
+	}
+
+	.enlarge-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #ffffff;
+		opacity: 0;
+		transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+		z-index: 4;
+	}
+
+	.gallery-main-btn:hover .enlarge-overlay,
+	.gallery-main-btn:focus-visible .enlarge-overlay {
+		opacity: 1;
+	}
+
+	.gallery-main-btn .gallery-main-img {
+		transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+	}
+
+	.gallery-main-btn:hover .gallery-main-img {
+		transform: scale(1.04);
+	}
+
+	/* Lightbox full screen modal overlay */
+	.lightbox-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(10, 10, 10, 0.92);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		z-index: 3000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		animation: fade-in 0.25s ease-out;
+	}
+
+	.lightbox-close {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		width: 46px;
+		height: 46px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		color: #ffffff;
+		font-size: 2rem;
+		line-height: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 3010;
+		transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+		padding-bottom: 2px;
+	}
+
+	.lightbox-close:hover {
+		background: var(--accent-color);
+		color: #0d1117;
+		border-color: var(--accent-color);
+		transform: rotate(90deg);
+	}
+
+	.lightbox-content {
+		position: relative;
+		max-width: 90%;
+		max-height: 85vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		animation: zoom-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.lightbox-img {
+		max-width: 100%;
+		max-height: 85vh;
+		object-fit: contain;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+	}
+
+	.lightbox-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		color: #ffffff;
+		font-size: 2.25rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s ease;
+		z-index: 3005;
+		padding-bottom: 5px;
+	}
+
+	.lightbox-arrow:hover {
+		background: var(--accent-color);
+		color: #0d1117;
+		border-color: var(--accent-color);
+		transform: scale(1.08);
+	}
+
+	.lightbox-arrow.prev {
+		left: -5rem;
+	}
+
+	.lightbox-arrow.next {
+		right: -5rem;
+	}
+
+	@media (max-width: 1200px) {
+		.lightbox-arrow.prev {
+			left: -3rem;
+		}
+
+		.lightbox-arrow.next {
+			right: -3rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.lightbox-overlay {
+			padding: 1rem;
+		}
+
+		.lightbox-arrow {
+			width: 44px;
+			height: 44px;
+			font-size: 1.75rem;
+			padding-bottom: 4px;
+		}
+
+		.lightbox-arrow.prev {
+			left: 0.5rem;
+		}
+
+		.lightbox-arrow.next {
+			right: 0.5rem;
+		}
 	}
 </style>
