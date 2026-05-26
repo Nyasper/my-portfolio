@@ -931,4 +931,43 @@
 			gap: 0.75rem;
 		}
 	}
+
+	:global([data-theme='light']) .tag-badge {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	:global([data-theme='light']) .tag-badge.selected {
+		background: rgba(9, 105, 218, 0.1);
+	}
+
+	:global([data-theme='light']) .icon-link {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	:global([data-theme='light']) .details-btn {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	:global([data-theme='light']) .details-btn:hover {
+		color: #ffffff;
+		box-shadow: 0 4px 12px rgba(9, 105, 218, 0.25);
+	}
+
+	:global([data-theme='light']) .more-projects-btn {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	:global([data-theme='light']) .more-projects-btn:hover {
+		color: #ffffff;
+		box-shadow: 0 4px 12px rgba(9, 105, 218, 0.25);
+	}
+
+	:global([data-theme='light']) .clear-btn-full {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
 </style>

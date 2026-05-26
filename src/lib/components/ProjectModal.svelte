@@ -414,7 +414,7 @@
 		gap: 2rem;
 	}
 
-	@media (min-width: 900px) {
+	@media (min-width: 1276px) {
 		.modal-grid {
 			display: grid;
 			grid-template-columns: 1.1fr 1fr;
@@ -823,7 +823,7 @@
 		}
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 1275px) {
 		.modal-body {
 			padding: 2rem;
 		}
@@ -835,5 +835,61 @@
 		.thumbnail-btn {
 			width: 100px;
 		}
+	}
+
+	:global([data-theme='light']) .modal-content {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+	}
+
+	:global([data-theme='light']) .modal-close {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+		color: var(--text-main);
+	}
+
+	:global([data-theme='light']) .modal-close:hover {
+		background: var(--accent-color);
+		color: #ffffff;
+		border-color: var(--accent-color);
+	}
+
+	:global([data-theme='light']) .modal-btn.source {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+		color: var(--text-main);
+	}
+
+	:global([data-theme='light']) .modal-btn.source:hover {
+		background: rgba(0, 0, 0, 0.02);
+		border-color: var(--text-main);
+		transform: translateY(-2px);
+	}
+
+	:global([data-theme='light']) .modal-btn.live:hover {
+		color: #ffffff;
+		box-shadow: 0 4px 15px rgba(9, 105, 218, 0.35);
+	}
+
+	:global([data-theme='light']) .gallery-arrow {
+		background: rgba(255, 255, 255, 0.9);
+		border-color: rgba(0, 0, 0, 0.08);
+		color: var(--text-main);
+	}
+
+	:global([data-theme='light']) .gallery-arrow:hover {
+		background: var(--accent-color);
+		color: #ffffff;
+		border-color: var(--accent-color);
+	}
+
+	:global([data-theme='light']) .tag-badge {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	:global([data-theme='light']) .tag-badge.selected {
+		background: rgba(9, 105, 218, 0.1);
 	}
 </style>
