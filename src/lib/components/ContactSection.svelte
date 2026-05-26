@@ -86,16 +86,18 @@
 </section>
 
 {#snippet socialItem({ name, url, icon, username }: Social)}
-	<a
-		href={url}
-		target="_blank"
-		rel="noopener noreferrer"
-		aria-label="{name}: {username}"
-		class="social-link glass-panel"
-	>
-		{@html icon}
-		<span class="social-name">{name}</span>
-		<span class="username">{username}</span>
+	<div class="social-card glass-panel">
+		<a
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="{name}: {username} (opens in new tab)"
+			class="social-link-overlay"
+		>
+			{@html icon}
+			<span class="social-name">{name}</span>
+			<span class="username">{username}</span>
+		</a>
 		<button
 			class="copy-btn"
 			class:copied={copiedSocial === name}
@@ -135,7 +137,7 @@
 				>
 			{/if}
 		</button>
-	</a>
+	</div>
 {/snippet}
 
 <style>
@@ -178,34 +180,43 @@
 		margin: 0;
 	}
 
-	.social-link {
+	.social-card {
 		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border-radius: 16px;
+		min-width: 120px;
+		transition: all 0.3s ease;
+	}
+
+	.social-card:hover {
+		transform: translateY(-4px);
+		border-color: var(--accent-color);
+		box-shadow: 0 8px 25px rgba(88, 166, 255, 0.15);
+	}
+
+	.social-link-overlay {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.75rem;
 		padding: 1.5rem 2rem;
 		padding-bottom: 2rem;
-		border-radius: 16px;
+		width: 100%;
+		height: 100%;
 		color: var(--text-main);
 		text-decoration: none;
-		min-width: 120px;
 	}
 
-	.social-link:hover {
-		transform: translateY(-4px);
-		border-color: var(--accent-color);
-		box-shadow: 0 8px 25px rgba(88, 166, 255, 0.15);
-	}
-
-	.social-link :global(svg) {
+	.social-link-overlay :global(svg) {
 		color: var(--text-muted);
 		transition:
 			color 0.2s ease,
 			transform 0.2s ease;
 	}
 
-	.social-link:hover :global(svg) {
+	.social-card:hover .social-link-overlay :global(svg) {
 		color: var(--accent-color);
 		transform: scale(1.1);
 	}
@@ -229,7 +240,7 @@
 			transform 0.2s ease;
 	}
 
-	.social-link:hover .username {
+	.social-card:hover .username {
 		opacity: 0.7;
 		transform: translateX(-50%) translateY(0);
 	}
@@ -257,7 +268,7 @@
 			color 0.2s ease;
 	}
 
-	.social-link:hover .copy-btn {
+	.social-card:hover .copy-btn {
 		opacity: 1;
 		transform: scale(1);
 	}
@@ -296,10 +307,13 @@
 			gap: 1rem;
 		}
 
-		.social-link {
+		.social-card {
+			min-width: 100px;
+		}
+
+		.social-link-overlay {
 			padding: 1.25rem 1.5rem;
 			padding-bottom: 2rem;
-			min-width: 100px;
 		}
 
 		.username {

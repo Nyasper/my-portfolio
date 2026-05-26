@@ -1,6 +1,7 @@
 # Portfolio Project Conventions
 
 ## Stack & Tooling
+
 - **Framework:** SvelteKit with **Svelte 5** exclusively (never Svelte 4 patterns)
 - **Package Manager:** `bun` — always use `bun install`, `bun run dev`, `bunx` etc.
 - **Styling:** Vanilla CSS only (no Tailwind). All theming via CSS custom properties in `src/app.css`
@@ -9,6 +10,7 @@
 - **Default Theme:** Dark mode. Light mode available via user toggle
 
 ## Svelte 5 Runes — Mandatory
+
 All reactive state MUST use Svelte 5 runes. **Never** use Svelte 4 reactive patterns:
 
 ```svelte
@@ -28,6 +30,7 @@ export let name;          // deprecated
 ```
 
 ## Paraglide i18n Usage
+
 - Import messages: `import * as m from '$lib/paraglide/messages';`
 - Use in templates: `{m.message_key()}`
 - Import runtime: `import { getLocale, localizeHref, deLocalizeHref } from '$lib/paraglide/runtime';`
@@ -35,6 +38,7 @@ export let name;          // deprecated
 - When switching locale, use `deLocalizeHref()` + `localizeHref()` pattern with `<a>` tags (never `goto()` for locale switching — the server middleware needs full navigation)
 
 ## Design System
+
 - **Glassmorphism / Mica effect:** Use the `.glass-panel` utility class for any card, panel, or overlay
 - **CSS Variables:** All colors, backgrounds, borders, and shadows use `var(--*)` tokens defined in `app.css`
 - **Theming:** Light/dark controlled via `[data-theme='light']` selector on `<html>`
@@ -43,12 +47,14 @@ export let name;          // deprecated
 - **Navbar:** Always a floating pill (`border-radius: 50px`, `position: fixed`, centered via `left: 50%; transform: translateX(-50%)`)
 
 ## Accessibility
+
 - Respect `prefers-reduced-motion: reduce` — global rule in `app.css` disables all animations/transitions
 - Limit simultaneous on-screen animations to avoid visual overload
 - All interactive elements must have `aria-label` attributes
 - Keyboard navigable
 
 ## Project Architecture
+
 - Components: `src/lib/components/`
 - Global styles: `src/app.css`
 - Paraglide messages: `messages/{en,es}.json`
@@ -58,12 +64,14 @@ export let name;          // deprecated
 - Client hooks: `src/hooks.ts` (Paraglide reroute)
 
 ### Component Architecture
+
 - **Each portfolio section must be an independent component** in `src/lib/components/`
 - `+page.svelte` is only responsible for composing sections — no inline section markup
 - Naming convention: `{SectionName}Section.svelte` (e.g. `HeroSection.svelte`, `FaqSection.svelte`, `SkillsSection.svelte`)
 - Section-specific styles live inside the component. Only global layout rules (e.g. `main { padding-top }`) stay in `+page.svelte`
 
 ## Key Features to Implement
+
 - **Skills → Projects filtering:** Clicking a technology pill in the Skills section filters the Projects grid to show only matching projects
 - **Project status:** Each project has `active` | `inactive` | `archived` state. Active projects display their deployment URL
 - **Scroll animations:** Fade-in-up on scroll entry, with a cap on simultaneous visible animations
@@ -72,20 +80,21 @@ export let name;          // deprecated
 ## Data Structure
 
 ### `src/lib/data/projects.json`
-| Property | Type | Description |
-|---|---|---|
-| `id` | `number` | Unique identifier |
-| `name` | `string` | Display name |
-| `slug` | `string` | URL-friendly identifier for routing |
-| `shortDescription` | `string` | Paraglide message key for ~80 char summary (e.g. `"project_1_short_description"`) |
-| `longDescription` | `string` | Paraglide message key for full description (e.g. `"project_1_long_description"`) |
-| `images` | `string[]` | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/` |
-| `techstack` | `number[]` | References to `techstacks.json` `id`s |
-| `github` | `string` | Repository URL |
-| `deploy` | `string` | Live deployment URL |
-| `status` | `"active" \| "inactive" \| "archived"` | Deployment status |
-| `date` | `string` | `"YYYY-MM"` format for chronological sorting |
-| `highlights` | `string[]` | Paraglide message keys for feature bullet points (e.g. `["project_1_highlight_1", ...]`) |
+
+| Property           | Type                                   | Description                                                                                       |
+| ------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `id`               | `number`                               | Unique identifier                                                                                 |
+| `name`             | `string`                               | Display name                                                                                      |
+| `slug`             | `string`                               | URL-friendly identifier for routing                                                               |
+| `shortDescription` | `string`                               | Paraglide message key for ~80 char summary (e.g. `"project_1_short_description"`)                 |
+| `longDescription`  | `string`                               | Paraglide message key for full description (e.g. `"project_1_long_description"`)                  |
+| `images`           | `string[]`                             | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/` |
+| `techstack`        | `number[]`                             | References to `techstacks.json` `id`s                                                             |
+| `github`           | `string`                               | Repository URL                                                                                    |
+| `deploy`           | `string`                               | Live deployment URL                                                                               |
+| `status`           | `"active" \| "inactive" \| "archived"` | Deployment status                                                                                 |
+| `date`             | `string`                               | `"YYYY-MM"` format for chronological sorting                                                      |
+| `highlights`       | `string[]`                             | Paraglide message keys for feature bullet points (e.g. `["project_1_highlight_1", ...]`)          |
 
 #### i18n Message Keys
 
@@ -93,7 +102,7 @@ Text fields (`shortDescription`, `longDescription`, `highlights`) store Paraglid
 
 ```svelte
 <script>
-  const msg = m as unknown as Record<string, () => string>;
+	const msg = m as unknown as Record<string, () => string>;
 </script>
 
 {msg[project.shortDescription]()}
@@ -104,62 +113,64 @@ Text fields (`shortDescription`, `longDescription`, `highlights`) store Paraglid
 Key naming convention: `project_{id}_short_description`, `project_{id}_long_description`, `project_{id}_highlight_{n}`
 
 ### `src/lib/data/projects-internal.json`
+
 Internal reference file for personal notes. **Not used in the UI.**
 
-| Property | Type | Description |
-|---|---|---|
-| `id` | `number` | Matches `projects.json` `id` |
-| `difficulty` | `"easy" \| "normal" \| "complex"` | Complexity level |
-| `difficultyReason` | `string` | Explanation of why it ranks at that level |
+| Property           | Type                              | Description                               |
+| ------------------ | --------------------------------- | ----------------------------------------- |
+| `id`               | `number`                          | Matches `projects.json` `id`              |
+| `difficulty`       | `"easy" \| "normal" \| "complex"` | Complexity level                          |
+| `difficultyReason` | `string`                          | Explanation of why it ranks at that level |
 
 ### `src/lib/data/techstacks.json`
-| Property | Type | Description |
-|---|---|---|
-| `id` | `number` | Unique identifier |
-| `name` | `string` | Display name |
-| `category` | `"language" \| "framework" \| "library" \| "database" \| "tool" \| "platform"` | Technology type |
-| `color` | `string` | Brand hex color for badge/pill styling |
-| `icon` | `string` | SVG path or icon identifier |
-| `url` | `string` | Official website URL |
+
+| Property   | Type                                                                           | Description                            |
+| ---------- | ------------------------------------------------------------------------------ | -------------------------------------- |
+| `id`       | `number`                                                                       | Unique identifier                      |
+| `name`     | `string`                                                                       | Display name                           |
+| `category` | `"language" \| "framework" \| "library" \| "database" \| "tool" \| "platform"` | Technology type                        |
+| `color`    | `string`                                                                       | Brand hex color for badge/pill styling |
+| `icon`     | `string`                                                                       | SVG path or icon identifier            |
+| `url`      | `string`                                                                       | Official website URL                   |
 
 ### Techstack Reference
 
-| ID | Name | Category |
-|---|---|---|
-| 1 | JavaScript | language |
-| 2 | TypeScript | language |
-| 3 | Node.js | platform |
-| 4 | Bun | platform |
-| 5 | Svelte | framework |
-| 6 | SvelteKit | framework |
-| 7 | React | framework |
-| 8 | Next.js | framework |
-| 9 | Vue.js | framework |
-| 10 | Angular | framework |
-| 11 | Tailwind CSS | library |
-| 12 | Express | framework |
-| 13 | Hono | framework |
-| 14 | Better Auth | library |
-| 15 | Drizzle ORM | library |
-| 16 | C# | language |
-| 17 | .NET | platform |
-| 18 | ASP.NET | framework |
-| 19 | Entity Framework | library |
-| 20 | PostgreSQL | database |
-| 21 | Docker | tool |
+| ID  | Name             | Category  |
+| --- | ---------------- | --------- |
+| 1   | JavaScript       | language  |
+| 2   | TypeScript       | language  |
+| 3   | Node.js          | platform  |
+| 4   | Bun              | platform  |
+| 5   | Svelte           | framework |
+| 6   | SvelteKit        | framework |
+| 7   | React            | framework |
+| 8   | Next.js          | framework |
+| 9   | Vue.js           | framework |
+| 10  | Angular          | framework |
+| 11  | Tailwind CSS     | library   |
+| 12  | Express          | framework |
+| 13  | Hono             | framework |
+| 14  | Better Auth      | library   |
+| 15  | Drizzle ORM      | library   |
+| 16  | C#               | language  |
+| 17  | .NET             | platform  |
+| 18  | ASP.NET          | framework |
+| 19  | Entity Framework | library   |
+| 20  | PostgreSQL       | database  |
+| 21  | Docker           | tool      |
 
 ### Projects → Techstack Map
 
-| ID | Project | Tech IDs | Tech Names |
-|---|---|---|---|
-| 1 | Draw App | `[2,4,5,6,7,14,15,20,21]` | TS, Bun, Svelte, SvelteKit, React, Better Auth, Drizzle, PostgreSQL, Docker |
-| 2 | Anime Database | `[2,7,8,11]` | TS, React, Next.js, Tailwind CSS |
-| 3 | Netflix Clone | `[2,5,6]` | TS, Svelte, SvelteKit |
-| 4 | CSS Animations Gallery | `[2,5,6]` | TS, Svelte, SvelteKit |
-| 5 | Blue Archive Database | `[2,7]` | TS, React |
-| 6 | Vue Notes App | `[2,9,13]` | TS, Vue.js, Hono |
-| 7 | Hono Notes Backend | `[2,4,13,15]` | TS, Bun, Hono, Drizzle |
-| 8 | Wiki Scraper | `[16,17,19]` | C#, .NET, Entity Framework |
-| 9 | Simple Anime Gallery | `[1]` | JS |
-| 10 | Angular Marvel API | `[2,10]` | TS, Angular |
-| 11 | NoteNow | `[2,4,5,6,14,15,20,21]` | TS, Bun, Svelte, SvelteKit, Better Auth, Drizzle, PostgreSQL, Docker |
+| ID  | Project                | Tech IDs                  | Tech Names                                                                  |
+| --- | ---------------------- | ------------------------- | --------------------------------------------------------------------------- |
+| 1   | Draw App               | `[2,4,5,6,7,14,15,20,21]` | TS, Bun, Svelte, SvelteKit, React, Better Auth, Drizzle, PostgreSQL, Docker |
+| 2   | Anime Database         | `[2,7,8,11]`              | TS, React, Next.js, Tailwind CSS                                            |
+| 3   | Netflix Clone          | `[2,5,6]`                 | TS, Svelte, SvelteKit                                                       |
+| 4   | CSS Animations Gallery | `[2,5,6]`                 | TS, Svelte, SvelteKit                                                       |
+| 5   | Blue Archive Database  | `[2,7]`                   | TS, React                                                                   |
+| 6   | Vue Notes App          | `[2,9,13]`                | TS, Vue.js, Hono                                                            |
+| 7   | Hono Notes Backend     | `[2,4,13,15]`             | TS, Bun, Hono, Drizzle                                                      |
+| 8   | Wiki Scraper           | `[16,17,19]`              | C#, .NET, Entity Framework                                                  |
+| 9   | Simple Anime Gallery   | `[1]`                     | JS                                                                          |
+| 10  | Angular Marvel API     | `[2,10]`                  | TS, Angular                                                                 |
+| 11  | NoteNow                | `[2,4,5,6,14,15,20,21]`   | TS, Bun, Svelte, SvelteKit, Better Auth, Drizzle, PostgreSQL, Docker        |

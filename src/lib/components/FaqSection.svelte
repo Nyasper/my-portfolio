@@ -47,7 +47,9 @@
 						aria-labelledby="faq-question-{i}"
 						aria-hidden={!isOpen}
 					>
-						<p>{answer}</p>
+						<div class="faq-answer-content">
+							<p>{answer}</p>
+						</div>
 					</div>
 				</div>
 			{/each}
@@ -145,12 +147,22 @@
 	}
 
 	.faq-answer {
-		display: none;
-		padding: 0 1.5rem 1.25rem;
+		display: grid;
+		grid-template-rows: 0fr;
+		transition:
+			grid-template-rows 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+			padding 0.3s ease;
+		padding: 0 1.5rem;
+		overflow: hidden;
 	}
 
 	.faq-item.open .faq-answer {
-		display: block;
+		grid-template-rows: 1fr;
+		padding-bottom: 1.25rem;
+	}
+
+	.faq-answer-content {
+		min-height: 0;
 	}
 
 	.faq-answer p {
