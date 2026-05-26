@@ -31,6 +31,10 @@
 		const prev = document.activeElement as HTMLElement;
 		activeImageIndex = 0;
 
+		// Lock body scroll to prevent double scrollbar bug
+		const originalOverflow = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+
 		const timeout = setTimeout(() => {
 			if (modalElement) {
 				const focusable = modalElement.querySelector('button, [tabindex="0"]') as HTMLElement;
@@ -40,6 +44,8 @@
 
 		return () => {
 			clearTimeout(timeout);
+			// Restore body scroll when modal closes
+			document.body.style.overflow = originalOverflow;
 			prev?.focus();
 		};
 	});
@@ -361,10 +367,11 @@
 	.modal-content {
 		position: relative;
 		width: 100%;
-		max-width: 1050px;
+		max-width: 1300px;
 		max-height: 90vh;
 		border-radius: 20px;
 		overflow-y: auto;
+		overflow-x: hidden;
 		animation: zoom-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 		border: 1px solid var(--glass-border);
 		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -410,9 +417,9 @@
 	@media (min-width: 900px) {
 		.modal-grid {
 			display: grid;
-			grid-template-columns: 1.1fr 0.9fr;
+			grid-template-columns: 1.1fr 1fr;
 			gap: 3rem;
-			align-items: start;
+			align-items: center;
 		}
 	}
 
@@ -503,6 +510,8 @@
 		display: flex;
 		gap: 0.75rem;
 		overflow-x: auto;
+		margin-top: 1rem;
+		padding-top: 4px;
 		padding-bottom: 0.5rem;
 	}
 
