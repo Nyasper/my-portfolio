@@ -7,6 +7,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta name="text-scale" content="scale" />
+		<script>
+			(function () {
+				const stored = localStorage.getItem('theme');
+				if (
+					stored === 'light' ||
+					(!stored && window.matchMedia('(prefers-color-scheme: light)').matches)
+				) {
+					document.documentElement.setAttribute('data-theme', 'light');
+				} else {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 

@@ -1,212 +1,200 @@
 [
-    {
-        "id": 1,
-        "name": "Draw App — Excalidraw in Svelte",
-        "slug": "draw-app-excalidraw",
-        "shortDescription": "project_1_short_description",
-        "longDescription": "project_1_long_description",
-        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
-        "techstack": [2, 4, 5, 6, 7, 14, 15, 20, 21],
-        "github": "https://github.com/Nyasper/Draw-app-Excalidraw-in-Svelte",
-        "deploy": "https://draw-app-excalidraw-in-svelte.vercel.app",
-        "status": "active",
-        "date": "2026-05",
-        "highlights": [
-            "project_1_highlight_1",
-            "project_1_highlight_2",
-            "project_1_highlight_3",
-            "project_1_highlight_4",
-            "project_1_highlight_5"
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Anime Database",
-        "slug": "anime-database-nextjs",
-        "shortDescription": "project_2_short_description",
-        "longDescription": "project_2_long_description",
-        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
-        "techstack": [2, 7, 8, 11],
-        "github": "https://github.com/Nyasper/anime-database-nextjs",
-        "deploy": "https://anime-database-nextjs.vercel.app/",
-        "status": "active",
-        "date": "2026-05",
-        "highlights": [
-            "project_2_highlight_1",
-            "project_2_highlight_2",
-            "project_2_highlight_3",
-            "project_2_highlight_4"
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Netflix Clone",
-        "slug": "netflix-clone-svelte",
-        "shortDescription": "project_3_short_description",
-        "longDescription": "project_3_long_description",
-        "images": ["0.png", "1.png", "2.png", "3.png"],
-        "techstack": [2, 5, 6],
-        "github": "https://github.com/Nyasper/netflix-clone-svelte",
-        "deploy": "https://netflix-clone-with-svelte.vercel.app/",
-        "status": "active",
-        "date": "2026-03",
-        "highlights": [
-            "project_3_highlight_1",
-            "project_3_highlight_2",
-            "project_3_highlight_3"
-        ]
-    },
-    {
-        "id": 4,
-        "name": "CSS Web Animations Gallery",
-        "slug": "css-web-animations-gallery",
-        "shortDescription": "project_4_short_description",
-        "longDescription": "project_4_long_description",
-        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
-        "techstack": [2, 5, 6],
-        "github": "https://github.com/Nyasper/CSS-web-animations-gallery",
-        "deploy": "https://css-web-animations-gallery.vercel.app",
-        "status": "active",
-        "date": "2026-04",
-        "highlights": [
-            "project_4_highlight_1",
-            "project_4_highlight_2",
-            "project_4_highlight_3",
-            "project_4_highlight_4"
-        ]
-    },
-    {
-        "id": 5,
-        "name": "Blue Archive Database",
-        "slug": "blue-archive-database-react",
-        "shortDescription": "project_5_short_description",
-        "longDescription": "project_5_long_description",
-        "images": ["0.png", "1.png", "2.png"],
-        "techstack": [2, 7],
-        "github": "https://github.com/Nyasper/blue-archive-database-react",
-        "deploy": "https://blue-archive-database-react.vercel.app/",
-        "status": "active",
-        "date": "2026-03",
-        "highlights": [
-            "project_5_highlight_1",
-            "project_5_highlight_2",
-            "project_5_highlight_3"
-        ]
-    },
-    {
-        "id": 6,
-        "name": "Vue Notes App",
-        "slug": "vue-notes-app",
-        "shortDescription": "project_6_short_description",
-        "longDescription": "project_6_long_description",
-        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
-        "techstack": [2, 9, 13],
-        "github": "https://github.com/Nyasper/vue-notes-app",
-        "deploy": "https://vue-notes-app-rose.vercel.app",
-        "status": "active",
-        "date": "2024-11",
-        "highlights": [
-            "project_6_highlight_1",
-            "project_6_highlight_2",
-            "project_6_highlight_3",
-            "project_6_highlight_4",
-            "project_6_highlight_5"
-        ]
-    },
-    {
-        "id": 7,
-        "name": "Hono Notes Backend",
-        "slug": "hono-notes-backend",
-        "shortDescription": "project_7_short_description",
-        "longDescription": "project_7_long_description",
-        "images": null,
-        "techstack": [2, 4, 13, 15],
-        "github": "https://github.com/Nyasper/notes_app_hono_CFworkers",
-        "deploy": "",
-        "status": "active",
-        "date": "2024-11",
-        "highlights": [
-            "project_7_highlight_1",
-            "project_7_highlight_2",
-            "project_7_highlight_3",
-            "project_7_highlight_4"
-        ]
-    },
-    {
-        "id": 8,
-        "name": "Blue Archive Wiki Scraper",
-        "slug": "blue-archive-wiki-scraper",
-        "shortDescription": "project_8_short_description",
-        "longDescription": "project_8_long_description",
-        "images": null,
-        "techstack": [16, 17, 19],
-        "github": "https://github.com/Nyasper/Blue-Archive-Wiki-Web-Scrapper-DotNet",
-        "deploy": "",
-        "status": "inactive",
-        "date": "2024-02",
-        "highlights": [
-            "project_8_highlight_1",
-            "project_8_highlight_2",
-            "project_8_highlight_3",
-            "project_8_highlight_4",
-            "project_8_highlight_5"
-        ]
-    },
-    {
-        "id": 9,
-        "name": "Simple Anime Gallery",
-        "slug": "simple-anime-gallery",
-        "shortDescription": "project_9_short_description",
-        "longDescription": "project_9_long_description",
-        "images": ["0.png", "1.png"],
-        "techstack": [1],
-        "github": "https://github.com/Nyasper/Simple_Anime_Images_Gallery",
-        "deploy": "",
-        "status": "archived",
-        "date": "2024-09",
-        "highlights": [
-            "project_9_highlight_1",
-            "project_9_highlight_2",
-            "project_9_highlight_3"
-        ]
-    },
-    {
-        "id": 10,
-        "name": "Angular Marvel Database",
-        "slug": "angular-marvel-database",
-        "shortDescription": "project_10_short_description",
-        "longDescription": "project_10_long_description",
-        "images": ["0.png", "1.png", "2.png"],
-        "techstack": [2, 10],
-        "github": "https://github.com/Nyasper/angular-MarvelAPI",
-        "deploy": "",
-        "status": "archived",
-        "date": "2025-11",
-        "highlights": [
-            "project_10_highlight_1",
-            "project_10_highlight_2",
-            "project_10_highlight_3",
-            "project_10_highlight_4"
-        ]
-    },
-    {
-        "id": 11,
-        "name": "NoteNow",
-        "slug": "notenow",
-        "shortDescription": "project_11_short_description",
-        "longDescription": "project_11_long_description",
-        "images": ["0.png", "1.png", "2.png"],
-        "techstack": [2, 4, 5, 6, 14, 15, 20, 21],
-        "github": "https://github.com/Nyasper/notenow",
-        "deploy": "",
-        "status": "archived",
-        "date": "2026-03",
-        "highlights": [
-            "project_11_highlight_1",
-            "project_11_highlight_2",
-            "project_11_highlight_3",
-            "project_11_highlight_4",
-            "project_11_highlight_5"
-        ]
-    }
+	{
+		"id": 1,
+		"name": "Draw App — Excalidraw in Svelte",
+		"slug": "draw-app-excalidraw",
+		"shortDescription": "project_1_short_description",
+		"longDescription": "project_1_long_description",
+		"images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
+		"techstack": [2, 4, 5, 6, 7, 14, 15, 20, 21],
+		"github": "https://github.com/Nyasper/Draw-app-Excalidraw-in-Svelte",
+		"deploy": "https://draw-app-excalidraw-in-svelte.vercel.app",
+		"status": "active",
+		"date": "2026-05",
+		"highlights": [
+			"project_1_highlight_1",
+			"project_1_highlight_2",
+			"project_1_highlight_3",
+			"project_1_highlight_4",
+			"project_1_highlight_5"
+		]
+	},
+	{
+		"id": 2,
+		"name": "Anime Database",
+		"slug": "anime-database-nextjs",
+		"shortDescription": "project_2_short_description",
+		"longDescription": "project_2_long_description",
+		"images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
+		"techstack": [2, 7, 8, 11],
+		"github": "https://github.com/Nyasper/anime-database-nextjs",
+		"deploy": "https://anime-database-nextjs.vercel.app/",
+		"status": "active",
+		"date": "2026-05",
+		"highlights": [
+			"project_2_highlight_1",
+			"project_2_highlight_2",
+			"project_2_highlight_3",
+			"project_2_highlight_4"
+		]
+	},
+	{
+		"id": 3,
+		"name": "Netflix Clone",
+		"slug": "netflix-clone-svelte",
+		"shortDescription": "project_3_short_description",
+		"longDescription": "project_3_long_description",
+		"images": ["0.png", "1.png", "2.png", "3.png"],
+		"techstack": [2, 5, 6],
+		"github": "https://github.com/Nyasper/netflix-clone-svelte",
+		"deploy": "https://netflix-clone-with-svelte.vercel.app/",
+		"status": "active",
+		"date": "2026-03",
+		"highlights": ["project_3_highlight_1", "project_3_highlight_2", "project_3_highlight_3"]
+	},
+	{
+		"id": 4,
+		"name": "CSS Web Animations Gallery",
+		"slug": "css-web-animations-gallery",
+		"shortDescription": "project_4_short_description",
+		"longDescription": "project_4_long_description",
+		"images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
+		"techstack": [2, 5, 6],
+		"github": "https://github.com/Nyasper/CSS-web-animations-gallery",
+		"deploy": "https://css-web-animations-gallery.vercel.app",
+		"status": "active",
+		"date": "2026-04",
+		"highlights": [
+			"project_4_highlight_1",
+			"project_4_highlight_2",
+			"project_4_highlight_3",
+			"project_4_highlight_4"
+		]
+	},
+	{
+		"id": 5,
+		"name": "Blue Archive Database",
+		"slug": "blue-archive-database-react",
+		"shortDescription": "project_5_short_description",
+		"longDescription": "project_5_long_description",
+		"images": ["0.png", "1.png", "2.png"],
+		"techstack": [2, 7],
+		"github": "https://github.com/Nyasper/blue-archive-database-react",
+		"deploy": "https://blue-archive-database-react.vercel.app/",
+		"status": "active",
+		"date": "2026-03",
+		"highlights": ["project_5_highlight_1", "project_5_highlight_2", "project_5_highlight_3"]
+	},
+	{
+		"id": 6,
+		"name": "Vue Notes App",
+		"slug": "vue-notes-app",
+		"shortDescription": "project_6_short_description",
+		"longDescription": "project_6_long_description",
+		"images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
+		"techstack": [2, 9, 13],
+		"github": "https://github.com/Nyasper/vue-notes-app",
+		"deploy": "https://vue-notes-app-rose.vercel.app",
+		"status": "active",
+		"date": "2024-11",
+		"highlights": [
+			"project_6_highlight_1",
+			"project_6_highlight_2",
+			"project_6_highlight_3",
+			"project_6_highlight_4",
+			"project_6_highlight_5"
+		]
+	},
+	{
+		"id": 7,
+		"name": "Hono Notes Backend",
+		"slug": "hono-notes-backend",
+		"shortDescription": "project_7_short_description",
+		"longDescription": "project_7_long_description",
+		"images": null,
+		"techstack": [2, 4, 13, 15],
+		"github": "https://github.com/Nyasper/notes_app_hono_CFworkers",
+		"deploy": "",
+		"status": "active",
+		"date": "2024-11",
+		"highlights": [
+			"project_7_highlight_1",
+			"project_7_highlight_2",
+			"project_7_highlight_3",
+			"project_7_highlight_4"
+		]
+	},
+	{
+		"id": 8,
+		"name": "Blue Archive Wiki Scraper",
+		"slug": "blue-archive-wiki-scraper",
+		"shortDescription": "project_8_short_description",
+		"longDescription": "project_8_long_description",
+		"images": null,
+		"techstack": [16, 17, 19],
+		"github": "https://github.com/Nyasper/Blue-Archive-Wiki-Web-Scrapper-DotNet",
+		"deploy": "",
+		"status": "inactive",
+		"date": "2024-02",
+		"highlights": [
+			"project_8_highlight_1",
+			"project_8_highlight_2",
+			"project_8_highlight_3",
+			"project_8_highlight_4",
+			"project_8_highlight_5"
+		]
+	},
+	{
+		"id": 9,
+		"name": "Simple Anime Gallery",
+		"slug": "simple-anime-gallery",
+		"shortDescription": "project_9_short_description",
+		"longDescription": "project_9_long_description",
+		"images": ["0.png", "1.png"],
+		"techstack": [1],
+		"github": "https://github.com/Nyasper/Simple_Anime_Images_Gallery",
+		"deploy": "",
+		"status": "archived",
+		"date": "2024-09",
+		"highlights": ["project_9_highlight_1", "project_9_highlight_2", "project_9_highlight_3"]
+	},
+	{
+		"id": 10,
+		"name": "Angular Marvel Database",
+		"slug": "angular-marvel-database",
+		"shortDescription": "project_10_short_description",
+		"longDescription": "project_10_long_description",
+		"images": ["0.png", "1.png", "2.png"],
+		"techstack": [2, 10],
+		"github": "https://github.com/Nyasper/angular-MarvelAPI",
+		"deploy": "",
+		"status": "archived",
+		"date": "2025-11",
+		"highlights": [
+			"project_10_highlight_1",
+			"project_10_highlight_2",
+			"project_10_highlight_3",
+			"project_10_highlight_4"
+		]
+	},
+	{
+		"id": 11,
+		"name": "NoteNow",
+		"slug": "notenow",
+		"shortDescription": "project_11_short_description",
+		"longDescription": "project_11_long_description",
+		"images": ["0.png", "1.png", "2.png"],
+		"techstack": [2, 4, 5, 6, 14, 15, 20, 21],
+		"github": "https://github.com/Nyasper/notenow",
+		"deploy": "",
+		"status": "archived",
+		"date": "2026-03",
+		"highlights": [
+			"project_11_highlight_1",
+			"project_11_highlight_2",
+			"project_11_highlight_3",
+			"project_11_highlight_4",
+			"project_11_highlight_5"
+		]
+	}
 ]

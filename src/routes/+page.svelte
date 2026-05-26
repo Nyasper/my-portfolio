@@ -73,40 +73,20 @@
 	</script>
 </svelte:head>
 
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
 <DotNav />
 
-<main id="main-content">
+<div class="sections-container">
 	<HeroSection />
 	<AboutSection />
 	<SkillsSection />
 	<ProjectsSection />
 	<ContactSection />
 	<FaqSection />
-</main>
+</div>
 
 <style>
-	main {
+	.sections-container {
 		padding-top: 100px; /* offset for navbar */
 		scroll-snap-type: y proximity;
-	}
-
-	.skip-link {
-		position: absolute;
-		top: -100%;
-		left: 1rem;
-		z-index: 10000;
-		padding: 0.75rem 1.5rem;
-		background: var(--accent-color);
-		color: #fff;
-		font-weight: 600;
-		border-radius: 0 0 8px 8px;
-		text-decoration: none;
-		transition: top 0.2s ease;
-	}
-
-	.skip-link:focus {
-		top: 0;
 	}
 </style>

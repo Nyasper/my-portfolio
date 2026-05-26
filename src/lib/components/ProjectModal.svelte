@@ -27,11 +27,8 @@
 	let activeImageIndex = $state(0);
 	let modalElement = $state<HTMLElement | null>(null);
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	let previousActiveElement = $state<HTMLElement | null>(null);
-
 	$effect(() => {
-		previousActiveElement = document.activeElement as HTMLElement;
+		const prev = document.activeElement as HTMLElement;
 		activeImageIndex = 0;
 
 		const timeout = setTimeout(() => {
@@ -41,7 +38,10 @@
 			}
 		}, 30);
 
-		return () => clearTimeout(timeout);
+		return () => {
+			clearTimeout(timeout);
+			prev?.focus();
+		};
 	});
 
 	function handleKeyDown(event: KeyboardEvent) {
@@ -405,6 +405,15 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+	}
+
+	@media (min-width: 900px) {
+		.modal-grid {
+			display: grid;
+			grid-template-columns: 1.1fr 0.9fr;
+			gap: 3rem;
+			align-items: start;
+		}
 	}
 
 	/* Gallery */

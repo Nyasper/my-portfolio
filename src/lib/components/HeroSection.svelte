@@ -59,7 +59,8 @@
 		<header>
 			<h1 id="hero-heading">
 				{m.hero_greeting()}
-				<span class="typewriter">
+				<span class="visually-hidden">{names.join(' / ')}</span>
+				<span class="typewriter" aria-hidden="true">
 					<span class="highlight">{displayedText}</span>
 					<span class="cursor" class:visible={showCursor}>|</span>
 				</span>

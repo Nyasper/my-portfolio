@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { getLocale, setLocale } from '$lib/paraglide/runtime';
+	import { page } from '$app/state';
+	import { getLocale, localizeHref, deLocalizeHref } from '$lib/paraglide/runtime';
 
 	const currentLang = $derived(getLocale());
 	const nextLang = $derived(currentLang === 'es' ? 'en' : 'es');
-
-	function toggleLanguage() {
-		setLocale(nextLang);
-	}
+	const nextHref = $derived(localizeHref(deLocalizeHref(page.url.pathname), { locale: nextLang }));
 </script>
 
-<button class="lang-toggle glass-panel" onclick={toggleLanguage} aria-label="Toggle Language">
+<a href={nextHref} class="lang-toggle glass-panel" aria-label="Toggle Language / Cambiar idioma">
 	<span class="lang-text">{currentLang.toUpperCase()}</span>
-</button>
+</a>
 
 <style>
 	.lang-toggle {
@@ -32,7 +30,7 @@
 
 	.lang-toggle:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 		background: var(--glass-border);
 		color: var(--text-main);
 	}

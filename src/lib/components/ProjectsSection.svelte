@@ -43,8 +43,6 @@
 			closeModal();
 		}
 	}
-
-
 </script>
 
 <section id="projects" class="projects" bind:this={sectionEl} aria-labelledby="projects-heading">
@@ -114,7 +112,8 @@
 				{m.projects_filter_active()}
 				{activeTechName}.
 				{filteredProjects.length}
-				{filteredProjects.length === 1 ? m.projects_count_one() : m.projects_count_other()} {filteredProjects.length === 1 ? m.projects_found_one() : m.projects_found_other()}.
+				{filteredProjects.length === 1 ? m.projects_count_one() : m.projects_count_other()}
+				{filteredProjects.length === 1 ? m.projects_found_one() : m.projects_found_other()}.
 			{:else}
 				{m.projects_showing_all()}
 			{/if}
@@ -123,12 +122,9 @@
 		<!-- Projects Grid -->
 		{#if filteredProjects.length > 0}
 			<ul class="projects-grid">
-			{#each filteredProjects as project (project.id)}
-				<li>
-					<article
-						class="project-card glass-panel"
-						aria-labelledby="project-title-{project.id}"
-					>
+				{#each filteredProjects as project (project.id)}
+					<li>
+						<article class="project-card glass-panel" aria-labelledby="project-title-{project.id}">
 							<div class="card-image-wrapper">
 								{#if project.images && project.images.length > 0}
 									<img
@@ -195,7 +191,10 @@
 
 				<!-- CTA card to GitHub -->
 				<li>
-					<article class="project-card glass-panel more-projects-card" aria-label={m.projects_more_cta()}>
+					<article
+						class="project-card glass-panel more-projects-card"
+						aria-label={m.projects_more_cta()}
+					>
 						<div class="more-projects-content">
 							<div class="more-projects-icon">
 								{@render githubIcon(48)}
@@ -561,6 +560,7 @@
 		line-height: 1.5;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
+		line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
