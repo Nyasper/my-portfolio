@@ -2,13 +2,12 @@
 	import * as m from '$lib/paraglide/messages';
 </script>
 
-<section id="about" class="about">
+<section id="about" class="about" aria-labelledby="about-heading">
 	<div class="about-container glass-panel">
-		<h2>{m.about_title()}</h2>
+		<h2 id="about-heading">{m.about_title()}</h2>
 		<p class="about-subtitle">{m.about_subtitle()}</p>
 
 		<div class="about-content">
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			<p>{@html m.about_p1()}</p>
 			<p>{m.about_p2()}</p>
 			<p>{m.about_p3_before()} <strong>{m.about_p3_highlight()}</strong></p>
@@ -18,10 +17,18 @@
 
 <style>
 	.about {
-		padding: 6rem 0;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 0;
 	}
 
 	.about-container {
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 4rem;
 		text-align: center;
 	}
@@ -63,6 +70,11 @@
 	}
 
 	@media (max-width: 768px) {
+		.about {
+			min-height: auto;
+			padding: 2rem 0;
+		}
+
 		.about-container {
 			padding: 2rem;
 		}

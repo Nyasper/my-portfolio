@@ -3,38 +3,52 @@
 
 	let openIndex: number | null = $state(null);
 
+	let isExpanded = $derived(openIndex !== null);
+
 	const faqs = [
 		{ question: m.faq_q1_question(), answer: m.faq_q1_answer() },
-		{ question: m.faq_q2_question(), answer: m.faq_q2_answer() }
+		{ question: m.faq_q2_question(), answer: m.faq_q2_answer() },
+		{ question: m.faq_q3_question(), answer: m.faq_q3_answer() },
+		{ question: m.faq_q4_question(), answer: m.faq_q4_answer() },
+		{ question: m.faq_q5_question(), answer: m.faq_q5_answer() },
+		{ question: m.faq_q6_question(), answer: m.faq_q6_answer() },
+		{ question: m.faq_q7_question(), answer: m.faq_q7_answer() },
+		{ question: m.faq_q8_question(), answer: m.faq_q8_answer() }
 	];
 
 	function toggleQuestion(index: number) {
 		openIndex = openIndex === index ? null : index;
 	}
 </script>
-<!-- TODO: add FAQ Why do I code? -->
-<!-- <p>Building something feels like a game I don't want to pause, time flies. I code because I love solving problems, but mostly because I genuinely enjoy the process itself.</p> -->
 
-
-<section id="faq" class="faq">
+<section id="faq" class="faq" class:expanded={isExpanded} aria-labelledby="faq-heading">
 	<div class="faq-container glass-panel">
-			<h2>{m.faq_title()}</h2>
-			<p class="faq-subtitle">{m.faq_subtitle()}</p>
+		<h2 id="faq-heading">{m.faq_title()}</h2>
+		<p class="faq-subtitle">{m.faq_subtitle()}</p>
 
-
-		<div class="faq-list">
-			{#each faqs as faq, i (faq.question)}
+		<div class="faq-list" role="list">
+			{#each faqs as { question, answer }, i (question)}
 				{@const isOpen = openIndex === i}
-				<div class={['faq-item', { open: isOpen }]}>
-					<button class="faq-question" onclick={() => toggleQuestion(i)} aria-expanded={openIndex === i}>
-						<span>{faq.question}</span>
-						<span class="faq-icon">{isOpen ? '−' : '+'}</span>
+				<div class={['faq-item', { open: isOpen }]} role="listitem">
+					<button
+						id="faq-question-{i}"
+						class="faq-question"
+						onclick={() => toggleQuestion(i)}
+						aria-expanded={openIndex === i}
+						aria-controls="faq-answer-{i}"
+					>
+						<span>{question}</span>
+						<span class="faq-icon" aria-hidden="true">{isOpen ? '−' : '+'}</span>
 					</button>
-					{#if isOpen}
-						<div class="faq-answer">
-							<p>{faq.answer}</p>
-						</div>
-					{/if}
+					<div
+						class="faq-answer"
+						id="faq-answer-{i}"
+						role="region"
+						aria-labelledby="faq-question-{i}"
+						aria-hidden={!isOpen}
+					>
+						<p>{answer}</p>
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -43,10 +57,24 @@
 
 <style>
 	.faq {
-		padding: 6rem 0;
+		min-height: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-snap-align: start;
+		scroll-margin-top: 70px;
+		padding: 2rem 0;
+	}
+
+	.faq.expanded {
+		min-height: 100vh;
+		padding: 0;
 	}
 
 	.faq-container {
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 4rem;
 		text-align: center;
 	}
@@ -102,6 +130,12 @@
 		color: var(--accent-color);
 	}
 
+	.faq-question:focus-visible {
+		outline: 2px solid var(--accent-color);
+		outline-offset: -2px;
+		border-radius: 12px;
+	}
+
 	.faq-icon {
 		font-size: 1.5rem;
 		font-weight: 300;
@@ -111,7 +145,12 @@
 	}
 
 	.faq-answer {
+		display: none;
 		padding: 0 1.5rem 1.25rem;
+	}
+
+	.faq-item.open .faq-answer {
+		display: block;
 	}
 
 	.faq-answer p {
@@ -121,6 +160,11 @@
 	}
 
 	@media (max-width: 768px) {
+		.faq {
+			min-height: auto;
+			padding: 2rem 0;
+		}
+
 		.faq-container {
 			padding: 2rem;
 		}
@@ -134,7 +178,7 @@
 			font-size: 1rem;
 		}
 
-		.faq-answer {
+		.faq-item.open .faq-answer {
 			padding: 0 1.25rem 1rem;
 		}
 	}

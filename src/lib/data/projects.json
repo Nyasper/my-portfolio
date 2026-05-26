@@ -3,122 +3,122 @@
         "id": 1,
         "name": "Draw App — Excalidraw in Svelte",
         "slug": "draw-app-excalidraw",
-        "shortDescription": "Full-stack whiteboard app embedding Excalidraw's React component inside Svelte with auth and persistent workspaces.",
-        "longDescription": "A full-stack whiteboard application built with SvelteKit, embedding Excalidraw's React component within a Svelte app to demonstrate cross-framework integration. Features user authentication (email/password + GitHub OAuth via Better Auth), persistent canvas storage with PostgreSQL and Drizzle ORM, folder organization, and transactional emails with Resend. React is initialized inside a Svelte 5 $effect() via the @attach directive, making it active only within that single component lifecycle while the rest of the app is pure Svelte.",
-        "images": [0, 1, 2, 3, 4],
+        "shortDescription": "project_1_short_description",
+        "longDescription": "project_1_long_description",
+        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
         "techstack": [2, 4, 5, 6, 7, 14, 15, 20, 21],
         "github": "https://github.com/Nyasper/Draw-app-Excalidraw-in-Svelte",
         "deploy": "https://draw-app-excalidraw-in-svelte.vercel.app",
         "status": "active",
         "date": "2026-05",
         "highlights": [
-            "Cross-framework integration: React component inside Svelte 5",
-            "User auth with email/password + GitHub OAuth via Better Auth",
-            "Persistent workspaces with PostgreSQL + Drizzle ORM",
-            "Transaction emails (verification, password reset) via Resend",
-            "Lazy-loaded React rendering isolated from Svelte runtime"
+            "project_1_highlight_1",
+            "project_1_highlight_2",
+            "project_1_highlight_3",
+            "project_1_highlight_4",
+            "project_1_highlight_5"
         ]
     },
     {
         "id": 2,
         "name": "Anime Database",
         "slug": "anime-database-nextjs",
-        "shortDescription": "Next.js anime and manga database powered by the AniList GraphQL API, styled with Tailwind CSS, with i18n and favorites.",
-        "longDescription": "An application built with Next.js that connects to the AniList API using GraphQL to display detailed information about anime and manga. Features include browsing by genre, popularity, and release dates, an integrated search bar, a favorites section persisted in Local Storage, and a global language switcher (English/Spanish) that stores user preference across sessions.",
-        "images": [0, 1, 2, 3, 4],
+        "shortDescription": "project_2_short_description",
+        "longDescription": "project_2_long_description",
+        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
         "techstack": [2, 7, 8, 11],
         "github": "https://github.com/Nyasper/anime-database-nextjs",
         "deploy": "https://anime-database-nextjs.vercel.app/",
         "status": "active",
         "date": "2026-05",
         "highlights": [
-            "GraphQL integration with AniList API",
-            "Client-side favorites persisted in Local Storage",
-            "Global language switcher (EN/ES) with persistent preference",
-            "Advanced search and filtering for anime and manga"
+            "project_2_highlight_1",
+            "project_2_highlight_2",
+            "project_2_highlight_3",
+            "project_2_highlight_4"
         ]
     },
     {
         "id": 3,
         "name": "Netflix Clone",
         "slug": "netflix-clone-svelte",
-        "shortDescription": "Netflix clone built with Svelte and SvelteKit, developed as a learning project with custom implementation.",
-        "longDescription": "A Netflix clone built with Svelte and SvelteKit. Developed while following a Udemy course, but implemented with my own approach and design decisions. Covers component composition, routing, and responsive layouts in SvelteKit.",
-        "images": [0, 1, 2, 3],
+        "shortDescription": "project_3_short_description",
+        "longDescription": "project_3_long_description",
+        "images": ["0.png", "1.png", "2.png", "3.png"],
         "techstack": [2, 5, 6],
         "github": "https://github.com/Nyasper/netflix-clone-svelte",
         "deploy": "https://netflix-clone-with-svelte.vercel.app/",
         "status": "active",
         "date": "2026-03",
         "highlights": [
-            "Responsive Netflix-style UI in SvelteKit",
-            "Component composition and routing patterns",
-            "Custom implementation beyond course material"
+            "project_3_highlight_1",
+            "project_3_highlight_2",
+            "project_3_highlight_3"
         ]
     },
     {
         "id": 4,
         "name": "CSS Web Animations Gallery",
         "slug": "css-web-animations-gallery",
-        "shortDescription": "Curated collection of CSS, SVG, and GSAP animation techniques built with SvelteKit.",
-        "longDescription": "A visual gallery and learning resource demonstrating various web animation techniques including pure CSS transitions, keyframes, clip-paths, SVG path animations, and GSAP ScrollTrigger effects. Built with SvelteKit to organize multiple animation categories with a floating navigation menu.",
-        "images": [0, 1, 2, 3, 4],
+        "shortDescription": "project_4_short_description",
+        "longDescription": "project_4_long_description",
+        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
         "techstack": [2, 5, 6],
         "github": "https://github.com/Nyasper/CSS-web-animations-gallery",
         "deploy": "https://css-web-animations-gallery.vercel.app",
         "status": "active",
         "date": "2026-04",
         "highlights": [
-            "Pure CSS transitions, keyframes, and clip-path effects",
-            "SVG path animations",
-            "GSAP ScrollTrigger and timeline sequences",
-            "Floating navigation across multiple animation categories"
+            "project_4_highlight_1",
+            "project_4_highlight_2",
+            "project_4_highlight_3",
+            "project_4_highlight_4"
         ]
     },
     {
         "id": 5,
         "name": "Blue Archive Database",
         "slug": "blue-archive-database-react",
-        "shortDescription": "My first React project -- a character database for browsing Blue Archive data.",
-        "longDescription": "One of my earliest projects and my first time building with React. A frontend app built with TypeScript and Vite that loads character data from a local JSON file. Simple but meaningful -- it's where I learned React component architecture and state management.",
-        "images": [0, 1, 2],
+        "shortDescription": "project_5_short_description",
+        "longDescription": "project_5_long_description",
+        "images": ["0.png", "1.png", "2.png"],
         "techstack": [2, 7],
         "github": "https://github.com/Nyasper/blue-archive-database-react",
         "deploy": "https://blue-archive-database-react.vercel.app/",
         "status": "active",
         "date": "2026-03",
         "highlights": [
-            "My first React project",
-            "TypeScript and Vite tooling",
-            "Component architecture and state management"
+            "project_5_highlight_1",
+            "project_5_highlight_2",
+            "project_5_highlight_3"
         ]
     },
     {
         "id": 6,
         "name": "Vue Notes App",
         "slug": "vue-notes-app",
-        "shortDescription": "Vue.js notes app with register/login, CRUD notes, and admin mode, connected to a Hono backend.",
-        "longDescription": "Vue.js frontend for a notes application. Features user registration and login, full CRUD for notes with title and description, and an admin mode to view and delete other users. Connects to a separate Hono backend deployed on Cloudflare Workers.",
-        "images": [0, 1, 2, 3, 4],
+        "shortDescription": "project_6_short_description",
+        "longDescription": "project_6_long_description",
+        "images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
         "techstack": [2, 9, 13],
         "github": "https://github.com/Nyasper/vue-notes-app",
         "deploy": "https://vue-notes-app-rose.vercel.app",
         "status": "active",
         "date": "2024-11",
         "highlights": [
-            "Vue.js frontend with TypeScript",
-            "User registration and login",
-            "CRUD notes with title and description",
-            "Admin mode for user management",
-            "Hono backend on Cloudflare Workers"
+            "project_6_highlight_1",
+            "project_6_highlight_2",
+            "project_6_highlight_3",
+            "project_6_highlight_4",
+            "project_6_highlight_5"
         ]
     },
     {
         "id": 7,
         "name": "Hono Notes Backend",
         "slug": "hono-notes-backend",
-        "shortDescription": "Hono REST API backend for the Vue notes app, deployed on Cloudflare Workers with Drizzle ORM.",
-        "longDescription": "Backend API built with Hono running on Cloudflare Workers. Provides REST endpoints for user authentication, note CRUD operations, and admin user management. Uses Drizzle ORM for database access and Bun as the local development runtime.",
+        "shortDescription": "project_7_short_description",
+        "longDescription": "project_7_long_description",
         "images": null,
         "techstack": [2, 4, 13, 15],
         "github": "https://github.com/Nyasper/notes_app_hono_CFworkers",
@@ -126,18 +126,18 @@
         "status": "active",
         "date": "2024-11",
         "highlights": [
-            "Hono framework on Cloudflare Workers",
-            "Drizzle ORM for database access",
-            "REST API for notes CRUD",
-            "Bun runtime for development"
+            "project_7_highlight_1",
+            "project_7_highlight_2",
+            "project_7_highlight_3",
+            "project_7_highlight_4"
         ]
     },
     {
         "id": 8,
         "name": "Blue Archive Wiki Scraper",
         "slug": "blue-archive-wiki-scraper",
-        "shortDescription": "C# console application that scrapes and structures data from the Blue Archive Wiki.",
-        "longDescription": "A console application built with C# and .NET that crawls the Blue Archive Wiki to extract and structure character and game data. Uses HtmlAgilityPack with XPath to parse and extract HTML content, Entity Framework with SQLite for data persistence, and dependency injection for service management.",
+        "shortDescription": "project_8_short_description",
+        "longDescription": "project_8_long_description",
         "images": null,
         "techstack": [16, 17, 19],
         "github": "https://github.com/Nyasper/Blue-Archive-Wiki-Web-Scrapper-DotNet",
@@ -145,68 +145,68 @@
         "status": "inactive",
         "date": "2024-02",
         "highlights": [
-            "C# HttpClient for web scraping",
-            "HtmlAgilityPack with XPath for HTML parsing",
-            "Dependency injection with .NET",
-            "Entity Framework with SQLite for data persistence",
-            "Structured data output from unstructured wiki content"
+            "project_8_highlight_1",
+            "project_8_highlight_2",
+            "project_8_highlight_3",
+            "project_8_highlight_4",
+            "project_8_highlight_5"
         ]
     },
     {
         "id": 9,
         "name": "Simple Anime Gallery",
         "slug": "simple-anime-gallery",
-        "shortDescription": "Vanilla JS image gallery searching anime images via the yande.re API. *(archived — API no longer works client-side)*",
-        "longDescription": "A simple image gallery built with vanilla HTML, CSS, and JavaScript. Searches for anime images using the yande.re public API. Features search by character name, anime name, and tags. Archived because the yande.re API now requires server-side access and no longer works from the browser.",
-        "images": [0, 1],
+        "shortDescription": "project_9_short_description",
+        "longDescription": "project_9_long_description",
+        "images": ["0.png", "1.png"],
         "techstack": [1],
         "github": "https://github.com/Nyasper/Simple_Anime_Images_Gallery",
         "deploy": "",
         "status": "archived",
         "date": "2024-09",
         "highlights": [
-            "Vanilla JavaScript, no framework dependencies",
-            "yande.re API integration",
-            "Search by character name, anime name, and tags"
+            "project_9_highlight_1",
+            "project_9_highlight_2",
+            "project_9_highlight_3"
         ]
     },
     {
         "id": 10,
         "name": "Angular Marvel Database",
         "slug": "angular-marvel-database",
-        "shortDescription": "Angular app for browsing Marvel characters, comics, events, and series via the Marvel API. *(archived — API discontinued)*",
-        "longDescription": "Angular application that connected to the Marvel public API to display characters, comics, creators, series, and events. Featured search and category browsing. Archived because the Marvel public API was discontinued.",
-        "images": [0, 1, 2],
+        "shortDescription": "project_10_short_description",
+        "longDescription": "project_10_long_description",
+        "images": ["0.png", "1.png", "2.png"],
         "techstack": [2, 10],
         "github": "https://github.com/Nyasper/angular-MarvelAPI",
         "deploy": "",
         "status": "archived",
         "date": "2025-11",
         "highlights": [
-            "Angular framework with TypeScript",
-            "Marvel API integration",
-            "Characters, comics, events, and series browsing",
-            "Category-based navigation"
+            "project_10_highlight_1",
+            "project_10_highlight_2",
+            "project_10_highlight_3",
+            "project_10_highlight_4"
         ]
     },
     {
         "id": 11,
         "name": "NoteNow",
         "slug": "notenow",
-        "shortDescription": "SvelteKit note-taking app with auth, workspaces, and page-based notes -- a course project I archived.",
-        "longDescription": "A note-taking application built with SvelteKit following a Udemy course, extended with full authentication (email/password + GitHub OAuth via Better Auth), workspace organization, and page-based notes. Uses Drizzle ORM with PostgreSQL running in Docker for persistent storage. Archived because it was a course project rather than an original build, though it taught me advanced Svelte/SvelteKit patterns, authentication flows, transactional emails, and database setup.",
-        "images": [0, 1, 2],
+        "shortDescription": "project_11_short_description",
+        "longDescription": "project_11_long_description",
+        "images": ["0.png", "1.png", "2.png"],
         "techstack": [2, 4, 5, 6, 14, 15, 20, 21],
         "github": "https://github.com/Nyasper/notenow",
         "deploy": "",
         "status": "archived",
         "date": "2026-03",
         "highlights": [
-            "Advanced Svelte/SvelteKit patterns (course project)",
-            "User authentication with email/password and GitHub OAuth via Better Auth",
-            "Transactional emails with Resend",
-            "Drizzle ORM with PostgreSQL via Docker",
-            "Archived -- course project, not an original build"
+            "project_11_highlight_1",
+            "project_11_highlight_2",
+            "project_11_highlight_3",
+            "project_11_highlight_4",
+            "project_11_highlight_5"
         ]
     }
 ]
