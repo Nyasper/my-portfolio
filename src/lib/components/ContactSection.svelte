@@ -191,9 +191,14 @@
 	}
 
 	.social-card:hover {
-		transform: translateY(-4px);
 		border-color: var(--accent-color);
 		box-shadow: 0 8px 25px rgba(88, 166, 255, 0.15);
+	}
+
+	@media (hover: hover) {
+		.social-card:hover {
+			transform: translateY(-4px);
+		}
 	}
 
 	.social-link-overlay {
@@ -218,7 +223,12 @@
 
 	.social-card:hover .social-link-overlay :global(svg) {
 		color: var(--accent-color);
-		transform: scale(1.1);
+	}
+
+	@media (hover: hover) {
+		.social-card:hover .social-link-overlay :global(svg) {
+			transform: scale(1.1);
+		}
 	}
 
 	.social-name {
@@ -304,20 +314,31 @@
 		}
 
 		.social-links {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-auto-rows: 1fr;
 			gap: 1rem;
 		}
 
 		.social-card {
-			min-width: 100px;
+			min-width: 0;
+			overflow: hidden;
 		}
 
 		.social-link-overlay {
 			padding: 1.25rem 1.5rem;
-			padding-bottom: 2rem;
 		}
 
 		.username {
+			position: static;
 			opacity: 0.7;
+			max-width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-size: 0.7rem;
+			bottom: auto;
+			left: auto;
 			transform: none;
 		}
 
