@@ -30,8 +30,7 @@
 						></span
 					>
 				</span>
-				<span class="logo-divider"> | </span>
-				Web dev
+				<span class="logo-suffix"><span class="logo-divider"> | </span>Web dev</span>
 			</a>
 		</div>
 		<ul class={['nav-links', { open: menuOpen }]}>
@@ -82,6 +81,10 @@
 		margin: 0 auto;
 	}
 
+	.logo {
+		flex-shrink: 0;
+	}
+
 	.logo a {
 		font-size: 1.5rem;
 		font-weight: 700;
@@ -101,6 +104,7 @@
 		vertical-align: bottom;
 		height: 1.5em;
 		line-height: 1.5em;
+		flex-shrink: 0;
 	}
 
 	.name-slide {
@@ -193,6 +197,14 @@
 	}
 
 	@media (max-width: 768px) {
+		.navbar-content {
+			padding: 0.75rem 1.25rem;
+		}
+
+		.actions {
+			gap: 0.75rem;
+		}
+
 		.hamburger {
 			display: flex;
 		}
@@ -208,8 +220,6 @@
 			flex-direction: column;
 			gap: 0;
 			background: var(--glass-bg);
-			backdrop-filter: blur(20px);
-			-webkit-backdrop-filter: blur(20px);
 			border: 1px solid var(--glass-border);
 			border-radius: 16px;
 			opacity: 0;
@@ -245,13 +255,32 @@
 			display: none;
 		}
 
-		.name-slide {
-			transition: none;
-			transform: none;
+		/* Mobile logo: name only (no "| Web dev"), auto-cycling animation
+		   since hover doesn't exist on touch devices */
+		.logo-suffix {
+			display: none;
 		}
 
-		.logo a:hover .name-slide {
-			transform: none;
+		.logo a {
+			font-size: 1.25rem;
+		}
+
+		.name-slide {
+			animation: name-cycle 5s ease-in-out infinite;
+		}
+
+		@keyframes name-cycle {
+			0%,
+			40% {
+				transform: translateY(0);
+			}
+			50%,
+			90% {
+				transform: translateY(-100%);
+			}
+			100% {
+				transform: translateY(0);
+			}
 		}
 	}
 </style>

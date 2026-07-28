@@ -89,4 +89,11 @@
 		padding-top: 100px; /* offset for navbar */
 		scroll-snap-type: y proximity;
 	}
+
+	/* Free scroll on mobile: snapping feels janky with variable-height sections */
+	@media (max-width: 768px) {
+		.sections-container {
+			scroll-snap-type: none;
+		}
+	}
 </style>

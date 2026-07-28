@@ -31,7 +31,11 @@
 		cursor: pointer;
 		border: 1px solid var(--glass-border);
 		color: var(--text-main);
-		transition: all 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			background-color 0.3s ease,
+			color 0.3s ease,
+			box-shadow 0.3s ease;
 		font-weight: 600;
 		font-size: 0.9rem;
 		text-decoration: none;

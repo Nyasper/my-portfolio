@@ -76,6 +76,7 @@
 <style>
 	.skills {
 		min-height: 100vh;
+		min-height: 100dvh;
 		display: flex;
 		align-items: center;
 		justify-content: center;

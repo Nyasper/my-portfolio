@@ -79,6 +79,7 @@
 <style>
 	.hero {
 		min-height: 100vh;
+		min-height: 100dvh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -145,7 +146,12 @@
 		border-radius: 30px;
 		font-weight: 600;
 		font-size: 1.1rem;
-		transition: all 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			color 0.3s ease,
+			box-shadow 0.3s ease;
 	}
 
 	.btn.primary {

@@ -143,6 +143,7 @@
 <style>
 	.contact {
 		min-height: 100vh;
+		min-height: 100dvh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -187,7 +188,10 @@
 		align-items: center;
 		border-radius: 16px;
 		min-width: 120px;
-		transition: all 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
 	}
 
 	.social-card:hover {

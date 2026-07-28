@@ -28,32 +28,23 @@
 	});
 
 	$effect(() => {
-		const observers: IntersectionObserver[] = [];
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						activeSection = entry.target.id;
+					}
+				}
+			},
+			{ rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+		);
 
 		for (const section of sections) {
 			const el = document.getElementById(section.id);
-			if (!el) continue;
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					for (const entry of entries) {
-						if (entry.isIntersecting) {
-							activeSection = section.id;
-						}
-					}
-				},
-				{ rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-			);
-
-			observer.observe(el);
-			observers.push(observer);
+			if (el) observer.observe(el);
 		}
 
-		return () => {
-			for (const observer of observers) {
-				observer.disconnect();
-			}
-		};
+		return () => observer.disconnect();
 	});
 </script>
 
