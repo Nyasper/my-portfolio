@@ -9,6 +9,12 @@
 - **Default Language:** English (`en`). Spanish (`es`) as secondary
 - **Default Theme:** Dark mode. Light mode available via user toggle
 
+## Git & Commits
+
+- **Commit messages:** brief and in **English**, matching the repo's existing style (lowercase, kebab-case, e.g. `contact-section-mobile-ui-fix`)
+- **Grouping:** when making significant changes, group them into logical commits (e.g. code fixes separate from docs/config updates) instead of one catch-all commit
+- Only commit when explicitly asked
+
 ## Svelte 5 Runes — Mandatory
 
 All reactive state MUST use Svelte 5 runes. **Never** use Svelte 4 reactive patterns:
