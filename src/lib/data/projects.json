@@ -131,7 +131,7 @@
 		"shortDescription": "project_8_short_description",
 		"longDescription": "project_8_long_description",
 		"images": null,
-		"techstack": [16, 17, 19],
+		"techstack": [16, 17],
 		"github": "https://github.com/Nyasper/Blue-Archive-Wiki-Web-Scrapper-DotNet",
 		"deploy": "",
 		"status": "inactive",
@@ -142,6 +142,26 @@
 			"project_8_highlight_3",
 			"project_8_highlight_4",
 			"project_8_highlight_5"
+		]
+	},
+	{
+		"id": 12,
+		"name": "Tauri File Explorer",
+		"slug": "tauri-file-explorer",
+		"shortDescription": "project_12_short_description",
+		"longDescription": "project_12_long_description",
+		"images": null,
+		"techstack": [2, 4, 5, 6, 22],
+		"github": "https://github.com/Nyasper/Tauri-File-Explorer",
+		"deploy": "https://github.com/Nyasper/Tauri-File-Explorer/releases/latest",
+		"status": "active",
+		"date": "2026-07",
+		"highlights": [
+			"project_12_highlight_1",
+			"project_12_highlight_2",
+			"project_12_highlight_3",
+			"project_12_highlight_4",
+			"project_12_highlight_5"
 		]
 	},
 	{

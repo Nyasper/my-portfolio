@@ -1,6 +1,4 @@
 /* src/app.css */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-
 :root {
 	/* Default: Dark Theme */
 	--bg-color: #0d1117;
@@ -38,18 +36,23 @@
 
 html {
 	scroll-behavior: smooth;
+	/* Solid base color on root: propagates to the whole canvas, covering
+	   overscroll and areas revealed by mobile dynamic toolbars */
+	background: var(--bg-color);
+	/* clip (not hidden): avoids creating a scroll container on body,
+	   which breaks overflow propagation to the viewport in Firefox */
+	overflow-x: clip;
 }
 
 body {
 	font-family: 'Outfit', sans-serif;
 	background: var(--bg-gradient);
-	background-attachment: fixed;
 	color: var(--text-main);
 	min-height: 100vh;
 	transition:
 		background 0.3s ease,
 		color 0.3s ease;
-	overflow-x: hidden;
+	overflow-x: clip;
 }
 
 a {
@@ -142,5 +145,22 @@ button,
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
+	}
+}
+
+/* Performance: backdrop-filter blur is expensive on mobile.
+   Replace it with a more opaque solid background (near-identical look). */
+@media (max-width: 768px) {
+	:root {
+		--glass-bg: rgba(22, 27, 34, 0.92);
+	}
+
+	[data-theme='light'] {
+		--glass-bg: rgba(255, 255, 255, 0.92);
+	}
+
+	.glass-panel {
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
 	}
 }

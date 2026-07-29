@@ -5,9 +5,15 @@
 - **Framework:** SvelteKit with **Svelte 5** exclusively (never Svelte 4 patterns)
 - **Package Manager:** `bun` — always use `bun install`, `bun run dev`, `bunx` etc.
 - **Styling:** Vanilla CSS only (no Tailwind). All theming via CSS custom properties in `src/app.css`
-- **i18n:** Paraglide (installed via `bunx sv add paraglide`). Messages live in `messages/en.json` and `messages/es.json`
+- **i18n:** Paraglide (installed via `bunx sv add paraglide`). Messages live in `src/lib/messages/en.json` and `src/lib/messages/es.json`
 - **Default Language:** English (`en`). Spanish (`es`) as secondary
 - **Default Theme:** Dark mode. Light mode available via user toggle
+
+## Git & Commits
+
+- **Commit messages:** brief and in **English**, matching the repo's existing style (lowercase, kebab-case, e.g. `contact-section-mobile-ui-fix`)
+- **Grouping:** when making significant changes, group them into logical commits (e.g. code fixes separate from docs/config updates) instead of one catch-all commit
+- Only commit when explicitly asked
 
 ## Svelte 5 Runes — Mandatory
 
@@ -57,7 +63,7 @@ export let name;          // deprecated
 
 - Components: `src/lib/components/`
 - Global styles: `src/app.css`
-- Paraglide messages: `messages/{en,es}.json`
+- Paraglide messages: `src/lib/messages/{en,es}.json`
 - Paraglide generated: `src/lib/paraglide/` (auto-generated, do not edit)
 - Routes: `src/routes/`
 - Server hooks: `src/hooks.server.ts` (Paraglide middleware)
@@ -124,40 +130,42 @@ Internal reference file for personal notes. **Not used in the UI.**
 
 ### `src/lib/data/techstacks.json`
 
-| Property   | Type                                                                           | Description                            |
-| ---------- | ------------------------------------------------------------------------------ | -------------------------------------- |
-| `id`       | `number`                                                                       | Unique identifier                      |
-| `name`     | `string`                                                                       | Display name                           |
-| `category` | `"language" \| "framework" \| "library" \| "database" \| "tool" \| "platform"` | Technology type                        |
-| `color`    | `string`                                                                       | Brand hex color for badge/pill styling |
-| `icon`     | `string`                                                                       | SVG path or icon identifier            |
-| `url`      | `string`                                                                       | Official website URL                   |
+| Property   | Type                                                                                                  | Description                            |
+| ---------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `id`       | `number`                                                                                              | Unique identifier                      |
+| `name`     | `string`                                                                                              | Display name                           |
+| `category` | `"language" \| "frontend" \| "fullstack" \| "backend" \| "platform" \| "library" \| "infrastructure"` | Technology type                        |
+| `color`    | `string`                                                                                              | Brand hex color for badge/pill styling |
+| `icon`     | `string`                                                                                              | SVG path or icon identifier            |
+| `url`      | `string`                                                                                              | Official website URL                   |
 
 ### Techstack Reference
 
-| ID  | Name             | Category  |
-| --- | ---------------- | --------- |
-| 1   | JavaScript       | language  |
-| 2   | TypeScript       | language  |
-| 3   | Node.js          | platform  |
-| 4   | Bun              | platform  |
-| 5   | Svelte           | framework |
-| 6   | SvelteKit        | framework |
-| 7   | React            | framework |
-| 8   | Next.js          | framework |
-| 9   | Vue.js           | framework |
-| 10  | Angular          | framework |
-| 11  | Tailwind CSS     | library   |
-| 12  | Express          | framework |
-| 13  | Hono             | framework |
-| 14  | Better Auth      | library   |
-| 15  | Drizzle ORM      | library   |
-| 16  | C#               | language  |
-| 17  | .NET             | platform  |
-| 18  | ASP.NET          | framework |
-| 19  | Entity Framework | library   |
-| 20  | PostgreSQL       | database  |
-| 21  | Docker           | tool      |
+| ID  | Name         | Category       |
+| --- | ------------ | -------------- |
+| 1   | JavaScript   | language       |
+| 2   | TypeScript   | language       |
+| 3   | Node.js      | platform       |
+| 4   | Bun          | platform       |
+| 5   | Svelte       | frontend       |
+| 6   | SvelteKit    | fullstack      |
+| 7   | React        | frontend       |
+| 8   | Next.js      | fullstack      |
+| 9   | Vue.js       | frontend       |
+| 10  | Angular      | frontend       |
+| 11  | Tailwind CSS | library        |
+| 12  | Express      | backend        |
+| 13  | Hono         | backend        |
+| 14  | Better Auth  | library        |
+| 15  | Drizzle ORM  | library        |
+| 16  | C#           | language       |
+| 17  | .NET         | platform       |
+| 18  | ASP.NET      | backend        |
+| 20  | PostgreSQL   | infrastructure |
+| 21  | Docker       | infrastructure |
+| 22  | Tauri        | fullstack      |
+
+> Note: id `19` was Entity Framework (removed). Ids are stable — do not reuse removed ids for new techs.
 
 ### Projects → Techstack Map
 
@@ -170,7 +178,8 @@ Internal reference file for personal notes. **Not used in the UI.**
 | 5   | Blue Archive Database  | `[2,7]`                   | TS, React                                                                   |
 | 6   | Vue Notes App          | `[2,9,13]`                | TS, Vue.js, Hono                                                            |
 | 7   | Hono Notes Backend     | `[2,4,13,15]`             | TS, Bun, Hono, Drizzle                                                      |
-| 8   | Wiki Scraper           | `[16,17,19]`              | C#, .NET, Entity Framework                                                  |
+| 8   | Wiki Scraper           | `[16,17]`                 | C#, .NET                                                                    |
 | 9   | Simple Anime Gallery   | `[1]`                     | JS                                                                          |
 | 10  | Angular Marvel API     | `[2,10]`                  | TS, Angular                                                                 |
 | 11  | NoteNow                | `[2,4,5,6,14,15,20,21]`   | TS, Bun, Svelte, SvelteKit, Better Auth, Drizzle, PostgreSQL, Docker        |
+| 12  | Tauri File Explorer    | `[2,4,5,6,22]`            | TS, Bun, Svelte, SvelteKit, Tauri                                           |

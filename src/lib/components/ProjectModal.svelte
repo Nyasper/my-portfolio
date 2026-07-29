@@ -504,7 +504,11 @@
 		justify-content: center;
 		cursor: pointer;
 		z-index: 10;
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			background-color 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
 	}
 
 	.modal-close:hover {
@@ -572,7 +576,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.2s ease;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
 		z-index: 5;
 		padding-bottom: 4px;
 	}
@@ -608,7 +615,9 @@
 		background: rgba(255, 255, 255, 0.4);
 		border: none;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.gallery-dots .dot.active {
@@ -635,7 +644,10 @@
 		cursor: pointer;
 		padding: 0;
 		flex-shrink: 0;
-		transition: all 0.2s ease;
+		transition:
+			opacity 0.2s ease,
+			border-color 0.2s ease,
+			transform 0.2s ease;
 		opacity: 0.6;
 	}
 
@@ -735,7 +747,12 @@
 		font-weight: 600;
 		cursor: pointer;
 		text-decoration: none;
-		transition: all 0.25s ease;
+		transition:
+			transform 0.25s ease,
+			background-color 0.25s ease,
+			border-color 0.25s ease,
+			color 0.25s ease,
+			box-shadow 0.25s ease;
 	}
 
 	.modal-btn.source {
@@ -858,7 +875,11 @@
 		font-size: 0.75rem;
 		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.tag-badge:hover {
@@ -1081,7 +1102,11 @@
 		justify-content: center;
 		cursor: pointer;
 		z-index: 3010;
-		transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+		transition:
+			transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+			background-color 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+			color 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+			border-color 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 		padding-bottom: 2px;
 	}
 
@@ -1126,7 +1151,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			background-color 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
 		z-index: 3005;
 		padding-bottom: 5px;
 	}
@@ -1174,6 +1203,15 @@
 
 		.lightbox-arrow.next {
 			right: 0.5rem;
+		}
+	}
+
+	/* Performance: no backdrop blur on mobile, use a more opaque overlay */
+	@media (max-width: 768px) {
+		.modal-overlay {
+			background: rgba(0, 0, 0, 0.85);
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
 		}
 	}
 </style>

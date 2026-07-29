@@ -70,6 +70,7 @@
 
 	.faq.expanded {
 		min-height: 100vh;
+		min-height: 100dvh;
 		padding: 0;
 	}
 
@@ -193,5 +194,17 @@
 		.faq-item.open .faq-answer {
 			padding: 0 1.25rem 1rem;
 		}
+	}
+
+	/* Light theme: the default white-alpha item colors are invisible on a
+	   light background — use solid cards with a visible border instead */
+	:global([data-theme='light']) .faq-item {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.12);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	}
+
+	:global([data-theme='light']) .faq-item.open {
+		border-color: var(--accent-color);
 	}
 </style>

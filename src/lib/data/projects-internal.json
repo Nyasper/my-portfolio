@@ -37,7 +37,7 @@
 	{
 		"id": 8,
 		"difficulty": "easy",
-		"difficultyReason": "Learning .NET patterns like dependency injection, Entity Framework with SQLite, and structured data extraction from unstructured wiki markup."
+		"difficultyReason": "Learning .NET patterns like dependency injection, Dapper with SQLite, and structured data extraction from unstructured wiki markup."
 	},
 	{
 		"id": 9,
@@ -53,5 +53,10 @@
 		"id": 11,
 		"difficulty": "complex",
 		"difficultyReason": "Multi-entity data model (users, workspaces, pages, notes) with proper relational schema design. Authentication flows with Better Auth and database migrations with Drizzle require understanding server-side patterns in SvelteKit."
+	},
+	{
+		"id": 12,
+		"difficulty": "complex",
+		"difficultyReason": "Rust backend with async filesystem operations (tokio), background indexing for search, multi-tab state with per-tab history, split-pane coordination, and Tauri v2 command/plugin integration — all bridged to a Svelte 5 runes frontend."
 	}
 ]

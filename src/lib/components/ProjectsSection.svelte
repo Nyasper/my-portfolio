@@ -355,6 +355,7 @@
 <style>
 	.projects {
 		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		scroll-margin-top: 70px;
 		padding: 0;
@@ -442,7 +443,10 @@
 		flex-direction: column;
 		border-radius: 16px;
 		overflow: hidden;
-		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+		transition:
+			transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+			border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+			box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 		height: 100%;
 	}
 
@@ -586,7 +590,11 @@
 		font-size: 0.75rem;
 		font-weight: 500;
 		cursor: pointer;
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
 	}
 
 	.tag-badge:hover {
@@ -638,7 +646,12 @@
 		cursor: pointer;
 		color: var(--text-main);
 		border: 1px solid var(--glass-border);
-		transition: all 0.25s ease;
+		transition:
+			transform 0.25s ease,
+			background-color 0.25s ease,
+			border-color 0.25s ease,
+			color 0.25s ease,
+			box-shadow 0.25s ease;
 	}
 
 	.details-btn:hover {
@@ -664,7 +677,10 @@
 		color: var(--text-muted);
 		background: rgba(22, 27, 34, 0.4);
 		border: 1px solid var(--glass-border);
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
 	}
 
 	.icon-link:hover {
@@ -705,7 +721,10 @@
 		cursor: pointer;
 		color: var(--text-main);
 		border: 1px solid var(--glass-border);
-		transition: all 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease;
 	}
 
 	.clear-btn-full:hover {
@@ -777,7 +796,12 @@
 		color: var(--text-main);
 		border: 1px solid var(--glass-border);
 		text-decoration: none;
-		transition: all 0.25s ease;
+		transition:
+			transform 0.25s ease,
+			background-color 0.25s ease,
+			border-color 0.25s ease,
+			color 0.25s ease,
+			box-shadow 0.25s ease;
 		margin-top: 0.5rem;
 	}
 
