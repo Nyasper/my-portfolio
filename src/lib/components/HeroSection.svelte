@@ -65,7 +65,9 @@
 					<span class="cursor" class:visible={showCursor}>|</span>
 				</span>
 			</h1>
-			<p class="hero-role">{m.hero_role()}</p>
+			<p class="hero-role">
+				<span class="brackets" aria-hidden="true">&lt;</span>{m.hero_role()}<span class="brackets" aria-hidden="true">/&gt;</span>
+			</p>
 			<p class="hero-description">{m.hero_description()}</p>
 		</header>
 
@@ -123,9 +125,15 @@
 
 	.hero-role {
 		font-size: 2rem;
-		color: var(--text-muted);
+		color: var(--text-main);
 		margin-bottom: 1.5rem;
 		font-weight: 400;
+	}
+
+	.brackets {
+		color: var(--accent-color);
+		font-weight: 300;
+		margin: 0 0.15em;
 	}
 
 	.hero-description {
