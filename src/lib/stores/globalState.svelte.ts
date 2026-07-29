@@ -19,9 +19,9 @@ const brandColors: Record<number, string> = {
 	16: '#512bd4', // C#
 	17: '#512bd4', // .NET
 	18: '#512bd4', // ASP.NET
-	19: '#1385cc', // Entity Framework
 	20: '#4169e1', // PostgreSQL
-	21: '#2496ed' // Docker
+	21: '#2496ed', // Docker
+	22: '#24c8d8' // Tauri
 };
 
 export function getTechColor(id: number): string {
