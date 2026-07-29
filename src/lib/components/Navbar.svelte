@@ -196,9 +196,13 @@
 		transform: translateY(-7px) rotate(-45deg);
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
+		.navbar {
+			width: calc(100% - 3rem);
+		}
+
 		.navbar-content {
-			padding: 0.75rem 1.25rem;
+			padding: 0.75rem 1rem;
 		}
 
 		.actions {
@@ -255,12 +259,9 @@
 			display: none;
 		}
 
-		/* Mobile logo: name only (no "| Web dev"), auto-cycling animation
-		   since hover doesn't exist on touch devices */
-		.logo-suffix {
-			display: none;
-		}
-
+		/* Logo: " | Web dev" is shown from 481px upward. Hidden on very
+		   small phones (≤480px) where the full logo + 3 action buttons
+		   would overflow the navbar. */
 		.logo a {
 			font-size: 1.25rem;
 		}
@@ -281,6 +282,13 @@
 			100% {
 				transform: translateY(0);
 			}
+		}
+	}
+
+	/* Hide "| Web dev" on small screens*/
+	@media (max-width: 392px) {
+		.logo-suffix {
+			display: none;
 		}
 	}
 </style>

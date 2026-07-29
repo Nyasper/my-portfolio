@@ -837,9 +837,12 @@
 	}
 
 	/* Responsive tweaks */
+	/* Note: horizontal section padding is handled globally in app.css
+	   via `section { padding-inline: 1rem }` at max-width: 1024px,
+	   so the container itself no longer needs its own horizontal padding. */
 	@media (max-width: 1024px) {
 		.projects-container {
-			padding: 0 1.5rem;
+			padding: 0;
 		}
 	}
 
@@ -855,6 +858,80 @@
 
 		.projects-grid {
 			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+	}
+
+	/* Two-column grid on larger mobile (481px–768px) to show more projects.
+	   Smaller phones (≤480px) keep the single-column layout from above. */
+	@media (min-width: 481px) and (max-width: 768px) {
+		.projects-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		.card-content {
+			padding: 1rem;
+		}
+
+		.card-title {
+			font-size: 1.1rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.card-description {
+			font-size: 0.8rem;
+			margin-bottom: 1rem;
+			line-height: 1.4;
+		}
+
+		.card-tags {
+			margin-bottom: 1rem;
+			gap: 0.35rem;
+		}
+
+		.tag-badge {
+			font-size: 0.65rem;
+			padding: 0.2rem 0.5rem;
+			gap: 0.25rem;
+		}
+
+		.tag-icon {
+			width: 12px;
+			height: 12px;
+		}
+
+		.card-actions {
+			padding-top: 0.75rem;
+		}
+
+		.details-btn {
+			font-size: 0.75rem;
+			padding: 0.4rem 0.9rem;
+		}
+
+		.card-links {
+			gap: 0.5rem;
+		}
+
+		.icon-link {
+			width: 30px;
+			height: 30px;
+		}
+
+		/* CTA card spans full width to stand out in 2-column layout */
+		.more-projects-card {
+			grid-column: 1 / -1;
+			min-height: auto;
+		}
+
+		.more-projects-content {
+			padding: 1.5rem;
+		}
+
+		.more-projects-icon {
+			width: 56px;
+			height: 56px;
 		}
 	}
 

@@ -148,6 +148,19 @@ button,
 	}
 }
 
+/* Consistent horizontal breathing room on tablets and mobile.
+   `!important` is required to override component-scoped padding shorthands
+   like `padding: 2rem 0` / `padding: 4rem 0` in <Section>.svelte files —
+   Svelte's scoped class (e.g. `.hero.svelte-abc123`) has higher specificity
+   than the bare `section` selector, so without `!important` the inline-start/
+   inline-end values set by those shorthands would win and the rule below
+   would silently do nothing. */
+@media (max-width: 1024px) {
+	section {
+		padding-inline: 1rem !important;
+	}
+}
+
 /* Performance: backdrop-filter blur is expensive on mobile.
    Replace it with a more opaque solid background (near-identical look). */
 @media (max-width: 768px) {
