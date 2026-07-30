@@ -73,7 +73,10 @@
 				</span>
 			</h1>
 			<p class="hero-role">
-				<span class="brackets" aria-hidden="true">&lt;</span>{m.hero_role()}<span class="brackets" aria-hidden="true">/&gt;</span>
+				<span class="brackets" aria-hidden="true">&lt;</span>{m.hero_role()}<span
+					class="brackets"
+					aria-hidden="true">/&gt;</span
+				>
 			</p>
 			<p class="hero-description">{m.hero_description()}</p>
 		</header>

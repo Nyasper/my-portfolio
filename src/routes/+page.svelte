@@ -41,7 +41,6 @@
 			'Node.js'
 		]
 	});
-
 </script>
 
 <svelte:head>
