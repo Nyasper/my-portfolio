@@ -86,12 +86,13 @@
 </section>
 
 {#snippet socialItem({ name, url, icon, username }: Social)}
+	{@const isExternal = !url.startsWith('mailto:')}
 	<div class="social-card glass-panel">
 		<a
 			href={url}
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="{name}: {username} (opens in new tab)"
+			target={isExternal ? '_blank' : undefined}
+			rel={isExternal ? 'noopener noreferrer' : undefined}
+			aria-label={isExternal ? m.contact_social_aria({ name, username }) : `${name}: ${username}`}
 			class="social-link-overlay"
 		>
 			{@html icon}
@@ -106,7 +107,7 @@
 				e.stopPropagation();
 				copyToClipboard(username, name);
 			}}
-			aria-label="Copy {name} username to clipboard"
+			aria-label={m.contact_copy_aria({ name })}
 		>
 			{#if copiedSocial === name}
 				<svg

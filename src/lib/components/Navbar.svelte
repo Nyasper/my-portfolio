@@ -1,9 +1,14 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
+	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
+	import { localizeHref } from '$lib/paraglide/runtime';
 	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
+
+	// Localized home link so the current locale is preserved
+	const homeHref = resolve(localizeHref('/') as Pathname);
 
 	let menuOpen = $state(false);
 
@@ -16,10 +21,10 @@
 	}
 </script>
 
-<nav class="navbar glass-panel" aria-label="Main navigation">
+<nav class="navbar glass-panel" aria-label={m.navbar_aria()}>
 	<div class="navbar-content">
 		<div class="logo">
-			<a href={resolve('/')} rel="home" aria-label="{PUBLIC_NAME} - Home">
+			<a href={homeHref} rel="home" aria-label={m.navbar_logo_aria({ name: PUBLIC_NAME })}>
 				<span class="name-slider">
 					<span class="name-slide"
 						>{PUBLIC_NAME.slice(0, -3)}<span class="accent">{PUBLIC_NAME.slice(-3)}</span></span
@@ -33,7 +38,7 @@
 				<span class="logo-suffix"><span class="logo-divider"> | </span>Web dev</span>
 			</a>
 		</div>
-		<ul class={['nav-links', { open: menuOpen }]}>
+		<ul id="mobile-menu" class={['nav-links', { open: menuOpen }]}>
 			<li><a href="#home" onclick={closeMenu}>{m.nav_home()}</a></li>
 			<li><a href="#about" onclick={closeMenu}>{m.nav_about()}</a></li>
 			<li><a href="#skills" onclick={closeMenu}>{m.nav_skills()}</a></li>
@@ -41,13 +46,13 @@
 			<li><a href="#contact" onclick={closeMenu}>{m.nav_contact()}</a></li>
 			<li><a href="#faq" onclick={closeMenu}>{m.nav_faq()}</a></li>
 		</ul>
-		<div class="actions" role="group" aria-label="Theme and language settings">
+		<div class="actions" role="group" aria-label={m.navbar_settings_aria()}>
 			<ThemeToggle />
 			<LanguageSwitcher />
 			<button
 				class={['hamburger', { open: menuOpen }]}
 				onclick={toggleMenu}
-				aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+				aria-label={menuOpen ? m.navbar_menu_close() : m.navbar_menu_open()}
 				aria-expanded={menuOpen}
 				aria-controls="mobile-menu"
 			>

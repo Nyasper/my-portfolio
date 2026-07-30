@@ -7,13 +7,13 @@
 	const globalState = getGlobalState();
 
 	const categories = [
-		{ key: 'language', label: 'Languages' },
-		{ key: 'frontend', label: 'Frontend Frameworks' },
-		{ key: 'fullstack', label: 'Full Stack' },
-		{ key: 'backend', label: 'Backend Frameworks' },
-		{ key: 'platform', label: 'Platforms' },
-		{ key: 'library', label: 'Libraries' },
-		{ key: 'infrastructure', label: 'Infrastructure' }
+		{ key: 'language', label: m.skills_category_language },
+		{ key: 'frontend', label: m.skills_category_frontend },
+		{ key: 'fullstack', label: m.skills_category_fullstack },
+		{ key: 'backend', label: m.skills_category_backend },
+		{ key: 'platform', label: m.skills_category_platform },
+		{ key: 'library', label: m.skills_category_library },
+		{ key: 'infrastructure', label: m.skills_category_infrastructure }
 	] as const;
 
 	function getTechsByCategory(category: string): Tech[] {
@@ -43,8 +43,8 @@
 
 {#snippet category({ key, label }: (typeof categories)[number])}
 	{#if getTechsByCategory(key).length > 0}
-		<div class="category-group" role="group" aria-label={label}>
-			<h3 class="category-label">{label}</h3>
+		<div class="category-group" role="group" aria-label={label()}>
+			<h3 class="category-label">{label()}</h3>
 			<div class="tech-grid">
 				{#each getTechsByCategory(key) as tech (tech.id)}
 					{@render skillItem(tech)}
@@ -59,7 +59,8 @@
 	<a
 		href={tech.url}
 		onclick={(e) => handleTechClick(e, tech.id)}
-		aria-label={`${tech.name}${isSelected ? ' (selected)' : ''} — click to filter projects`}
+		aria-label={m.tech_filter_aria({ name: tech.name }) +
+			(isSelected ? ` (${m.common_selected()})` : '')}
 		class="tech-pill"
 		class:active={isSelected}
 		style={isSelected

@@ -129,7 +129,7 @@
 								{#if project.images && project.images.length > 0}
 									<img
 										src="/images/projects/{project.id}/{project.images[0]}"
-										alt="Screenshot of {project.name} application"
+										alt={m.projects_screenshot_alt({ name: project.name })}
 										class="card-img"
 										loading="lazy"
 									/>
@@ -157,7 +157,7 @@
 									<button
 										onclick={() => openModal(project)}
 										class="details-btn glass-panel"
-										aria-label="View {project.name} details"
+										aria-label={m.projects_details_aria({ name: project.name })}
 									>
 										{m.projects_view_details()}
 									</button>
@@ -167,7 +167,7 @@
 											target="_blank"
 											rel="noopener noreferrer"
 											class="icon-link"
-											aria-label="{project.name} GitHub repository"
+											aria-label={m.projects_github_aria({ name: project.name })}
 										>
 											{@render githubIcon(20)}
 										</a>
@@ -177,7 +177,7 @@
 												target="_blank"
 												rel="noopener noreferrer"
 												class="icon-link"
-												aria-label="{project.name} live demo"
+												aria-label={m.projects_demo_aria({ name: project.name })}
 											>
 												{@render externalLinkIcon(20)}
 											</a>
@@ -271,8 +271,8 @@
 			class="tag-badge"
 			class:selected={globalState.selectedTechId === techId}
 			style="--tag-color: {getTechColor(techId)}"
-			aria-label="Filter by {tech.name}"
-			aria-pressed={globalState.selectedTechId === techId}
+		aria-label={m.tech_filter_aria({ name: tech.name })}
+		aria-pressed={globalState.selectedTechId === techId}
 		>
 			<span class="tag-icon" aria-hidden="true">{@html tech.icon}</span>
 			<span class="tag-text">{tech.name}</span>

@@ -48,7 +48,7 @@
 	});
 </script>
 
-<nav class="dot-nav" aria-label="Page sections">
+<nav class="dot-nav" aria-label={m.dotnav_aria()}>
 	<ul>
 		{#each sections as section (section.id)}
 			<li>

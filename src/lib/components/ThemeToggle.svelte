@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	let isLightTheme = $state(false);
 
@@ -23,7 +24,7 @@
 	}
 </script>
 
-<button class="theme-toggle glass-panel" onclick={toggleTheme} aria-label="Toggle Theme">
+<button class="theme-toggle glass-panel" onclick={toggleTheme} aria-label={m.theme_toggle_aria()}>
 	{#if isLightTheme}
 		<!-- Sun Icon for switching to light -->
 		<svg

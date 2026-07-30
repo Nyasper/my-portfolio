@@ -7,6 +7,13 @@
 	let showCursor = $state(true);
 
 	$effect(() => {
+		// Respect reduced motion: show the full name statically, no typing loop
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			displayedText = names[0];
+			showCursor = false;
+			return;
+		}
+
 		let currentIdx = 0;
 		let charIdx = 0;
 		let isDeleting = false;
@@ -71,7 +78,7 @@
 			<p class="hero-description">{m.hero_description()}</p>
 		</header>
 
-		<nav class="cta-buttons" aria-label="Quick navigation">
+		<nav class="cta-buttons" aria-label={m.hero_quicknav_aria()}>
 			<a href="#projects" class="btn primary">{m.hero_cta_projects()}</a>
 			<a href="#contact" class="btn secondary">{m.hero_cta_contact()}</a>
 		</nav>

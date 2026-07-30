@@ -261,7 +261,7 @@
 								bind:this={galleryMainBtn}
 								class="gallery-main-btn"
 								onclick={() => (isLightboxOpen = true)}
-								aria-label="Enlarge image preview"
+								aria-label={m.modal_enlarge_aria()}
 							>
 								<img
 									src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
@@ -290,10 +290,18 @@
 							</button>
 
 							{#if project.images.length > 1}
-								<button class="gallery-arrow prev" onclick={prevImage} aria-label="Previous image">
+								<button
+									class="gallery-arrow prev"
+									onclick={prevImage}
+									aria-label={m.modal_previous_image_aria()}
+								>
 									&#8249;
 								</button>
-								<button class="gallery-arrow next" onclick={nextImage} aria-label="Next image">
+								<button
+									class="gallery-arrow next"
+									onclick={nextImage}
+									aria-label={m.modal_next_image_aria()}
+								>
 									&#8250;
 								</button>
 
@@ -326,7 +334,7 @@
 								>
 									<img
 										src="/images/projects/{project.id}/{img}"
-										alt="Thumbnail {index + 1}"
+										alt={m.modal_thumbnail_alt({ index: index + 1 })}
 										class="thumbnail-img"
 									/>
 								</button>
@@ -348,14 +356,14 @@
 		}}
 		role="dialog"
 		aria-modal="true"
-		aria-label="Image preview lightbox"
+		aria-label={m.modal_lightbox_aria()}
 		tabindex="-1"
 	>
 		<button
 			bind:this={lightboxCloseBtn}
 			class="lightbox-close"
 			onclick={() => (isLightboxOpen = false)}
-			aria-label="Close image preview"
+			aria-label={m.modal_close_preview_aria()}
 		>
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -363,15 +371,23 @@
 		<div class="lightbox-content">
 			<img
 				src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
-				alt="Enlarged screenshot of {project.name}"
+				alt={m.modal_enlarged_alt({ name: project.name })}
 				class="lightbox-img"
 			/>
 
 			{#if project.images.length > 1}
-				<button class="lightbox-arrow prev" onclick={prevImage} aria-label="Previous image">
+				<button
+					class="lightbox-arrow prev"
+					onclick={prevImage}
+					aria-label={m.modal_previous_image_aria()}
+				>
 					&#8249;
 				</button>
-				<button class="lightbox-arrow next" onclick={nextImage} aria-label="Next image">
+				<button
+					class="lightbox-arrow next"
+					onclick={nextImage}
+					aria-label={m.modal_next_image_aria()}
+				>
 					&#8250;
 				</button>
 			{/if}
@@ -412,7 +428,8 @@
 			class="tag-badge"
 			class:selected={globalState.selectedTechId === techId}
 			style="--tag-color: {getTechColorFn(techId)}"
-			aria-label="Filter by {tech.name}"
+			aria-label={m.tech_filter_aria({ name: tech.name })}
+			aria-pressed={globalState.selectedTechId === techId}
 		>
 			<span class="tag-icon" aria-hidden="true">{@html tech.icon}</span>
 			<span class="tag-text">{tech.name}</span>

@@ -16,6 +16,16 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Locale alternates for SEO (hreflang) -->
+	{#each locales as locale (locale)}
+		<link
+			rel="alternate"
+			hreflang={locale}
+			href={page.url.origin + resolve(localizeHref(page.url.pathname, { locale }) as Pathname)}
+		/>
+	{/each}
+	<link rel="alternate" hreflang="x-default" href={page.url.origin + resolve('/')} />
 </svelte:head>
 
 <!-- Skip to main content link for keyboard users (WCAG 2.4.1) -->
@@ -28,10 +38,3 @@
 <main id="main-content" tabindex="-1">
 	{@render children()}
 </main>
-
-<!-- Locale alternates for SEO (hidden visually, available to screen readers) -->
-<div class="visually-hidden" aria-hidden="true">
-	{#each locales as locale (locale)}
-		<a href={resolve(localizeHref(page.url.pathname, { locale }) as Pathname)}>{locale}</a>
-	{/each}
-</div>
