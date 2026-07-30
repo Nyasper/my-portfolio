@@ -41,6 +41,13 @@
 			'Node.js'
 		]
 	});
+
+	// JSON-LD is injected via @html because script-tag content is raw text in Svelte.
+	// Both tags are built via string concatenation so this instance script
+	// contains no literal script tags — those would break Svelte's block parsing.
+	const jsonLd = $derived(
+		'<' + 'script type="application/ld+json">' + JSON.stringify(structuredData) + '</scr' + 'ipt>'
+	);
 </script>
 
 <svelte:head>
@@ -64,8 +71,8 @@
 	<!-- Canonical -->
 	<link rel="canonical" href={siteUrl} />
 
-	<!-- Structured Data (must be injected via @html: <script> content is raw text in Svelte) -->
-	{@html '<script type="application/ld+json">' + JSON.stringify(structuredData) + '</script>'}
+	<!-- Structured Data -->
+	{@html jsonLd}
 </svelte:head>
 
 <DotNav />
