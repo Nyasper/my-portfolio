@@ -7,3 +7,9 @@ bun.lockb
 
 # Miscellaneous
 /static/
+
+# Agent/tooling files not owned by the app
+/.agents/
+/project.inlang/
+/skills-lock.json
+/AGENTS.md

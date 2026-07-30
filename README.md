@@ -1,42 +1,48 @@
-# sv
+# Portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Personal portfolio built with [SvelteKit](https://svelte.dev/docs/kit) and Svelte 5 (runes). Single-page layout with hero, about, skills, filterable projects, FAQ and contact sections.
 
-## Creating a project
+- **Styling:** vanilla CSS with custom properties (glassmorphism), dark/light themes
+- **i18n:** [Paraglide](https://inlang.com/m/gerre34r/library-inlang-paraglideJs) — English (default) and Spanish
+- **Package manager:** [Bun](https://bun.sh)
+- **Analytics:** Vercel Analytics
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+## Setup
 
 ```sh
-# recreate this project
-npx sv@0.15.3 create --template minimal --types ts --add prettier eslint --install npm .
+bun install
+cp .env.example .env # fill in your public profile values
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
 ```sh
-npm run dev
+bun run dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+bun run dev -- --open
 ```
 
 ## Building
 
-To create a production version of your app:
-
 ```sh
-npm run build
+bun run build
+bun run preview
 ```
 
-You can preview the production build with `npm run preview`.
+## Quality checks
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```sh
+bun run check  # svelte-check (types + a11y)
+bun run lint   # prettier --check + eslint
+bun run format # prettier --write
+```
+
+## Project structure
+
+- `src/lib/components/` — one component per section (`{Name}Section.svelte`) plus shared primitives
+- `src/lib/data/` — `projects.json`, `techstacks.json` (content + brand colors + SVG icons)
+- `src/lib/messages/` — i18n messages (`en.json`, `es.json`), keys in flat snake_case
+- `src/app.css` — global styles and CSS custom properties (theme tokens)
+
+See `AGENTS.md` for full project conventions.

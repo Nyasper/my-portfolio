@@ -75,6 +75,8 @@ export let name;          // deprecated
 - `+page.svelte` is only responsible for composing sections — no inline section markup
 - Naming convention: `{SectionName}Section.svelte` (e.g. `HeroSection.svelte`, `FaqSection.svelte`, `SkillsSection.svelte`)
 - Section-specific styles live inside the component. Only global layout rules (e.g. `main { padding-top }`) stay in `+page.svelte`
+- Shared presentational components also live in `src/lib/components/`: `TechBadge.svelte` (filterable tech pill used by Projects + Modal), `GithubIcon.svelte` / `ExternalLinkIcon.svelte` (sized SVG icons), `ProjectInitials.svelte` (fallback placeholder)
+- Tech brand colors come from the `color` field in `techstacks.json` via `getTechColor(id)` in `globalState.svelte.ts` — do not duplicate color maps
 
 ## Key Features to Implement
 
@@ -89,18 +91,18 @@ export let name;          // deprecated
 
 | Property           | Type                                   | Description                                                                                       |
 | ------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `id`               | `number`                               | Unique identifier                                                                                 |
-| `name`             | `string`                               | Display name                                                                                      |
-| `slug`             | `string`                               | URL-friendly identifier for routing                                                               |
-| `shortDescription` | `string`                               | Paraglide message key for ~80 char summary (e.g. `"project_1_short_description"`)                 |
-| `longDescription`  | `string`                               | Paraglide message key for full description (e.g. `"project_1_long_description"`)                  |
-| `images`           | `string[]`                             | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/` |
-| `techstack`        | `number[]`                             | References to `techstacks.json` `id`s                                                             |
-| `github`           | `string`                               | Repository URL                                                                                    |
-| `deploy`           | `string`                               | Live deployment URL                                                                               |
-| `status`           | `"active" \| "inactive" \| "archived"` | Deployment status                                                                                 |
-| `date`             | `string`                               | `"YYYY-MM"` format for chronological sorting                                                      |
-| `highlights`       | `string[]`                             | Paraglide message keys for feature bullet points (e.g. `["project_1_highlight_1", ...]`)          |
+| `id`               | `number`                               | Unique identifier                                                                                     |
+| `name`             | `string`                               | Display name                                                                                          |
+| `slug`             | `string`                               | URL-friendly identifier (reserved for future routing; currently unused)                               |
+| `shortDescription` | `string`                               | Paraglide message key for ~80 char summary (e.g. `"project_1_short_description"`)                     |
+| `longDescription`  | `string`                               | Paraglide message key for full description (e.g. `"project_1_long_description"`)                      |
+| `images`           | `string[] \| null`                     | Gallery screenshot filenames (e.g. `"0.png"`, `"1.png"`) stored in `static/images/projects/{id}/`     |
+| `techstack`        | `number[]`                             | References to `techstacks.json` `id`s                                                                 |
+| `github`           | `string`                               | Repository URL                                                                                        |
+| `deploy`           | `string`                               | Live deployment URL (`""` if none)                                                                    |
+| `status`           | `"active" \| "inactive" \| "archived"` | Deployment status                                                                                     |
+| `date`             | `string`                               | `"YYYY-MM"` format. Display only — grid order is the manually curated array order (active first, archived last) |
+| `highlights`       | `string[]`                             | Paraglide message keys for feature bullet points (e.g. `["project_1_highlight_1", ...]`)              |
 
 #### i18n Message Keys
 
@@ -176,7 +178,7 @@ Internal reference file for personal notes. **Not used in the UI.**
 | 3   | Netflix Clone          | `[2,5,6]`                 | TS, Svelte, SvelteKit                                                       |
 | 4   | CSS Animations Gallery | `[2,5,6]`                 | TS, Svelte, SvelteKit                                                       |
 | 5   | Blue Archive Database  | `[2,7]`                   | TS, React                                                                   |
-| 6   | Vue Notes App          | `[2,9,13]`                | TS, Vue.js, Hono                                                            |
+| 6   | Vue Notes App          | `[2,9,13,20]`             | TS, Vue.js, Hono, PostgreSQL                                                |
 | 7   | Hono Notes Backend     | `[2,4,13,15]`             | TS, Bun, Hono, Drizzle                                                      |
 | 8   | Wiki Scraper           | `[16,17]`                 | C#, .NET                                                                    |
 | 9   | Simple Anime Gallery   | `[1]`                     | JS                                                                          |

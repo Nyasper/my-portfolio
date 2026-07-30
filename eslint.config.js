@@ -40,15 +40,8 @@ export default defineConfig(
 		// Override or add rule settings here, such as:
 		// 'svelte/button-has-type': 'error'
 		rules: {
-			'svelte/no-navigation-without-resolve': [
-				'off',
-				{
-					ignoreGoto: false,
-					ignoreLinks: false,
-					ignorePushState: false,
-					ignoreReplaceState: false
-				}
-			],
+			'svelte/no-navigation-without-resolve': 'off',
+			// {@html} is used intentionally for trusted local content (SVG icons, i18n links)
 			'svelte/no-at-html-tags': 'off'
 		}
 	}
