@@ -100,12 +100,13 @@ a:hover {
 	border: 0;
 }
 
-/* Accessibility: Skip link (WCAG 2.4.1) */
+/* Accessibility: Skip link (WCAG 2.4.1). Hidden off-screen until focused —
+   do NOT combine with .visually-hidden, that would keep it clipped forever. */
 .skip-link {
 	position: fixed;
 	top: 1rem;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%, -300%);
 	z-index: 10000;
 	padding: 0.75rem 1.5rem;
 	background: var(--accent-color);
@@ -113,11 +114,11 @@ a:hover {
 	border-radius: 8px;
 	font-weight: 600;
 	text-decoration: none;
-	transition: opacity 0.2s ease;
+	transition: transform 0.2s ease;
 }
 
 .skip-link:focus {
-	opacity: 1 !important;
+	transform: translate(-50%, 0);
 	outline: 2px solid #ffffff;
 	outline-offset: 2px;
 }

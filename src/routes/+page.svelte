@@ -42,8 +42,6 @@
 		]
 	});
 
-	// Mark as read for TypeScript since it is used inside the HTML JSON-LD script tag
-	void (() => structuredData);
 </script>
 
 <svelte:head>
@@ -67,10 +65,8 @@
 	<!-- Canonical -->
 	<link rel="canonical" href={siteUrl} />
 
-	<!-- Structured Data -->
-	<script type="application/ld+json">
-		{@html JSON.stringify(structuredData)}
-	</script>
+	<!-- Structured Data (must be injected via @html: <script> content is raw text in Svelte) -->
+	{@html '<script type="application/ld+json">' + JSON.stringify(structuredData) + '</script>'}
 </svelte:head>
 
 <DotNav />

@@ -91,7 +91,7 @@
 		"slug": "vue-notes-app",
 		"shortDescription": "project_6_short_description",
 		"longDescription": "project_6_long_description",
-		"images": ["0.png", "1.png", "2.png", "3.png", "4.png"],
+		"images": ["0.png", "1.png", "2.png", "3.jpeg", "4.png"],
 		"techstack": [2, 9, 13, 20],
 		"github": "https://github.com/Nyasper/vue-notes-app",
 		"deploy": "https://vue-notes-app-rose.vercel.app",

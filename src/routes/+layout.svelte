@@ -19,13 +19,13 @@
 </svelte:head>
 
 <!-- Skip to main content link for keyboard users (WCAG 2.4.1) -->
-<a href="#main-content" class="skip-link visually-hidden">
+<a href="#main-content" class="skip-link">
 	{m.skip_to_content()}
 </a>
 
 <Navbar />
 
-<main id="main-content">
+<main id="main-content" tabindex="-1">
 	{@render children()}
 </main>
 
