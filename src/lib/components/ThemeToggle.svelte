@@ -3,11 +3,15 @@
 	import * as m from '$lib/paraglide/messages';
 
 	let isLightTheme = $state(false);
+	// Only persist after the user actively chooses a theme, so "no preference"
+	// keeps following the OS setting instead of being locked in on first visit
+	let userChosen = $state(false);
 
 	onMount(() => {
 		const stored = localStorage.getItem('theme');
 		if (stored) {
 			isLightTheme = stored === 'light';
+			userChosen = true;
 		} else {
 			isLightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
 		}
@@ -16,10 +20,13 @@
 	$effect(() => {
 		const theme: 'dark' | 'light' = isLightTheme ? 'light' : 'dark';
 		document.documentElement.setAttribute('data-theme', theme);
-		localStorage.setItem('theme', theme);
+		if (userChosen) {
+			localStorage.setItem('theme', theme);
+		}
 	});
 
 	function toggleTheme() {
+		userChosen = true;
 		isLightTheme = !isLightTheme;
 	}
 </script>

@@ -5,6 +5,10 @@
 	import { getGlobalState, getTechColor } from '$lib/stores/globalState.svelte';
 	import { PUBLIC_GITHUB_URL } from '$env/static/public';
 	import ProjectModal from './ProjectModal.svelte';
+	import TechBadge from './TechBadge.svelte';
+	import GithubIcon from './GithubIcon.svelte';
+	import ExternalLinkIcon from './ExternalLinkIcon.svelte';
+	import ProjectInitials from './ProjectInitials.svelte';
 
 	type Tech = (typeof techstacksData)[number];
 
@@ -35,13 +39,9 @@
 		selectedProject = null;
 	}
 
-	function handleTechBadgeClick(event: MouseEvent, techId: number) {
-		event.stopPropagation();
+	function handleTechBadgeClick(techId: number) {
 		globalState.selectTech(techId);
 		sectionEl?.scrollIntoView({ behavior: 'smooth' });
-		if (selectedProject) {
-			closeModal();
-		}
 	}
 </script>
 
@@ -134,7 +134,7 @@
 										loading="lazy"
 									/>
 								{:else}
-									{@render projectInitials(project.name)}
+									<ProjectInitials name={project.name} />
 								{/if}
 
 								{@render statusBadge(project.status)}
@@ -149,7 +149,10 @@
 
 								<div class="card-tags">
 									{#each project.techstack as techId (techId)}
-										{@render techBadge(techId)}
+										{@const tech = techMap.get(techId)}
+										{#if tech}
+											<TechBadge {tech} onSelect={handleTechBadgeClick} />
+										{/if}
 									{/each}
 								</div>
 
@@ -169,7 +172,7 @@
 											class="icon-link"
 											aria-label={m.projects_github_aria({ name: project.name })}
 										>
-											{@render githubIcon(20)}
+											<GithubIcon size={20} />
 										</a>
 										{#if project.status === 'active' && project.deploy}
 											<a
@@ -179,7 +182,7 @@
 												class="icon-link"
 												aria-label={m.projects_demo_aria({ name: project.name })}
 											>
-												{@render externalLinkIcon(20)}
+												<ExternalLinkIcon size={20} />
 											</a>
 										{/if}
 									</div>
@@ -197,7 +200,7 @@
 					>
 						<div class="more-projects-content">
 							<div class="more-projects-icon">
-								{@render githubIcon(48)}
+								<GithubIcon size={48} />
 							</div>
 							<h3 class="more-projects-title">{m.projects_more_title()}</h3>
 							<p class="more-projects-description">{m.projects_more_description()}</p>
@@ -207,7 +210,7 @@
 								rel="noopener noreferrer"
 								class="more-projects-btn glass-panel"
 							>
-								{@render externalLinkIcon(18)}
+								<ExternalLinkIcon />
 								{m.projects_more_cta()}
 							</a>
 						</div>
@@ -227,26 +230,8 @@
 </section>
 
 {#if selectedProject}
-	<ProjectModal
-		project={selectedProject}
-		{techMap}
-		getTechColorFn={getTechColor}
-		onClose={closeModal}
-	/>
+	<ProjectModal project={selectedProject} {techMap} onClose={closeModal} />
 {/if}
-
-{#snippet projectInitials(name: string)}
-	<div class="gradient-placeholder" aria-hidden="true">
-		<span class="project-initials">
-			{name
-				.split(' ')
-				.map((w) => w[0])
-				.join('')
-				.substring(0, 3)
-				.toUpperCase()}
-		</span>
-	</div>
-{/snippet}
 
 {#snippet statusBadge(status: string)}
 	<span class="status-badge {status}">
@@ -261,23 +246,6 @@
 			{m.projects_status_archived()}
 		{/if}
 	</span>
-{/snippet}
-
-{#snippet techBadge(techId: number)}
-	{@const tech = techMap.get(techId)}
-	{#if tech}
-		<button
-			onclick={(e) => handleTechBadgeClick(e, techId)}
-			class="tag-badge"
-			class:selected={globalState.selectedTechId === techId}
-			style="--tag-color: {getTechColor(techId)}"
-		aria-label={m.tech_filter_aria({ name: tech.name })}
-		aria-pressed={globalState.selectedTechId === techId}
-		>
-			<span class="tag-icon" aria-hidden="true">{@html tech.icon}</span>
-			<span class="tag-text">{tech.name}</span>
-		</button>
-	{/if}
 {/snippet}
 
 {#snippet filterIcon()}
@@ -295,42 +263,6 @@
 	>
 		<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
 	</svg>
-{/snippet}
-
-{#snippet githubIcon(size = 18)}
-	<svg
-		aria-hidden="true"
-		xmlns="http://www.w3.org/2000/svg"
-		width={size}
-		height={size}
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		><path
-			d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-		></path></svg
-	>
-{/snippet}
-
-{#snippet externalLinkIcon(size = 18)}
-	<svg
-		aria-hidden="true"
-		xmlns="http://www.w3.org/2000/svg"
-		width={size}
-		height={size}
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
-			points="15 3 21 3 21 9"
-		></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg
-	>
 {/snippet}
 
 {#snippet warningIcon()}
@@ -356,7 +288,6 @@
 	.projects {
 		min-height: 100vh;
 		min-height: 100dvh;
-		scroll-snap-align: start;
 		scroll-margin-top: 70px;
 		padding: 0;
 	}
@@ -476,26 +407,6 @@
 		transform: scale(1.05);
 	}
 
-	/* Placeholders */
-	.gradient-placeholder {
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, rgba(22, 27, 34, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.project-initials {
-		font-size: 2.25rem;
-		font-weight: 800;
-		background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-color) 100%);
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-		letter-spacing: 0.05em;
-	}
-
 	/* Card status badges */
 	.status-badge {
 		position: absolute;
@@ -576,56 +487,6 @@
 		gap: 0.5rem;
 		margin-top: auto;
 		margin-bottom: 1.5rem;
-	}
-
-	.tag-badge {
-		display: flex;
-		align-items: center;
-		gap: 0.35rem;
-		padding: 0.3rem 0.65rem;
-		border-radius: 30px;
-		background: rgba(22, 27, 34, 0.4);
-		border: 1px solid var(--glass-border);
-		color: var(--text-main);
-		font-size: 0.75rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition:
-			transform 0.2s ease,
-			border-color 0.2s ease,
-			box-shadow 0.2s ease,
-			background-color 0.2s ease;
-	}
-
-	.tag-badge:hover {
-		border-color: var(--tag-color, var(--accent-color));
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-		transform: translateY(-1px);
-	}
-
-	.tag-badge.selected {
-		background: rgba(255, 255, 255, 0.05);
-		border-color: var(--tag-color, var(--accent-color));
-		color: var(--text-main);
-		font-weight: 600;
-		box-shadow: 0 0 8px rgba(88, 166, 255, 0.15);
-	}
-
-	.tag-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 14px;
-		height: 14px;
-	}
-
-	.tag-icon :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	.tag-text {
-		white-space: nowrap;
 	}
 
 	/* Card Actions */
@@ -818,7 +679,6 @@
 	.details-btn:focus-visible,
 	.clear-filter-btn:focus-visible,
 	.clear-btn-full:focus-visible,
-	.tag-badge:focus-visible,
 	.more-projects-btn:focus-visible {
 		outline: 2px solid var(--accent-color);
 		outline-offset: 2px;
@@ -888,17 +748,6 @@
 		.card-tags {
 			margin-bottom: 1rem;
 			gap: 0.35rem;
-		}
-
-		.tag-badge {
-			font-size: 0.65rem;
-			padding: 0.2rem 0.5rem;
-			gap: 0.25rem;
-		}
-
-		.tag-icon {
-			width: 12px;
-			height: 12px;
 		}
 
 		.card-actions {
@@ -1031,15 +880,6 @@
 			flex-direction: column;
 			gap: 0.75rem;
 		}
-	}
-
-	:global([data-theme='light']) .tag-badge {
-		background: #ffffff;
-		border-color: rgba(0, 0, 0, 0.08);
-	}
-
-	:global([data-theme='light']) .tag-badge.selected {
-		background: rgba(9, 105, 218, 0.1);
 	}
 
 	:global([data-theme='light']) .icon-link {

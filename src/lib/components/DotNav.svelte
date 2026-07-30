@@ -13,16 +13,20 @@
 
 	let activeSection = $state('home');
 	let routerReady = $state(false);
+	let observerReady = $state(false);
 
 	afterNavigate(() => {
 		routerReady = true;
 	});
 
-	// Sync active section to URL hash without polluting browser history
+	// Sync active section to URL hash without polluting browser history.
+	// Waits for the observer's first report so a valid initial hash (e.g. #projects)
+	// is not stomped before we know which section is actually visible.
 	$effect(() => {
-		if (!routerReady) return;
+		if (!routerReady || !observerReady) return;
 		const hash = window.location.hash.slice(1);
-		if (activeSection && activeSection !== hash) {
+		const hashIsSection = sections.some((s) => s.id === hash);
+		if (activeSection && activeSection !== hash && (hash === '' || hashIsSection)) {
 			replaceState(`#${activeSection}`, {});
 		}
 	});
@@ -35,6 +39,7 @@
 						activeSection = entry.target.id;
 					}
 				}
+				observerReady = true;
 			},
 			{ rootMargin: '-40% 0px -40% 0px', threshold: 0 }
 		);

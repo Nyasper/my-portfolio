@@ -1,34 +1,13 @@
 import { createContext } from 'svelte';
+import techstacks from '$lib/data/techstacks.json';
 
-const brandColors: Record<number, string> = {
-	1: '#f7df1e', // JavaScript
-	2: '#3178c6', // TypeScript
-	3: '#339933', // Node.js
-	4: '#fbf0df', // Bun
-	5: '#ff3e00', // Svelte
-	6: '#ff3e00', // SvelteKit
-	7: '#61dafb', // React
-	8: '#ffffff', // Next.js
-	9: '#4fc08d', // Vue.js
-	10: '#dd0031', // Angular
-	11: '#06b6d4', // Tailwind CSS
-	12: '#828282', // Express
-	13: '#e36002', // Hono
-	14: '#6c63ff', // Better Auth
-	15: '#c5f74c', // Drizzle ORM
-	16: '#512bd4', // C#
-	17: '#512bd4', // .NET
-	18: '#512bd4', // ASP.NET
-	20: '#4169e1', // PostgreSQL
-	21: '#2496ed', // Docker
-	22: '#24c8d8' // Tauri
-};
+const colorMap = new Map<number, string>(techstacks.map((t) => [t.id, t.color]));
 
 export function getTechColor(id: number): string {
-	return brandColors[id] || '#58a6ff';
+	return colorMap.get(id) ?? '#58a6ff';
 }
 
-export class PortfiolioGlobalState {
+export class PortfolioGlobalState {
 	selectedTechId: number | null = $state(null);
 
 	selectTech(techId: number) {
@@ -43,4 +22,4 @@ export class PortfiolioGlobalState {
 		this.selectedTechId = null;
 	}
 }
-export const [getGlobalState, setGlobalState] = createContext<PortfiolioGlobalState>();
+export const [getGlobalState, setGlobalState] = createContext<PortfolioGlobalState>();

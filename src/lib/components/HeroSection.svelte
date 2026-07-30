@@ -92,7 +92,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		scroll-snap-align: start;
 		scroll-margin-top: 70px;
 	}
 

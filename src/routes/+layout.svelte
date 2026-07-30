@@ -7,15 +7,14 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { setGlobalState, PortfiolioGlobalState } from '$lib/stores/globalState.svelte';
+	import { setGlobalState, PortfolioGlobalState } from '$lib/stores/globalState.svelte';
 
 	let { children } = $props();
-	setGlobalState(new PortfiolioGlobalState());
+	setGlobalState(new PortfolioGlobalState());
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!-- Locale alternates for SEO (hreflang) -->
 	{#each locales as locale (locale)}
