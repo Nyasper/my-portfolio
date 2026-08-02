@@ -36,9 +36,11 @@
 		const prev = document.activeElement as HTMLElement;
 		activeImageIndex = 0;
 
-		// Lock body scroll to prevent double scrollbar bug
-		const originalOverflow = document.body.style.overflow;
-		document.body.style.overflow = 'hidden';
+		// Lock page scroll while the modal is open. Must target <html> (not <body>):
+		// html has overflow-x: clip, so the viewport takes its overflow from <html>
+		// and ignores body's overflow entirely.
+		const originalOverflow = document.documentElement.style.overflow;
+		document.documentElement.style.overflow = 'hidden';
 
 		const timeout = setTimeout(() => {
 			if (modalElement) {
@@ -49,8 +51,8 @@
 
 		return () => {
 			clearTimeout(timeout);
-			// Restore body scroll when modal closes
-			document.body.style.overflow = originalOverflow;
+			// Restore page scroll when modal closes
+			document.documentElement.style.overflow = originalOverflow;
 			prev?.focus();
 		};
 	});
@@ -133,6 +135,16 @@
 	function prevImage() {
 		if (!project.images?.length) return;
 		activeImageIndex = (activeImageIndex - 1 + project.images.length) % project.images.length;
+	}
+
+	function handleThumbsWheel(event: WheelEvent) {
+		const el = event.currentTarget as HTMLElement;
+		if (el.scrollWidth <= el.clientWidth) return; // no horizontal overflow: let the modal scroll
+		const atStart = el.scrollLeft <= 0;
+		const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+		if ((event.deltaY < 0 && atStart) || (event.deltaY > 0 && atEnd)) return; // at the edges: let the modal scroll
+		event.preventDefault();
+		el.scrollLeft += event.deltaY;
 	}
 
 	function handleTechBadgeClick(techId: number) {
@@ -326,7 +338,12 @@
 					</div>
 
 					{#if project.images && project.images.length > 1}
-						<div class="gallery-thumbnails" role="group" aria-label={m.projects_gallery_images()}>
+						<div
+						class="gallery-thumbnails"
+						role="group"
+						aria-label={m.projects_gallery_images()}
+						onwheel={handleThumbsWheel}
+					>
 							{#each project.images as img, index (index)}
 								<button
 									class="thumbnail-btn"
@@ -496,6 +513,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
+		min-width: 0; /* allow the grid track to shrink so the thumbnails strip scrolls internally */
 	}
 
 	.gallery-main-wrapper {
@@ -589,7 +607,9 @@
 	}
 
 	.thumbnail-btn {
-		width: 140px;
+		flex: 1 1 140px; /* shrink to fit up to 5 thumbnails; overflow (scroll) beyond that */
+		min-width: 90px;
+		max-width: 140px;
 		aspect-ratio: 16 / 9;
 		border-radius: 8px;
 		overflow: hidden;
@@ -597,7 +617,6 @@
 		border: 2px solid transparent;
 		cursor: pointer;
 		padding: 0;
-		flex-shrink: 0;
 		transition:
 			opacity 0.2s ease,
 			border-color 0.2s ease,
@@ -833,10 +852,6 @@
 
 		.gallery-main-wrapper {
 			aspect-ratio: 16 / 9;
-		}
-
-		.thumbnail-btn {
-			width: 100px;
 		}
 	}
 

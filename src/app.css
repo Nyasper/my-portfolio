@@ -42,6 +42,9 @@ html {
 	/* clip (not hidden): avoids creating a scroll container on body,
 	   which breaks overflow propagation to the viewport in Firefox */
 	overflow-x: clip;
+	/* always reserve the scrollbar gutter: prevents layout shift when the
+	   project modal locks page scroll (overflow: hidden on this element) */
+	scrollbar-gutter: stable;
 }
 
 body {
