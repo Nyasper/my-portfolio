@@ -7,6 +7,7 @@
 	import GithubIcon from './GithubIcon.svelte';
 	import ExternalLinkIcon from './ExternalLinkIcon.svelte';
 	import ProjectInitials from './ProjectInitials.svelte';
+	import type { Attachment } from 'svelte/attachments';
 
 	type Project = (typeof projectsData)[number];
 	type Tech = (typeof techstacksData)[number];
@@ -26,52 +27,29 @@
 	const globalState = getGlobalState();
 
 	let activeImageIndex = $state(0);
-	let modalElement = $state<HTMLElement | null>(null);
 	let isLightboxOpen = $state(false);
-	let lightboxCloseBtn = $state<HTMLButtonElement | null>(null);
-	let galleryMainBtn = $state<HTMLButtonElement | null>(null);
-	let prevActiveElementBeforeLightbox = $state<HTMLElement | null>(null);
 
-	$effect(() => {
-		const prev = document.activeElement as HTMLElement;
-		activeImageIndex = 0;
-
-		// Lock page scroll while the modal is open. Must target <html> (not <body>):
-		// html has overflow-x: clip, so the viewport takes its overflow from <html>
-		// and ignores body's overflow entirely.
+	// Locks page scroll while the modal is mounted. Must target <html> (not <body>):
+	// html has overflow-x: clip, so the viewport takes its overflow from <html>
+	// and ignores body's overflow entirely.
+	const lockPageScroll: Attachment = () => {
 		const originalOverflow = document.documentElement.style.overflow;
 		document.documentElement.style.overflow = 'hidden';
-
-		const timeout = setTimeout(() => {
-			if (modalElement) {
-				const focusable = modalElement.querySelector('button, [tabindex="0"]') as HTMLElement;
-				focusable?.focus();
-			}
-		}, 30);
-
 		return () => {
-			clearTimeout(timeout);
-			// Restore page scroll when modal closes
 			document.documentElement.style.overflow = originalOverflow;
-			prev?.focus();
 		};
-	});
+	};
 
-	$effect(() => {
-		if (isLightboxOpen) {
-			prevActiveElementBeforeLightbox = document.activeElement as HTMLElement;
-			const timeout = setTimeout(() => {
-				lightboxCloseBtn?.focus();
-			}, 30);
-			return () => clearTimeout(timeout);
-		} else {
-			if (prevActiveElementBeforeLightbox) {
-				prevActiveElementBeforeLightbox.focus();
-				prevActiveElementBeforeLightbox = null;
-			}
-		}
-	});
+	// Focuses the attached node on mount and restores focus to the previously
+	// focused element when the node is detached
+	const focusAndRestore: Attachment = (node) => {
+		const prev = document.activeElement as HTMLElement | null;
+		if (node instanceof HTMLElement) node.focus();
+		return () => prev?.focus();
+	};
 
+	// Attached to both overlays (modal and lightbox). Since they are sibling
+	// subtrees, each one traps the keyboard events of its own focused content.
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			if (isLightboxOpen) {
@@ -79,50 +57,36 @@
 			} else {
 				onClose();
 			}
-		} else if (event.key === 'ArrowRight' && project.images && project.images.length > 1) {
+			return;
+		}
+		if (event.key === 'ArrowRight' && project.images && project.images.length > 1) {
 			nextImage();
-		} else if (event.key === 'ArrowLeft' && project.images && project.images.length > 1) {
+			return;
+		}
+		if (event.key === 'ArrowLeft' && project.images && project.images.length > 1) {
 			prevImage();
-		} else if (event.key === 'Tab') {
-			if (isLightboxOpen) {
-				const lightboxOverlay = document.querySelector('.lightbox-overlay');
-				if (!lightboxOverlay) return;
-				const focusableElements = lightboxOverlay.querySelectorAll('button');
-				if (focusableElements.length === 0) return;
-				const firstElement = focusableElements[0] as HTMLElement;
-				const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+			return;
+		}
+		if (event.key !== 'Tab') return;
 
-				if (event.shiftKey) {
-					if (document.activeElement === firstElement) {
-						lastElement.focus();
-						event.preventDefault();
-					}
-				} else {
-					if (document.activeElement === lastElement) {
-						firstElement.focus();
-						event.preventDefault();
-					}
-				}
-				return;
+		// Focus trap: cycle Tab navigation within the container that received the event
+		const container = event.currentTarget as HTMLElement;
+		const focusableElements = container.querySelectorAll(
+			'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+		);
+		if (focusableElements.length === 0) return;
+		const firstElement = focusableElements[0] as HTMLElement;
+		const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+		if (event.shiftKey) {
+			if (document.activeElement === firstElement) {
+				lastElement.focus();
+				event.preventDefault();
 			}
-
-			if (!modalElement) return;
-			const focusableElements = modalElement.querySelectorAll(
-				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-			);
-			const firstElement = focusableElements[0] as HTMLElement;
-			const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-			if (event.shiftKey) {
-				if (document.activeElement === firstElement) {
-					lastElement.focus();
-					event.preventDefault();
-				}
-			} else {
-				if (document.activeElement === lastElement) {
-					firstElement.focus();
-					event.preventDefault();
-				}
+		} else {
+			if (document.activeElement === lastElement) {
+				firstElement.focus();
+				event.preventDefault();
 			}
 		}
 	}
@@ -163,13 +127,11 @@
 	}
 </script>
 
-<svelte:window onkeydown={handleKeyDown} />
-
-<!-- svelte-ignore a11y_click_events_have_key_events -->
 <div
-	bind:this={modalElement}
 	class="modal-overlay"
 	onclick={handleOverlayClick}
+	onkeydown={handleKeyDown}
+	{@attach lockPageScroll}
 	role="dialog"
 	aria-modal="true"
 	aria-labelledby="modal-title"
@@ -177,7 +139,7 @@
 	tabindex="-1"
 >
 	<div class="modal-content glass-panel">
-		<button class="modal-close" onclick={onClose} aria-label={m.projects_close()}>
+		<button class="modal-close" onclick={onClose} aria-label={m.projects_close()} {@attach focusAndRestore}>
 			<span aria-hidden="true">&times;</span>
 		</button>
 
@@ -272,12 +234,11 @@
 					</div>
 					<div class="gallery-main-wrapper">
 						{#if project.images && project.images.length > 0}
-							<button
-								bind:this={galleryMainBtn}
-								class="gallery-main-btn"
-								onclick={() => (isLightboxOpen = true)}
-								aria-label={m.modal_enlarge_aria()}
-							>
+						<button
+							class="gallery-main-btn"
+							onclick={() => (isLightboxOpen = true)}
+							aria-label={m.modal_enlarge_aria()}
+						>
 								<img
 									src="/images/projects/{project.id}/{project.images[activeImageIndex]}"
 									alt="{project.name} {m.projects_gallery_image()} {activeImageIndex +
@@ -368,22 +329,22 @@
 </div>
 
 {#if isLightboxOpen && project.images && project.images.length > 0}
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
 		class="lightbox-overlay"
 		onclick={(e) => {
 			if (e.target === e.currentTarget) isLightboxOpen = false;
 		}}
+		onkeydown={handleKeyDown}
 		role="dialog"
 		aria-modal="true"
 		aria-label={m.modal_lightbox_aria()}
 		tabindex="-1"
 	>
 		<button
-			bind:this={lightboxCloseBtn}
 			class="lightbox-close"
 			onclick={() => (isLightboxOpen = false)}
 			aria-label={m.modal_close_preview_aria()}
+			{@attach focusAndRestore}
 		>
 			<span aria-hidden="true">&times;</span>
 		</button>
