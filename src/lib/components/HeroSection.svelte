@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { PUBLIC_NAME, PUBLIC_DISPLAY_NAME } from '$env/static/public';
 
@@ -6,7 +7,9 @@
 	let displayedText = $state('');
 	let showCursor = $state(true);
 
-	$effect(() => {
+	// Run-once typewriter animation loop: no reactive dependencies, so onMount
+	// (not $effect) is the right API. Cleanup runs on component destroy.
+	onMount(() => {
 		// Respect reduced motion: show the full name statically, no typing loop
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 			displayedText = names[0];

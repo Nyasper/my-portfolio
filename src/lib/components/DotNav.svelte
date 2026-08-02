@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import * as m from '$lib/paraglide/messages';
 	import { replaceState, afterNavigate } from '$app/navigation';
 
@@ -31,7 +32,9 @@
 		}
 	});
 
-	$effect(() => {
+	// Scroll-spy: observes the page sections once on mount (no reactive
+	// dependencies, so onMount instead of $effect) and tracks the visible one.
+	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {

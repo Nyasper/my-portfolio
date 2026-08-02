@@ -29,7 +29,6 @@
 	);
 
 	let selectedProject = $state<(typeof projectsData)[number] | null>(null);
-	let sectionEl = $state<HTMLElement | null>(null);
 
 	function openModal(project: (typeof projectsData)[number]) {
 		selectedProject = project;
@@ -41,11 +40,12 @@
 
 	function handleTechBadgeClick(techId: number) {
 		globalState.selectTech(techId);
-		sectionEl?.scrollIntoView({ behavior: 'smooth' });
+		// Same pattern as ProjectModal.handleTechBadgeClick
+		document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
 	}
 </script>
 
-<section id="projects" class="projects" bind:this={sectionEl} aria-labelledby="projects-heading">
+<section id="projects" class="projects" aria-labelledby="projects-heading">
 	<div class="projects-container">
 		<div class="projects-header">
 			<h2 id="projects-heading">{m.projects_title()}</h2>
